@@ -1,6 +1,6 @@
 import {
   REQUEST_POST, RECEIVE_POST
-} from '../actions'
+} from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,

@@ -1,20 +1,12 @@
+import * as types from '../constants/ActionTypes'
 import * as API from '../utils/api'
 
-export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
-export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const REQUEST_POST = 'REQUEST_POST'
-export const RECEIVE_POST = 'RECEIVE_POST'
-export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
-export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
-
 export const requestCategories = () => ({
-  type: REQUEST_CATEGORIES
+  type: types.REQUEST_CATEGORIES
 })
 
 export const receiveCategories = (categories) => ({
-  type: RECEIVE_CATEGORIES,
+  type: types.RECEIVE_CATEGORIES,
   categories
 })
 
@@ -25,12 +17,12 @@ export const fetchCategories = () => dispatch => {
 }
 
 export const requestPosts = (category) => ({
-  type: REQUEST_POSTS,
+  type: types.REQUEST_POSTS,
   category
 })
 
 export const receivePosts = (category, posts) => ({
-  type: RECEIVE_POSTS,
+  type: types.RECEIVE_POSTS,
   category,
   posts
 })
@@ -42,12 +34,12 @@ export const fetchPosts = category => dispatch => {
 }
 
 export const requestPost = (id) => ({
-  type: REQUEST_POST,
+  type: types.REQUEST_POST,
   id
 })
 
 export const receivePost = (id, post) => ({
-  type: RECEIVE_POST,
+  type: types.RECEIVE_POST,
   id,
   post
 })
@@ -59,12 +51,12 @@ export const fetchPost = id => dispatch => {
 }
 
 export const requestComments = (id) => ({
-  type: REQUEST_COMMENTS,
+  type: types.REQUEST_COMMENTS,
   id
 })
 
 export const receiveComments = (id, comments) => ({
-  type: RECEIVE_COMMENTS,
+  type: types.RECEIVE_COMMENTS,
   id,
   comments
 })

@@ -1,6 +1,6 @@
 import {
   REQUEST_COMMENTS, RECEIVE_COMMENTS,
-} from '../actions'
+} from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,

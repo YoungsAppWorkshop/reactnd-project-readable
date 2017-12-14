@@ -1,6 +1,6 @@
 import {
   REQUEST_POSTS, RECEIVE_POSTS,
-} from '../actions'
+} from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,
