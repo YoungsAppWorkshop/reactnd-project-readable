@@ -26,3 +26,9 @@ export const getPost = (id) =>
     method: 'GET',
     headers
   }).then(res => res.json())
+
+export const getComments = (id) =>
+  fetch(`${api}/posts/${id}/comments`, {
+    method: 'GET',
+    headers
+  }).then(res => res.json())

@@ -6,6 +6,8 @@ export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const REQUEST_POST = 'REQUEST_POST'
 export const RECEIVE_POST = 'RECEIVE_POST'
+export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 
 export const requestCategories = () => ({
   type: REQUEST_CATEGORIES
@@ -54,4 +56,21 @@ export const fetchPost = id => dispatch => {
   dispatch(requestPost(id))
   return API.getPost(id)
     .then(post => dispatch(receivePost(id, post)))
+}
+
+export const requestComments = (id) => ({
+  type: REQUEST_COMMENTS,
+  id
+})
+
+export const receiveComments = (id, comments) => ({
+  type: RECEIVE_COMMENTS,
+  id,
+  comments
+})
+
+export const fetchComments = id => dispatch => {
+  dispatch(requestComments(id))
+  return API.getComments(id)
+    .then(comments => dispatch(receiveComments(id, comments)))
 }
