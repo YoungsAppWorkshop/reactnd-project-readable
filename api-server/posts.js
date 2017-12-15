@@ -24,6 +24,17 @@ const defaultData = {
     voteScore: -5,
     deleted: false,
     commentCount: 0
+  },
+  "8ki3lnez7mf16ok3ymp3": {
+    id: '8ki3lnez7mf16ok3ymp3',
+    timestamp: 1513320276285,
+    title: 'Testing Sorting Posts !',
+    body: 'Testing is important.',
+    author: 'thingone',
+    category: 'react',
+    voteScore: 4,
+    deleted: false,
+    commentCount: 0
   }
 }
 
