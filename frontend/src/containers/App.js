@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-          <Route path="/post/:id" component={PostContainer}/>
+          <Route path="/:category/:post_id" component={PostContainer}/>
           <Route path="/:category" component={ListContainer}/>
           <Route exact path="/" component={ListContainer}/>
         </Switch>

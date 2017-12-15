@@ -32,7 +32,7 @@ class ListContainer extends Component {
       <div>
         <ul className="posts-list">
           {posts.map((post) => (
-            <li key={post.id}><Link to={`/post/${post.id}`}>{post.title}</Link></li>
+            <li key={post.id}><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></li>
           ))}
         </ul>
       </div>

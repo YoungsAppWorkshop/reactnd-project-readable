@@ -11,9 +11,9 @@ class PostContainer extends Component {
   }
 
   componentDidMount() {
-    const id = this.props.match.params.id
-    this.props.dispatch(fetchPost(id))
-    this.props.dispatch(fetchComments(id))
+    const post_id = this.props.match.params.post_id
+    this.props.dispatch(fetchPost(post_id))
+    this.props.dispatch(fetchComments(post_id))
   }
 
   render() {
