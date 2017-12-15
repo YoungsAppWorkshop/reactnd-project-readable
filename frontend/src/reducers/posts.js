@@ -1,5 +1,5 @@
 import {
-  REQUEST_POSTS, RECEIVE_POSTS,
+  REQUEST_POSTS, RECEIVE_POSTS, ADD_POST
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -21,6 +21,11 @@ const posts = (state = initialState, action) => {
         ...state,
         isFetching: false,
         category: action.category,
+        items: action.posts
+      }
+    case ADD_POST :
+      return {
+        ...state,
         items: action.posts
       }
     default:

@@ -33,6 +33,11 @@ export const fetchPosts = category => dispatch => {
     .then(posts => dispatch(receivePosts(category, posts)))
 }
 
+export const addPost = (posts) => ({
+  type: types.ADD_POST,
+  posts
+})
+
 export const requestPost = (id) => ({
   type: types.REQUEST_POST,
   id
