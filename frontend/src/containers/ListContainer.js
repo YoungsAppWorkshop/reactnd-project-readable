@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Modal from 'react-modal'
 import PropTypes from 'prop-types'
 import uuidv1 from 'uuid/v1'
 
+import PostSortSelector from '../components/PostSortSelector'
+import PostsList from '../components/PostsList'
+import PostModal from '../components/PostModal'
 import { fetchPosts, addPost } from '../actions'
 import * as API from '../utils/api'
 
@@ -16,8 +17,6 @@ const SORT_BY = {
     post1.title.toUpperCase() < post2.title.toUpperCase() ? -1 : 0
   )
 }
-
-Modal.setAppElement('#root')
 
 class ListContainer extends Component {
   static propTypes = {
@@ -58,7 +57,7 @@ class ListContainer extends Component {
 
   handleSubmit = () => {
     const { postForm } = this.state
-    const { posts, dispatch } = this.props
+    const { dispatch, posts } = this.props
 
     const id = uuidv1()
     const timestamp = Date.now()
@@ -84,68 +83,20 @@ class ListContainer extends Component {
 
     return (
       <div>
-
-        Order by:
-        <select value={postsOrder} onChange={e => this.sortPosts(e.target.value)}>
-          <option value="MOST_RECENT">Date</option>
-          <option value="MOST_VOTED">Vote Score</option>
-          <option value="TITLE">Title</option>
-        </select>
-
-        <ul className="posts-list">
-          {sortedPosts.map((post) => (
-            <li key={post.id}><Link to={`/${post.category}/${post.id}`}>{post.title} | {post.timestamp} | {post.voteScore}</Link></li>
-          ))}
-        </ul>
-
+        <PostSortSelector postsOrder={postsOrder} sortPosts={this.sortPosts} />
+        <PostsList posts={sortedPosts}/>
         <button onClick={this.openModal}>Add a New Post</button>
 
-        <Modal
-          className="modal"
-          overlayClassName="overlay"
-          isOpen={isModalOpen}
-          onRequestClose={this.closeModal}
-          contentLabel="Modal"
-        >
-          <div>
-            <p>Add a New Post</p>
-            <input
-              name="title"
-              type="text"
-              placeholder="Title"
-              value={postForm.title}
-              onChange={this.handleInputChange}
-            />
-            <input
-              name="author"
-              type="text"
-              placeholder="Author"
-              value={postForm.author}
-              onChange={this.handleInputChange}
-            />
-            <select
-              name="category"
-              defaultValue={currentCategory}
-              ref={(el) => { this.categorySelector = el }}
-            >
-              {categories.map((category) => (
-                <option key={category.path} value={category.name}>{category.name}</option>
-              ))}
-            </select>
-            <br/>
-            <textarea
-              name="body"
-              rows="10" cols="60"
-              placeholder="Post Contents Here..."
-              value={postForm.body}
-              onChange={this.handleInputChange}
-            />
-            <br/>
-            <button onClick={this.handleSubmit}>Submit</button>
-            <button onClick={this.closeModal}>Close</button>
-          </div>
-        </Modal>
-
+        <PostModal
+          categories={categories}
+          closeModal={this.closeModal}
+          defaultCategory={currentCategory}
+          handleInputChange={this.handleInputChange}
+          handleSubmit={this.handleSubmit}
+          isModalOpen={isModalOpen}
+          postForm={postForm}
+          selectRef={el => this.categorySelector = el }
+        />
       </div>
     )
   }
