@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { fetchPost, fetchComments } from '../actions'
+import { selectPost, fetchComments } from '../actions'
 
 class PostContainer extends Component {
   static propTypes = {
@@ -11,9 +11,9 @@ class PostContainer extends Component {
   }
 
   componentDidMount() {
-    const post_id = this.props.match.params.post_id
-    this.props.dispatch(fetchPost(post_id))
-    this.props.dispatch(fetchComments(post_id))
+    const selectedPostId = this.props.match.params.post_id
+    this.props.dispatch(selectPost(selectedPostId))
+    this.props.dispatch(fetchComments(selectedPostId))
   }
 
   render() {
@@ -36,8 +36,8 @@ class PostContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  post: state.post.item,
-  comments: state.comments.items
+  post: state.posts.selectedPost,
+  comments: Object.values(state.comments.items)
 })
 
 export default connect(

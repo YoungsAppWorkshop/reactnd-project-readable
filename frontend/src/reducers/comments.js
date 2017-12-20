@@ -4,7 +4,7 @@ import {
 
 const initialState = {
   isFetching: false,
-  items: []
+  items: {}
 }
 
 const comments = (state = initialState, action) => {

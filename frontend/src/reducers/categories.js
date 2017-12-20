@@ -1,10 +1,11 @@
 import {
-  REQUEST_CATEGORIES, RECEIVE_CATEGORIES
+  REQUEST_CATEGORIES, RECEIVE_CATEGORIES, SELECT_CATEGORY
 } from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,
-  items: []
+  items: [],
+  selectedCategory: null
 }
 
 const categories = (state = initialState, action) => {
@@ -17,8 +18,13 @@ const categories = (state = initialState, action) => {
     case RECEIVE_CATEGORIES :
       return {
         ...state,
-        isFetching: false,
-        items: action.categories
+        items: action.categories,
+        isFetching: false
+      }
+    case SELECT_CATEGORY :
+      return {
+        ...state,
+        selectedCategory: action.category
       }
     default:
       return state

@@ -6,7 +6,7 @@ import uuidv1 from 'uuid/v1'
 import PostSortSelector from '../components/PostSortSelector'
 import PostsList from '../components/PostsList'
 import PostModal from '../components/PostModal'
-import { fetchPosts, addPost } from '../actions'
+import { selectCategory, fetchPosts, addPost } from '../actions'
 import * as API from '../utils/api'
 
 const SORT_BY = {
@@ -22,7 +22,7 @@ class ListContainer extends Component {
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     posts: PropTypes.array.isRequired,
-    currentCategory: PropTypes.string,
+    selectedCategory: PropTypes.string,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -33,18 +33,20 @@ class ListContainer extends Component {
   }
 
   componentDidMount() {
-    const currentCategory = this.props.match.params.category
-    this.props.dispatch(fetchPosts(currentCategory))
+    const selectedCategory = this.props.match.params.category
+    this.props.dispatch(selectCategory(selectedCategory))
+    this.props.dispatch(fetchPosts(selectedCategory))
   }
 
   componentWillReceiveProps(nextProps) {
     const previousCategory = this.props.match.params.category
     if (nextProps.match.params.category !== previousCategory) {
+      this.props.dispatch(selectCategory(nextProps.match.params.category))
       this.props.dispatch(fetchPosts(nextProps.match.params.category))
     }
   }
 
-  sortPosts = (postsOrder) => { this.setState({ postsOrder }) }
+  sortPosts = (postsOrder) => this.setState({ postsOrder })
 
   openModal = () => this.setState({ isModalOpen: true })
   closeModal = () => this.setState({ isModalOpen: false })
@@ -57,7 +59,7 @@ class ListContainer extends Component {
 
   handleSubmit = () => {
     const { postForm } = this.state
-    const { dispatch, posts } = this.props
+    const { dispatch } = this.props
 
     const id = uuidv1()
     const timestamp = Date.now()
@@ -68,17 +70,14 @@ class ListContainer extends Component {
       category, voteScore: 1, deleted: false, commentCount: 0
     }
 
-    let newPosts = Array.from(posts)
-    newPosts.push(newPost)
-
-    dispatch(addPost(newPosts))
+    dispatch(addPost(newPost))
     API.addPost(newPost)
     this.setState({ postForm: { title: '', body: '', author: '' }})
   }
 
   render() {
     const { postsOrder, isModalOpen, postForm } = this.state
-    const { categories, posts, currentCategory } = this.props
+    const { selectedCategory, categories, posts } = this.props
     let sortedPosts = Array.from(posts).sort(SORT_BY[postsOrder])
 
     return (
@@ -90,7 +89,7 @@ class ListContainer extends Component {
         <PostModal
           categories={categories}
           closeModal={this.closeModal}
-          defaultCategory={currentCategory}
+          defaultCategory={selectedCategory}
           handleInputChange={this.handleInputChange}
           handleSubmit={this.handleSubmit}
           isModalOpen={isModalOpen}
@@ -104,9 +103,9 @@ class ListContainer extends Component {
 
 const mapStateToProps = state => ({
   categories: state.categories.items,
-  currentCategory: state.posts.category,
+  selectedCategory: state.categories.selectedCategory,
   isFetching: state.posts.isFetching,
-  posts: state.posts.items
+  posts: Object.values(state.posts.items)
 })
 
 export default connect(

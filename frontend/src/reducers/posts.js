@@ -1,11 +1,11 @@
 import {
-  REQUEST_POSTS, RECEIVE_POSTS, ADD_POST
+  REQUEST_POSTS, RECEIVE_POSTS, ADD_POST, SELECT_POST
 } from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,
-  category: null,
-  items: []
+  items: {},
+  selectedPost: {}
 }
 
 const posts = (state = initialState, action) => {
@@ -13,20 +13,26 @@ const posts = (state = initialState, action) => {
     case REQUEST_POSTS :
       return {
         ...state,
-        isFetching: true,
-        category: action.category
+        isFetching: true
       }
     case RECEIVE_POSTS :
       return {
         ...state,
         isFetching: false,
-        category: action.category,
         items: action.posts
       }
     case ADD_POST :
       return {
         ...state,
-        items: action.posts
+        items: {
+          ...state.items,
+          [action.post.id]: action.post
+        }
+      }
+    case SELECT_POST :
+      return {
+        ...state,
+        selectedPost: state.items[action.postId]
       }
     default:
       return state
