@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import PostDetail from '../components/PostDetail'
+import CommentsList from '../components/CommentsList'
 import { selectPost, fetchComments } from '../actions'
 
 class PostContainer extends Component {
@@ -21,15 +23,8 @@ class PostContainer extends Component {
 
     return (
       <div className="post">
-        <div>
-          <h1>{post.title}</h1>
-          <p>{post.body}</p>
-        </div>
-        <div>
-          {comments.map((comment) => (
-            <li key={comment.id}>{comment.body}</li>
-          ))}
-        </div>
+        <PostDetail post={post}/>
+        <CommentsList comments={comments}/>
       </div>
     )
   }
