@@ -6,6 +6,7 @@ import uuidv1 from 'uuid/v1'
 import PostSortSelector from '../components/PostSortSelector'
 import PostsList from '../components/PostsList'
 import PostModal from '../components/PostModal'
+import { ADD_POST } from '../constants/FormTypes'
 import { selectCategory, fetchPosts, addPost } from '../actions'
 import * as API from '../utils/api'
 
@@ -90,6 +91,7 @@ class ListContainer extends Component {
           categories={categories}
           closeModal={this.closeModal}
           defaultCategory={selectedCategory}
+          formType={ADD_POST}
           handleInputChange={this.handleInputChange}
           handleSubmit={this.handleSubmit}
           isModalOpen={isModalOpen}

@@ -51,6 +51,22 @@ export const selectPost = (postId) => ({
   postId
 })
 
+export const requestUpdatePost = () => ({
+  type: types.REQUEST_UPDATE_POST
+})
+
+export const receiveUpdatePost = (post) => ({
+  type: types.RECEIVE_UPDATE_POST,
+  post
+})
+
+export const updatePost = post => dispatch => {
+  dispatch(requestUpdatePost())
+  return API.updatePost(post).then(post => {
+    dispatch(receiveUpdatePost(post))
+  })
+}
+
 export const requestComments = (id) => ({
   type: types.REQUEST_COMMENTS,
   id

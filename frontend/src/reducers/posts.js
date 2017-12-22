@@ -1,6 +1,4 @@
-import {
-  REQUEST_POSTS, RECEIVE_POSTS, ADD_POST, SELECT_POST
-} from '../constants/ActionTypes'
+import * as types from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,
@@ -10,18 +8,18 @@ const initialState = {
 
 const posts = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_POSTS :
+    case types.REQUEST_POSTS :
       return {
         ...state,
         isFetching: true
       }
-    case RECEIVE_POSTS :
+    case types.RECEIVE_POSTS :
       return {
         ...state,
         isFetching: false,
         items: action.posts
       }
-    case ADD_POST :
+    case types.ADD_POST :
       return {
         ...state,
         items: {
@@ -29,10 +27,25 @@ const posts = (state = initialState, action) => {
           [action.post.id]: action.post
         }
       }
-    case SELECT_POST :
+    case types.SELECT_POST :
       return {
         ...state,
         selectedPost: state.items[action.postId]
+      }
+    case types.REQUEST_UPDATE_POST :
+      return {
+        ...state,
+        isFetching: true
+      }
+    case types.RECEIVE_UPDATE_POST :
+      return {
+        ...state,
+        isFetching: false,
+        items: {
+          ...state.items,
+          [action.post.id]: action.post
+        },
+        selectedPost: action.post
       }
     default:
       return state

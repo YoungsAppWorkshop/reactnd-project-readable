@@ -1,12 +1,13 @@
 import React from 'react'
 import Modal from 'react-modal'
 import PropTypes from 'prop-types'
+import { EDIT_POST } from '../constants/FormTypes'
 
 Modal.setAppElement('#root')
 
 const PostModal = ({
-    categories, selectRef, closeModal, defaultCategory,
-    handleInputChange, handleSubmit, isModalOpen, postForm
+    categories, closeModal, defaultCategory, formType, handleInputChange,
+    handleSubmit, isModalOpen, postForm, selectRef
   }) => (
   <Modal
     className="modal"
@@ -16,7 +17,7 @@ const PostModal = ({
     contentLabel="Modal"
   >
     <div>
-      <p>Add a New Post</p>
+      <p>This is Modal</p>
       <input
         name="title"
         type="text"
@@ -30,12 +31,14 @@ const PostModal = ({
         placeholder="Author"
         value={postForm.author}
         onChange={handleInputChange}
+        disabled={formType === EDIT_POST }
       />
       <select
         name="category"
         defaultValue={defaultCategory}
         onChange={handleInputChange}
         ref={selectRef}
+        disabled={formType === EDIT_POST }
       >
         {categories.map((category) => (
           <option key={category.path} value={category.name}>{category.name}</option>
@@ -60,10 +63,12 @@ PostModal.propTypes = {
   categories: PropTypes.array.isRequired,
   closeModal: PropTypes.func.isRequired,
   defaultCategory: PropTypes.string,
+  formType: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
-  postForm: PropTypes.object.isRequired
+  postForm: PropTypes.object.isRequired,
+  selectRef: PropTypes.func.isRequired
 }
 
 export default PostModal
