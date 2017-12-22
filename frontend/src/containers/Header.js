@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { fetchCategories } from '../actions'
+import { getCategories } from '../actions'
 
 class Header extends Component {
   static propTypes = {
@@ -14,7 +14,7 @@ class Header extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(fetchCategories())
+    dispatch(getCategories())
   }
 
   render() {

@@ -1,6 +1,4 @@
-import {
-  REQUEST_COMMENTS, RECEIVE_COMMENTS,
-} from '../constants/ActionTypes'
+import * as types from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,
@@ -9,12 +7,12 @@ const initialState = {
 
 const comments = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_COMMENTS :
+    case types.REQUEST_GET_COMMENTS :
       return {
         ...state,
         isFetching: true
       }
-    case RECEIVE_COMMENTS :
+    case types.RECEIVE_GET_COMMENTS :
       return {
         ...state,
         isFetching: false,

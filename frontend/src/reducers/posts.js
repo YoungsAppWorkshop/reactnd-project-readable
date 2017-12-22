@@ -8,12 +8,12 @@ const initialState = {
 
 const posts = (state = initialState, action) => {
   switch (action.type) {
-    case types.REQUEST_POSTS :
+    case types.REQUEST_GET_POSTS :
       return {
         ...state,
         isFetching: true
       }
-    case types.RECEIVE_POSTS :
+    case types.RECEIVE_GET_POSTS :
       return {
         ...state,
         isFetching: false,

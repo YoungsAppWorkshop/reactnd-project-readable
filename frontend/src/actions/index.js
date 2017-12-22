@@ -3,63 +3,32 @@ import * as API from '../utils/api'
 import * as Schema from '../schema'
 import { normalize } from 'normalizr'
 
-export const requestCategories = () => ({
-  type: types.REQUEST_CATEGORIES
-})
-
-export const receiveCategories = (categories) => ({
-  type: types.RECEIVE_CATEGORIES,
-  categories
-})
-
-export const fetchCategories = () => dispatch => {
-  dispatch(requestCategories())
+export const requestGetCategories = () => ({ type: types.REQUEST_GET_CATEGORIES })
+export const receiveGetCategories = categories => ({ type: types.RECEIVE_GET_CATEGORIES, categories })
+export const getCategories = () => dispatch => {
+  dispatch(requestGetCategories())
   return API.getCategories().then(categories =>
-    dispatch(receiveCategories(categories))
+    dispatch(receiveGetCategories(categories))
   )
 }
 
-export const selectCategory = (category) => ({
-  type: types.SELECT_CATEGORY,
-  category
-})
+export const selectCategory = category => ({ type: types.SELECT_CATEGORY, category })
 
-export const requestPosts = () => ({
-  type: types.REQUEST_POSTS
-})
-
-export const receivePosts = (posts) => ({
-  type: types.RECEIVE_POSTS,
-  posts
-})
-
-export const fetchPosts = category => dispatch => {
-  dispatch(requestPosts())
+export const requestGetPosts = () => ({ type: types.REQUEST_GET_POSTS })
+export const receiveGetPosts = posts => ({ type: types.RECEIVE_GET_POSTS, posts })
+export const getPosts = category => dispatch => {
+  dispatch(requestGetPosts())
   return API.getPosts(category).then(posts => {
     const data = normalize(posts, Schema.posts)
-    dispatch(receivePosts(data.entities.posts || {}))
+    dispatch(receiveGetPosts(data.entities.posts || {}))
   })
 }
 
-export const addPost = (post) => ({
-  type: types.ADD_POST,
-  post
-})
+export const addPost = post => ({ type: types.ADD_POST, post })
+export const selectPost = postId => ({ type: types.SELECT_POST, postId })
 
-export const selectPost = (postId) => ({
-  type: types.SELECT_POST,
-  postId
-})
-
-export const requestUpdatePost = () => ({
-  type: types.REQUEST_UPDATE_POST
-})
-
-export const receiveUpdatePost = (post) => ({
-  type: types.RECEIVE_UPDATE_POST,
-  post
-})
-
+export const requestUpdatePost = () => ({ type: types.REQUEST_UPDATE_POST })
+export const receiveUpdatePost = post => ({ type: types.RECEIVE_UPDATE_POST, post })
 export const updatePost = post => dispatch => {
   dispatch(requestUpdatePost())
   return API.updatePost(post).then(post => {
@@ -67,20 +36,12 @@ export const updatePost = post => dispatch => {
   })
 }
 
-export const requestComments = (id) => ({
-  type: types.REQUEST_COMMENTS,
-  id
-})
-
-export const receiveComments = (comments) => ({
-  type: types.RECEIVE_COMMENTS,
-  comments
-})
-
-export const fetchComments = id => dispatch => {
-  dispatch(requestComments())
+export const requestGetComments = id => ({ type: types.REQUEST_GET_COMMENTS, id })
+export const receiveGetComments = comments => ({ type: types.RECEIVE_GET_COMMENTS, comments })
+export const getComments = id => dispatch => {
+  dispatch(requestGetComments())
   return API.getComments(id).then(comments => {
     const data = normalize(comments, Schema.comments)
-    dispatch(receiveComments(data.entities.comments || {}))
+    dispatch(receiveGetComments(data.entities.comments || {}))
   })
 }

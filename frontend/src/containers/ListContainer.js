@@ -7,7 +7,7 @@ import PostSortSelector from '../components/PostSortSelector'
 import PostsList from '../components/PostsList'
 import PostModal from '../components/PostModal'
 import { ADD_POST } from '../constants/FormTypes'
-import { selectCategory, fetchPosts, addPost } from '../actions'
+import { selectCategory, getPosts, addPost } from '../actions'
 import * as API from '../utils/api'
 
 const SORT_BY = {
@@ -36,14 +36,14 @@ class ListContainer extends Component {
   componentDidMount() {
     const selectedCategory = this.props.match.params.category
     this.props.dispatch(selectCategory(selectedCategory))
-    this.props.dispatch(fetchPosts(selectedCategory))
+    this.props.dispatch(getPosts(selectedCategory))
   }
 
   componentWillReceiveProps(nextProps) {
     const previousCategory = this.props.match.params.category
     if (nextProps.match.params.category !== previousCategory) {
       this.props.dispatch(selectCategory(nextProps.match.params.category))
-      this.props.dispatch(fetchPosts(nextProps.match.params.category))
+      this.props.dispatch(getPosts(nextProps.match.params.category))
     }
   }
 

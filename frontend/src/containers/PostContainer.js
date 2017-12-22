@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import CommentsList from '../components/CommentsList'
 import PostDetail from '../components/PostDetail'
 import PostModal from '../components/PostModal'
-import { fetchComments, updatePost, selectPost } from '../actions'
+import { getComments, updatePost, selectPost } from '../actions'
 import { EDIT_POST } from '../constants/FormTypes'
 
 class PostContainer extends Component {
@@ -24,7 +24,7 @@ class PostContainer extends Component {
   componentDidMount() {
     const selectedPostId = this.props.match.params.post_id
     this.props.dispatch(selectPost(selectedPostId))
-    this.props.dispatch(fetchComments(selectedPostId))
+    this.props.dispatch(getComments(selectedPostId))
   }
 
   openModal = () => {

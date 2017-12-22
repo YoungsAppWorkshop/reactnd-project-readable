@@ -1,6 +1,4 @@
-import {
-  REQUEST_CATEGORIES, RECEIVE_CATEGORIES, SELECT_CATEGORY
-} from '../constants/ActionTypes'
+import * as types from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,
@@ -10,18 +8,18 @@ const initialState = {
 
 const categories = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_CATEGORIES :
+    case types.REQUEST_GET_CATEGORIES :
       return {
         ...state,
         isFetching: true
       }
-    case RECEIVE_CATEGORIES :
+    case types.RECEIVE_GET_CATEGORIES :
       return {
         ...state,
         items: action.categories,
         isFetching: false
       }
-    case SELECT_CATEGORY :
+    case types.SELECT_CATEGORY :
       return {
         ...state,
         selectedCategory: action.category
