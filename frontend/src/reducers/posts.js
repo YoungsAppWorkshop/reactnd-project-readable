@@ -19,6 +19,22 @@ const posts = (state = initialState, action) => {
         isFetching: false,
         items: action.posts
       }
+    case types.REQUEST_GET_POST :
+      return {
+        ...state,
+        isFetching: true
+      }
+    case types.RECEIVE_GET_POST :
+      return {
+        ...state,
+        isFetching: false,
+        selectedPost: action.post
+      }
+    case types.SELECT_POST :
+      return {
+        ...state,
+        selectedPost: state.items[action.postId]
+      }
     case types.REQUEST_ADD_POST :
       return {
         ...state,
@@ -32,11 +48,6 @@ const posts = (state = initialState, action) => {
           ...state.items,
           [action.post.id]: action.post
         }
-      }
-    case types.SELECT_POST :
-      return {
-        ...state,
-        selectedPost: state.items[action.postId]
       }
     case types.REQUEST_UPDATE_POST :
       return {

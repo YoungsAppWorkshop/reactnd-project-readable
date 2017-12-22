@@ -34,6 +34,22 @@ export const addPost = post => dispatch => {
 }
 
 export const selectPost = postId => ({ type: types.SELECT_POST, postId })
+export const requestGetPost = () => ({ type: types.REQUEST_GET_POST })
+export const receiveGetPost = post => ({ type: types.RECEIVE_GET_POST, post })
+export const fetchPost = postId => dispatch => {
+  dispatch(requestGetPost())
+  return API.getPost(postId).then(post => {
+    dispatch(receiveGetPost(post))
+  })
+}
+
+const shouldFetchPost = (state, postId) => state.posts.items[postId] ? false : true
+export const fetchPostIfNeeded = postId => (dispatch, getState) => {
+  if (shouldFetchPost(getState(), postId)) {
+    return dispatch(fetchPost(postId))
+  }
+  return dispatch(selectPost(postId))
+}
 
 export const requestUpdatePost = () => ({ type: types.REQUEST_UPDATE_POST })
 export const receiveUpdatePost = post => ({ type: types.RECEIVE_UPDATE_POST, post })
