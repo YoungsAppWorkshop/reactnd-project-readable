@@ -8,7 +8,6 @@ import PostsList from '../components/PostsList'
 import PostModal from '../components/PostModal'
 import { ADD_POST } from '../constants/FormTypes'
 import { selectCategory, getPosts, addPost } from '../actions'
-import * as API from '../utils/api'
 
 const SORT_BY = {
   'MOST_RECENT': (post1, post2) => post2.timestamp - post1.timestamp,
@@ -70,9 +69,7 @@ class ListContainer extends Component {
       body: postForm.body, author: postForm.author,
       category, voteScore: 1, deleted: false, commentCount: 0
     }
-
     dispatch(addPost(newPost))
-    API.addPost(newPost)
     this.setState({ postForm: { title: '', body: '', author: '' }})
   }
 

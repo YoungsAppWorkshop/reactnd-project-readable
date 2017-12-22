@@ -51,10 +51,7 @@ class PostContainer extends Component {
       title: postForm.title,
       body: postForm.body
     }
-    console.log('Submit Button Clicked!!')
-    console.log('updatedPost', updatedPost)
     dispatch(updatePost(updatedPost))
-
   }
 
   render() {

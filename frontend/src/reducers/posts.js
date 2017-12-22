@@ -19,9 +19,15 @@ const posts = (state = initialState, action) => {
         isFetching: false,
         items: action.posts
       }
-    case types.ADD_POST :
+    case types.REQUEST_ADD_POST :
       return {
         ...state,
+        isFetching: true
+      }
+    case types.RECEIVE_ADD_POST :
+      return {
+        ...state,
+        isFetching: false,
         items: {
           ...state.items,
           [action.post.id]: action.post

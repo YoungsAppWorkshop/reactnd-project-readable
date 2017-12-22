@@ -24,7 +24,15 @@ export const getPosts = category => dispatch => {
   })
 }
 
-export const addPost = post => ({ type: types.ADD_POST, post })
+export const requestAddPost = () => ({ type: types.REQUEST_ADD_POST })
+export const receiveAddPost = post => ({ type: types.RECEIVE_ADD_POST, post })
+export const addPost = post => dispatch => {
+  dispatch(requestAddPost())
+  return API.addPost(post).then(post => {
+    dispatch(receiveAddPost(post))
+  })
+}
+
 export const selectPost = postId => ({ type: types.SELECT_POST, postId })
 
 export const requestUpdatePost = () => ({ type: types.REQUEST_UPDATE_POST })
