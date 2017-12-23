@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import CommentsList from '../components/CommentsList'
 import PostDetail from '../components/PostDetail'
 import PostModal from '../components/PostModal'
-import { getComments, updatePost, fetchPostIfNeeded } from '../actions'
+import { downVotePost, fetchPostIfNeeded, getComments, updatePost, upVotePost } from '../actions'
 import { EDIT_POST } from '../constants/FormTypes'
 
 class PostContainer extends Component {
@@ -54,6 +54,16 @@ class PostContainer extends Component {
     dispatch(updatePost(updatedPost))
   }
 
+  upVotePost = () => {
+    const { dispatch, post } = this.props
+    dispatch(upVotePost(post.id))
+  }
+
+  downVotePost = () => {
+    const { dispatch, post } = this.props
+    dispatch(downVotePost(post.id))
+  }
+
   render() {
     const { isModalOpen, postForm } = this.state
     const { categories, post, comments } = this.props
@@ -62,6 +72,8 @@ class PostContainer extends Component {
       <div className="post">
         <PostDetail post={post}/>
         <button onClick={this.openModal}>Edit Post</button>
+        <button onClick={this.upVotePost}>Up Vote</button>
+        <button onClick={this.downVotePost}>Down Vote</button>
         <CommentsList comments={comments}/>
 
         <PostModal

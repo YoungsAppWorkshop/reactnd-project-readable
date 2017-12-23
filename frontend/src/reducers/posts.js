@@ -64,6 +64,36 @@ const posts = (state = initialState, action) => {
         },
         selectedPost: action.post
       }
+    case types.REQUEST_UPVOTE_POST :
+      return {
+        ...state,
+        isFetching: true
+      }
+    case types.RECEIVE_UPVOTE_POST :
+      return {
+        ...state,
+        isFetching: false,
+        items: {
+          ...state.items,
+          [action.post.id]: action.post
+        },
+        selectedPost: action.post
+      }
+    case types.REQUEST_DOWNVOTE_POST :
+      return {
+        ...state,
+        isFetching: true
+      }
+    case types.RECEIVE_DOWNVOTE_POST :
+      return {
+        ...state,
+        isFetching: false,
+        items: {
+          ...state.items,
+          [action.post.id]: action.post
+        },
+        selectedPost: action.post
+      }
     default:
       return state
   }

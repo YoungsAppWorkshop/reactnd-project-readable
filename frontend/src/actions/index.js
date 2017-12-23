@@ -60,6 +60,24 @@ export const updatePost = post => dispatch => {
   })
 }
 
+const requestUpVotePost = () => ({ type: types.REQUEST_UPVOTE_POST })
+const receiveUpVotePost = post => ({ type: types.RECEIVE_UPVOTE_POST, post })
+export const upVotePost = postId => dispatch => {
+  dispatch(requestUpVotePost())
+  return API.upVotePost(postId).then(post => {
+    dispatch(receiveUpVotePost(post))
+  })
+}
+
+const requestDownVotePost = () => ({ type: types.REQUEST_DOWNVOTE_POST })
+const receiveDownVotePost = post => ({ type: types.RECEIVE_DOWNVOTE_POST, post })
+export const downVotePost = postId => dispatch => {
+  dispatch(requestDownVotePost())
+  return API.downVotePost(postId).then(post => {
+    dispatch(receiveDownVotePost(post))
+  })
+}
+
 const requestGetComments = id => ({ type: types.REQUEST_GET_COMMENTS, id })
 const receiveGetComments = comments => ({ type: types.RECEIVE_GET_COMMENTS, comments })
 export const getComments = id => dispatch => {
