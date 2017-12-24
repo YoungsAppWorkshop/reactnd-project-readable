@@ -28,7 +28,7 @@ class ListContainer extends Component {
 
   state = {
     postsOrder: 'MOST_RECENT',
-    isModalOpen: false,
+    isPostModalOpen: false,
     postForm: { title: '', body: '', author: '' }
   }
 
@@ -48,8 +48,8 @@ class ListContainer extends Component {
 
   sortPosts = (postsOrder) => this.setState({ postsOrder })
 
-  openModal = () => this.setState({ isModalOpen: true })
-  closeModal = () => this.setState({ isModalOpen: false })
+  openPostModal = () => this.setState({ isPostModalOpen: true })
+  closePostModal = () => this.setState({ isPostModalOpen: false })
 
   handleInputChange = (event) => {
     const key = event.target.name
@@ -74,7 +74,7 @@ class ListContainer extends Component {
   }
 
   render() {
-    const { postsOrder, isModalOpen, postForm } = this.state
+    const { postsOrder, isPostModalOpen, postForm } = this.state
     const { selectedCategory, categories, posts } = this.props
     let sortedPosts = Array.from(posts).sort(SORT_BY[postsOrder])
 
@@ -82,16 +82,16 @@ class ListContainer extends Component {
       <div>
         <PostSortSelector postsOrder={postsOrder} sortPosts={this.sortPosts} />
         <PostsList posts={sortedPosts}/>
-        <button onClick={this.openModal}>Add a New Post</button>
+        <button onClick={this.openPostModal}>Add a New Post</button>
 
         <PostModal
           categories={categories}
-          closeModal={this.closeModal}
+          closePostModal={this.closePostModal}
           defaultCategory={selectedCategory}
           formType={ADD_POST}
           handleInputChange={this.handleInputChange}
           handleSubmit={this.handleSubmit}
-          isModalOpen={isModalOpen}
+          isPostModalOpen={isPostModalOpen}
           postForm={postForm}
           selectRef={el => this.categorySelector = el }
         />

@@ -14,6 +14,7 @@ const posts = (state = initialState, action) => {
     case types.REQUEST_UPDATE_POST :
     case types.REQUEST_UPVOTE_POST :
     case types.REQUEST_DOWNVOTE_POST :
+    case types.REQUEST_DELETE_POST :
       return {
         ...state,
         isFetching: true
@@ -42,6 +43,7 @@ const posts = (state = initialState, action) => {
     case types.RECEIVE_UPDATE_POST :
     case types.RECEIVE_UPVOTE_POST :
     case types.RECEIVE_DOWNVOTE_POST :
+    case types.RECEIVE_DELETE_POST :
       return {
         ...state,
         isFetching: false,

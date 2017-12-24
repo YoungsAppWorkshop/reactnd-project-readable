@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import AlertModal from '../components/AlertModal'
 import CommentsList from '../components/CommentsList'
 import PostDetail from '../components/PostDetail'
 import PostModal from '../components/PostModal'
-import { downVotePost, fetchPostIfNeeded, getComments, updatePost, upVotePost } from '../actions'
+import { deletePost, downVotePost, fetchPostIfNeeded, getComments, updatePost, upVotePost } from '../actions'
 import { EDIT_POST } from '../constants/FormTypes'
 
 class PostContainer extends Component {
@@ -17,7 +18,8 @@ class PostContainer extends Component {
   }
 
   state = {
-    isModalOpen: false,
+    isPostModalOpen: false,
+    isAlertModalOpen: false,
     postForm: { title: '', body: '', author: '' }
   }
 
@@ -27,15 +29,15 @@ class PostContainer extends Component {
     this.props.dispatch(getComments(selectedPostId))
   }
 
-  openModal = () => {
+  openPostModal = () => {
     const { post } = this.props
     this.setState({
-      isModalOpen: true,
+      isPostModalOpen: true,
       postForm: { title: post.title, body: post.body, author: post.author, category: post.category }
     })
   }
 
-  closeModal = () => this.setState({ isModalOpen: false })
+  closePostModal = () => this.setState({ isPostModalOpen: false })
 
   handleInputChange = (event) => {
     const key = event.target.name
@@ -64,28 +66,42 @@ class PostContainer extends Component {
     dispatch(downVotePost(post.id))
   }
 
+  openAlertModal = () => this.setState({ isAlertModalOpen: true })
+  closeAlertModal = () => this.setState({ isAlertModalOpen: false })
+  deletePost = () => {
+    const { dispatch, post } = this.props
+    dispatch(deletePost(post.id))
+  }
+
   render() {
-    const { isModalOpen, postForm } = this.state
+    const { isAlertModalOpen, isPostModalOpen, postForm } = this.state
     const { categories, post, comments } = this.props
 
     return (
       <div className="post">
         <PostDetail post={post}/>
-        <button onClick={this.openModal}>Edit Post</button>
+        <button onClick={this.openPostModal}>Edit Post</button>
+        <button onClick={this.openAlertModal}>Delete Post</button>
         <button onClick={this.upVotePost}>Up Vote</button>
         <button onClick={this.downVotePost}>Down Vote</button>
         <CommentsList comments={comments}/>
 
         <PostModal
           categories={categories}
-          closeModal={this.closeModal}
+          closePostModal={this.closePostModal}
           defaultCategory={post.category}
           formType={EDIT_POST}
           handleInputChange={this.handleInputChange}
           handleSubmit={this.handleSubmit}
-          isModalOpen={isModalOpen}
+          isPostModalOpen={isPostModalOpen}
           postForm={postForm}
           selectRef={el => this.categorySelector = el }
+        />
+
+        <AlertModal
+          closeAlertModal={this.closeAlertModal}
+          deletePost={this.deletePost}
+          isAlertModalOpen={isAlertModalOpen}
         />
       </div>
     )

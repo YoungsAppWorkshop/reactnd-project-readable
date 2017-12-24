@@ -72,3 +72,9 @@ export const downVotePost = (postId) =>
     },
     body: JSON.stringify({ option: 'downVote' })
   }).then(res => res.json())
+
+export const deletePost = (postId) =>
+  fetch(`${api}/posts/${postId}`, {
+    method: 'DELETE',
+    headers
+  }).then(res => res.json())

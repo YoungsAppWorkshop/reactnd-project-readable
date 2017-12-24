@@ -6,14 +6,14 @@ import { EDIT_POST } from '../constants/FormTypes'
 Modal.setAppElement('#root')
 
 const PostModal = ({
-    categories, closeModal, defaultCategory, formType, handleInputChange,
-    handleSubmit, isModalOpen, postForm, selectRef
+    categories, closePostModal, defaultCategory, formType, handleInputChange,
+    handleSubmit, isPostModalOpen, postForm, selectRef
   }) => (
   <Modal
     className="modal"
     overlayClassName="overlay"
-    isOpen={isModalOpen}
-    onRequestClose={closeModal}
+    isOpen={isPostModalOpen}
+    onRequestClose={closePostModal}
     contentLabel="Modal"
   >
     <div>
@@ -54,19 +54,19 @@ const PostModal = ({
       />
       <br/>
       <button onClick={handleSubmit}>Submit</button>
-      <button onClick={closeModal}>Close</button>
+      <button onClick={closePostModal}>Close</button>
     </div>
   </Modal>
 )
 
 PostModal.propTypes = {
   categories: PropTypes.array.isRequired,
-  closeModal: PropTypes.func.isRequired,
+  closePostModal: PropTypes.func.isRequired,
   defaultCategory: PropTypes.string,
   formType: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  isModalOpen: PropTypes.bool.isRequired,
+  isPostModalOpen: PropTypes.bool.isRequired,
   postForm: PropTypes.object.isRequired,
   selectRef: PropTypes.func.isRequired
 }
