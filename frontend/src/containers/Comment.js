@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { downVoteComment, upVoteComment } from '../actions'
+import AlertModal from '../components/AlertModal'
+import { deleteComment, downVoteComment, upVoteComment } from '../actions'
 
 class Comment extends Component {
   static propTypes = {
@@ -10,7 +11,9 @@ class Comment extends Component {
     dispatch: PropTypes.func.isRequired
   }
 
-  state = {}
+  state = {
+    isAlertModalOpen: false
+  }
 
   upVote = () => {
     const { dispatch, comment } = this.props
@@ -22,13 +25,27 @@ class Comment extends Component {
     dispatch(downVoteComment(comment.id))
   }
 
+  openAlertModal = () => this.setState({ isAlertModalOpen: true })
+  closeAlertModal = () => this.setState({ isAlertModalOpen: false })
+  deleteComment = () => {
+    const { dispatch, comment } = this.props
+    dispatch(deleteComment(comment.id))
+  }
+
   render () {
+    const { isAlertModalOpen } = this.state
     const { comment } = this.props
     return (
       <li>
         {comment.body} | {comment.author} | {comment.voteScore}
+        <button onClick={this.openAlertModal}>Delete</button>
         <button onClick={this.upVote}>Up Vote</button>
         <button onClick={this.downVote}>Down Vote</button>
+        <AlertModal
+          closeModal={this.closeAlertModal}
+          handleSubmit={this.deleteComment}
+          isModalOpen={isAlertModalOpen}
+        />
       </li>
     )
   }

@@ -114,3 +114,12 @@ export const downVoteComment = commentId => dispatch => {
     dispatch(receiveDownVoteComment(comment))
   })
 }
+
+const requestDeleteComment = () => ({ type: types.REQUEST_DELETE_COMMENT })
+const receiveDeleteComment = comment => ({ type: types.RECEIVE_DELETE_COMMENT, comment })
+export const deleteComment = commentId => dispatch => {
+  dispatch(requestDeleteComment())
+  return API.deleteComment(commentId).then(comment => {
+    dispatch(receiveDeleteComment(comment))
+  })
+}

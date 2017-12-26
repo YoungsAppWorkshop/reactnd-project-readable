@@ -86,9 +86,9 @@ class ListItem extends Component {
           selectRef={el => this.categorySelector = el }
         />
         <AlertModal
-          closeAlertModal={this.closeAlertModal}
-          deletePost={this.deletePost}
-          isAlertModalOpen={isAlertModalOpen}
+          closeModal={this.closeAlertModal}
+          handleSubmit={this.deletePost}
+          isModalOpen={isAlertModalOpen}
         />
       </li>
     )
