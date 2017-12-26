@@ -87,12 +87,30 @@ export const deletePost = postId => dispatch => {
   })
 }
 
-const requestGetComments = id => ({ type: types.REQUEST_GET_COMMENTS, id })
+const requestGetComments = () => ({ type: types.REQUEST_GET_COMMENTS })
 const receiveGetComments = comments => ({ type: types.RECEIVE_GET_COMMENTS, comments })
-export const getComments = id => dispatch => {
+export const getComments = parentId => dispatch => {
   dispatch(requestGetComments())
-  return API.getComments(id).then(comments => {
+  return API.getComments(parentId).then(comments => {
     const data = normalize(comments, Schema.comments)
     dispatch(receiveGetComments(data.entities.comments || {}))
+  })
+}
+
+const requestUpVoteComment = () => ({ type: types.REQUEST_UPVOTE_COMMENT })
+const receiveUpVoteComment = comment => ({ type: types.RECEIVE_UPVOTE_COMMENT, comment })
+export const upVoteComment = commentId => dispatch => {
+  dispatch(requestUpVoteComment())
+  return API.upVoteComment(commentId).then(comment => {
+    dispatch(receiveUpVoteComment(comment))
+  })
+}
+
+const requestDownVoteComment = () => ({ type: types.REQUEST_DOWNVOTE_COMMENT })
+const receiveDownVoteComment = comment => ({ type: types.RECEIVE_DOWNVOTE_COMMENT, comment })
+export const downVoteComment = commentId => dispatch => {
+  dispatch(requestDownVoteComment())
+  return API.downVoteComment(commentId).then(comment => {
+    dispatch(receiveDownVoteComment(comment))
   })
 }

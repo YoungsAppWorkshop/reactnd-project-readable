@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Comment from '../containers/Comment'
+
 const CommentsList = ({ comments }) => (
   <div>
     {comments.map((comment) => (
-      <li key={comment.id}>{comment.body}</li>
+      <Comment key={comment.id} comment={comment}/>
     ))}
   </div>
 )

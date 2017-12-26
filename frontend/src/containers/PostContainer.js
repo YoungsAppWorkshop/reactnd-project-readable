@@ -84,8 +84,6 @@ class PostContainer extends Component {
         <button onClick={this.openAlertModal}>Delete Post</button>
         <button onClick={this.upVotePost}>Up Vote</button>
         <button onClick={this.downVotePost}>Down Vote</button>
-        <CommentsList comments={comments}/>
-
         <PostModal
           categories={categories}
           closePostModal={this.closePostModal}
@@ -97,12 +95,13 @@ class PostContainer extends Component {
           postForm={postForm}
           selectRef={el => this.categorySelector = el }
         />
-
         <AlertModal
           closeAlertModal={this.closeAlertModal}
           deletePost={this.deletePost}
           isAlertModalOpen={isAlertModalOpen}
         />
+
+        <CommentsList comments={comments}/>
       </div>
     )
   }
