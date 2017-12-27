@@ -123,3 +123,12 @@ export const deleteComment = commentId => dispatch => {
     dispatch(receiveDeleteComment(comment))
   })
 }
+
+const requestUpdateComment = () => ({ type: types.REQUEST_UPDATE_COMMENT })
+const receiveUpdateComment = comment => ({ type: types.RECEIVE_UPDATE_COMMENT, comment })
+export const updateComment = comment => dispatch => {
+  dispatch(requestUpdateComment())
+  return API.updateComment(comment).then(comment => {
+    dispatch(receiveUpdateComment(comment))
+  })
+}
