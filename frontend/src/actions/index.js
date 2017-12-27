@@ -132,3 +132,12 @@ export const updateComment = comment => dispatch => {
     dispatch(receiveUpdateComment(comment))
   })
 }
+
+const requestAddComment = () => ({ type: types.REQUEST_ADD_COMMENT })
+const receiveAddComment = comment => ({ type: types.RECEIVE_ADD_COMMENT, comment })
+export const addComment = comment => dispatch => {
+  dispatch(requestAddComment())
+  return API.addComment(comment).then(comment => {
+    dispatch(receiveAddComment(comment))
+  })
+}

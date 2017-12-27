@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import uuidv1 from 'uuid/v1'
 
 import AlertModal from '../components/AlertModal'
 import CommentsList from '../components/CommentsList'
 import PostDetail from '../components/PostDetail'
 import PostModal from '../components/PostModal'
-import { deletePost, downVotePost, fetchPostIfNeeded, getComments, updatePost, upVotePost } from '../actions'
+import { addComment, deletePost, downVotePost, fetchPostIfNeeded, getComments, updatePost, upVotePost } from '../actions'
 import { EDIT_POST } from '../constants/FormTypes'
 
 class PostContainer extends Component {
@@ -20,7 +21,8 @@ class PostContainer extends Component {
   state = {
     isPostModalOpen: false,
     isAlertModalOpen: false,
-    postForm: { title: '', body: '', author: '' }
+    postForm: { title: '', body: '', author: '' },
+    commentForm: { body: '', author: '' }
   }
 
   componentDidMount() {
@@ -73,8 +75,34 @@ class PostContainer extends Component {
     dispatch(deletePost(post.id))
   }
 
+  handleChange = (event) => {
+    const key = event.target.name
+    const value = event.target.value
+    this.setState({ commentForm: { ...this.state.commentForm, [key]: value }})
+  }
+
+  addNewComment = (event) => {
+    event.preventDefault()
+    const { commentForm } = this.state
+    const { dispatch, post } = this.props
+    const id = uuidv1()
+    const timestamp = Date.now()
+    let newComment = {
+      id, timestamp, parentId: post.id,
+      body: commentForm.body,
+      author: commentForm.author
+    }
+    dispatch(addComment(newComment))
+    this.setState({ commentForm: { body: '', author: '' } })
+  }
+
+  clearCommentForm = (event) => {
+    event.preventDefault()
+    this.setState({ commentForm: { body: '', author: '' } })
+  }
+
   render() {
-    const { isAlertModalOpen, isPostModalOpen, postForm } = this.state
+    const { commentForm, isAlertModalOpen, isPostModalOpen, postForm } = this.state
     const { categories, post, comments } = this.props
 
     return (
@@ -102,6 +130,24 @@ class PostContainer extends Component {
         />
 
         <CommentsList comments={comments}/>
+        <form>
+          <input
+            name="body"
+            type="text"
+            placeholder="Comment ..."
+            value={commentForm.body}
+            onChange={this.handleChange}
+          />
+          <input
+            name="author"
+            type="text"
+            placeholder="Author"
+            value={commentForm.author}
+            onChange={this.handleChange}
+          />
+          <button onClick={this.addNewComment}>Submit</button>
+          <button onClick={this.clearCommentForm}>Clear</button>
+        </form>
       </div>
     )
   }

@@ -8,6 +8,7 @@ const initialState = {
 const comments = (state = initialState, action) => {
   switch (action.type) {
     case types.REQUEST_GET_COMMENTS :
+    case types.REQUEST_ADD_COMMENT :
     case types.REQUEST_UPVOTE_COMMENT :
     case types.REQUEST_UPDATE_COMMENT :
     case types.REQUEST_DOWNVOTE_COMMENT :
@@ -21,6 +22,7 @@ const comments = (state = initialState, action) => {
         isFetching: false,
         items: action.comments
       }
+    case types.RECEIVE_ADD_COMMENT :
     case types.RECEIVE_UPVOTE_COMMENT :
     case types.RECEIVE_DOWNVOTE_COMMENT :
     case types.RECEIVE_UPDATE_COMMENT :
