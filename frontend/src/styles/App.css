@@ -49,3 +49,13 @@ body,
 .post-body {
   min-height: 300px;
 }
+
+.comments-list-item {
+  position: relative;
+}
+
+.comments-list-item-btn-group {
+  position: absolute !important; 
+  right: 5px;
+  bottom: 5px;
+}

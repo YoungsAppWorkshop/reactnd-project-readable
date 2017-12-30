@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import AlertModal from '../components/AlertModal'
+import CommentEditForm from '../components/CommentEditForm'
+import CommentListItem from '../components/CommentListItem'
 import { deleteComment, downVoteComment, updateComment, upVoteComment } from '../actions'
 
 class Comment extends Component {
@@ -17,6 +18,11 @@ class Comment extends Component {
     isAlertModalOpen: false
   }
 
+  componentDidMount = () => {
+    const { comment } = this.props
+    this.setState({ editFormInput: comment.body  })
+  }
+
   upVote = () => {
     const { dispatch, comment } = this.props
     dispatch(upVoteComment(comment.id))
@@ -27,18 +33,20 @@ class Comment extends Component {
     dispatch(downVoteComment(comment.id))
   }
 
-  openAlertModal = () => this.setState({ isAlertModalOpen: true })
-  closeAlertModal = () => this.setState({ isAlertModalOpen: false })
+  toggleAlertModal = () => {
+    this.setState((prevState) => ({ isAlertModalOpen: !prevState.isAlertModalOpen }))
+  }
+
   deleteComment = () => {
     const { dispatch, comment } = this.props
     dispatch(deleteComment(comment.id))
+    this.setState({ isAlertModalOpen: false })
   }
 
-  handleInputChange = editFormInput => { this.setState({ editFormInput })}
-  hideEditForm = () => this.setState({ editable: false })
-  showEditForm = () => {
-    const { comment } = this.props
-    this.setState({ editable: true, editFormInput: comment.body })
+  handleInputChange = event => { this.setState({ editFormInput: event.target.value })}
+
+  toggleEditable = () => {
+    this.setState((prevState) => ({ editable: !prevState.editable }))
   }
 
   editComment = () => {
@@ -51,44 +59,36 @@ class Comment extends Component {
       timestamp
     }
     dispatch(updateComment(edittedComment))
-    this.setState({ editable: false, editFormInput: '' })
+    this.setState({ editable: false })
   }
 
 
   render () {
     const { editable, editFormInput, isAlertModalOpen } = this.state
     const { comment } = this.props
-    return (
-      <li>
-        { !editable &&
-          <div>
-            <span>{comment.body} | {comment.author} | {comment.voteScore}</span>
-            <button onClick={this.showEditForm}>Edit</button>
-            <button onClick={this.openAlertModal}>Delete</button>
-            <button onClick={this.upVote}>Up Vote</button>
-            <button onClick={this.downVote}>Down Vote</button>
-          </div>
-        }
-        { editable &&
-          <div>
-            <input
-              name="body"
-              type="text"
-              value={editFormInput}
-              onChange={event => this.handleInputChange(event.target.value)}
-              placeholder="Post Contents Here..."
-            />
-            <button onClick={this.editComment}>Edit</button>
-            <button onClick={this.hideEditForm}>Cancel</button>
-          </div>
-        }
-        <AlertModal
-          closeModal={this.closeAlertModal}
-          handleSubmit={this.deleteComment}
-          isModalOpen={isAlertModalOpen}
+
+    if (!editable) {
+      return (
+        <CommentListItem
+          comment={comment}
+          downVoteComment={this.downVote}
+          handleAlertModalSubmit={this.deleteComment}
+          isAlertModalOpen={isAlertModalOpen}
+          toggleAlertModal={this.toggleAlertModal}
+          toggleEditable={this.toggleEditable}
+          upVoteComment={this.upVote}
         />
-      </li>
-    )
+      )
+    } else {
+      return (
+        <CommentEditForm
+          editFormInput={editFormInput}
+          handleInputChange={this.handleInputChange}
+          handleSubmit={this.editComment}
+          toggleEditable={this.toggleEditable}
+        />
+      )
+    }
   }
 }
 
