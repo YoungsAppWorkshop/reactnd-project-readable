@@ -83,7 +83,7 @@ class ListPage extends Component {
   render() {
     const { postsOrder, isPostModalOpen, postForm } = this.state
     const { selectedCategory, categories, posts } = this.props
-    let sortedPosts = Array.from(posts).sort(SORT_BY[postsOrder])
+    let sortedPosts = Array.from(posts).filter(post => !post.deleted).sort(SORT_BY[postsOrder])
 
     return (
       <Container className="main">
