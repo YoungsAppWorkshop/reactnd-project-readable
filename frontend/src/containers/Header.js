@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import CollapsableNavBar from '../components/CollapsableNavBar'
 import { getCategories } from '../actions'
 
 class Header extends Component {
@@ -12,21 +12,31 @@ class Header extends Component {
     dispatch: PropTypes.func.isRequired
   }
 
+  state = {
+    isCollapsedNavBarOpen: false
+  }
+
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(getCategories())
   }
 
+  toggleCollapsedNavBar = () => {
+    this.setState((prevState) => ({
+      isCollapsedNavBarOpen: !prevState.isCollapsedNavBarOpen
+    }))
+  }
+
   render() {
+    const { isCollapsedNavBarOpen } = this.state
     const { categories } = this.props
 
     return (
-      <ul className="categories-list">
-        <li><Link to='/'>All</Link></li>
-        {categories.map((category) => (
-          <li key={category.path}><Link to={`/${category.path}`}>{category.name}</Link></li>
-        ))}
-      </ul>
+      <CollapsableNavBar
+        categories={categories}
+        isCollapsedNavBarOpen={isCollapsedNavBarOpen}
+        toggleCollapsedNavBar={this.toggleCollapsedNavBar}
+      />
     )
 
   }

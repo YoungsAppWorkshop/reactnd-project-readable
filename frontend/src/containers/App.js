@@ -6,7 +6,7 @@ import ListContainer from '../containers/ListContainer'
 import PostContainer from '../containers/PostContainer'
 
 const App = () => (
-  <div className="App">
+  <div id="app" className="app">
     <Header />
     <Switch>
       <Route path="/:category/:post_id" component={PostContainer}/>
