@@ -12,8 +12,8 @@ const MODAL_TITLE = {
 }
 
 const PostModal = ({
-    categories, defaultCategory, modalType, handleInputChange,
-    handleSubmit, isModalOpen, postForm, selectRef, toggleModal
+    categories, defaultCategory, handleInputChange, handleSubmit,
+    isModalOpen, modalType, postForm, selectRef, toggleModal
 }) => (
   <Modal isOpen={isModalOpen} toggle={toggleModal} className="modal-lg">
     <ModalHeader toggle={toggleModal}>{MODAL_TITLE[modalType]}</ModalHeader>
@@ -65,10 +65,10 @@ const PostModal = ({
 PostModal.propTypes = {
   categories: PropTypes.array.isRequired,
   defaultCategory: PropTypes.string,
-  modalType: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
+  modalType: PropTypes.string.isRequired,
   postForm: PropTypes.object.isRequired,
   selectRef: PropTypes.func,
   toggleModal: PropTypes.func.isRequired

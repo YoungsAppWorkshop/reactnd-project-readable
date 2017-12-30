@@ -5,7 +5,7 @@ import { formatDate } from '../utils/helpers'
 
 import AlertModal from '../components/AlertModal'
 import PostModal from '../components/PostModal'
-import { EDIT_POST } from '../constants/ModalTypes'
+import { DELETE_POST, EDIT_POST } from '../constants/ModalTypes'
 
 import { Card, Button, CardTitle, CardSubtitle, ButtonGroup } from 'reactstrap'
 import FaTrash from 'react-icons/lib/fa/trash'
@@ -15,8 +15,8 @@ import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
 import FaCommentO from 'react-icons/lib/fa/comment-o'
 
 const PostListItem = ({
-  categories, downVotePost, editPost, handleInputChange, isAlertModalOpen,
-  isPostModalOpen, post, postForm, toggleAlertModal, togglePostModal, upVotePost
+  categories, downVotePost, handleAlertModalSubmit, handleInputChange, handlePostModalSubmit,
+  isAlertModalOpen, isPostModalOpen, post, postForm, toggleAlertModal, togglePostModal, upVotePost
 }) => (
 
   <Card body className="posts-list-item mt-2">
@@ -45,12 +45,19 @@ const PostListItem = ({
     <PostModal
       categories={categories}
       defaultCategory={post.category}
-      modalType={EDIT_POST}
       handleInputChange={handleInputChange}
-      handleSubmit={editPost}
+      handleSubmit={handlePostModalSubmit}
       isModalOpen={isPostModalOpen}
+      modalType={EDIT_POST}
       postForm={postForm}
       toggleModal={togglePostModal}
+    />
+
+    <AlertModal
+      handleSubmit={handleAlertModalSubmit}
+      isModalOpen={isAlertModalOpen}
+      modalType={DELETE_POST}
+      toggleModal={toggleAlertModal}
     />
   </Card>
 
@@ -59,8 +66,9 @@ const PostListItem = ({
 PostListItem.propTypes = {
   categories: PropTypes.array.isRequired,
   downVotePost: PropTypes.func.isRequired,
-  editPost: PropTypes.func.isRequired,
+  handleAlertModalSubmit: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
+  handlePostModalSubmit: PropTypes.func.isRequired,
   isAlertModalOpen: PropTypes.bool.isRequired,
   isPostModalOpen: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired,

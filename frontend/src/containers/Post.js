@@ -63,6 +63,7 @@ class Post extends Component {
   deletePost = () => {
     const { dispatch, post } = this.props
     dispatch(deletePost(post.id))
+    this.setState({ isAlertModalOpen: false })
   }
 
   render() {
@@ -73,8 +74,9 @@ class Post extends Component {
       <PostListItem
         categories={categories}
         downVotePost={this.downVotePost}
-        editPost={this.editPost}
+        handleAlertModalSubmit={this.deletePost}
         handleInputChange={this.handleInputChange}
+        handlePostModalSubmit={this.editPost}
         isAlertModalOpen={isAlertModalOpen}
         isPostModalOpen={isPostModalOpen}
         post={post}
