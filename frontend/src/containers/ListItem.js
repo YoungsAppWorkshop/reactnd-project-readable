@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import AlertModal from '../components/AlertModal'
 import PostModal from '../components/PostModal'
 import { deletePost, downVotePost, updatePost, upVotePost } from '../actions'
-import { EDIT_POST } from '../constants/FormTypes'
+import { EDIT_POST } from '../constants/ModalTypes'
 import { formatDate } from '../utils/helpers'
 
 import {
@@ -104,22 +104,7 @@ class ListItem extends Component {
           <Button className="px-1" color="link" onClick={this.downVotePost}><FaThumbsODown size={15}/></Button>
         </ButtonGroup>
 
-        <PostModal
-          categories={categories}
-          closePostModal={this.closePostModal}
-          defaultCategory={post.category}
-          formType={EDIT_POST}
-          handleInputChange={this.handleInputChange}
-          handleSubmit={this.handleSubmit}
-          isPostModalOpen={isPostModalOpen}
-          postForm={postForm}
-          selectRef={el => this.categorySelector = el }
-        />
-        <AlertModal
-          closeModal={this.closeAlertModal}
-          handleSubmit={this.deletePost}
-          isModalOpen={isAlertModalOpen}
-        />
+
       </Card>
     )
   }

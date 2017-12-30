@@ -7,7 +7,7 @@ import { Col, Container, Row } from 'reactstrap'
 import PostListController from '../components/PostListController'
 import PostsList from '../components/PostsList'
 import PostModal from '../components/PostModal'
-import { ADD_POST } from '../constants/FormTypes'
+import { ADD_POST } from '../constants/ModalTypes'
 import { selectCategory, getPosts, addPost } from '../actions'
 import { capitalize } from '../utils/helpers'
 
@@ -50,8 +50,11 @@ class ListPage extends Component {
 
   sortPosts = (postsOrder) => this.setState({ postsOrder })
 
-  openPostModal = () => this.setState({ isPostModalOpen: true })
-  closePostModal = () => this.setState({ isPostModalOpen: false })
+  togglePostModal = () => {
+    this.setState((prevState) => ({
+      isPostModalOpen: !prevState.isPostModalOpen
+    }))
+  }
 
   handleInputChange = (event) => {
     const key = event.target.name
@@ -68,11 +71,13 @@ class ListPage extends Component {
     const category = this.categorySelector.value
     const newPost = {
       id, timestamp, title: postForm.title,
-      body: postForm.body, author: postForm.author,
-      category, voteScore: 1, deleted: false, commentCount: 0
+      body: postForm.body, author: postForm.author, category
     }
     dispatch(addPost(newPost))
-    this.setState({ postForm: { title: '', body: '', author: '' }})
+    this.setState({
+      postForm: { title: '', body: '', author: '' },
+      isPostModalOpen: false
+    })
   }
 
   render() {
@@ -98,14 +103,14 @@ class ListPage extends Component {
 
             <PostModal
               categories={categories}
-              closePostModal={this.closePostModal}
               defaultCategory={selectedCategory}
-              formType={ADD_POST}
+              modalType={ADD_POST}
               handleInputChange={this.handleInputChange}
               handleSubmit={this.handleSubmit}
-              isPostModalOpen={isPostModalOpen}
+              isModalOpen={isPostModalOpen}
               postForm={postForm}
               selectRef={el => this.categorySelector = el }
+              toggleModal={this.togglePostModal}
             />
           </Col>
         </Row>

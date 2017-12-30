@@ -8,7 +8,7 @@ import CommentsList from '../components/CommentsList'
 import PostDetail from '../components/PostDetail'
 import PostModal from '../components/PostModal'
 import { addComment, deletePost, downVotePost, fetchPostIfNeeded, getComments, updatePost, upVotePost } from '../actions'
-import { EDIT_POST } from '../constants/FormTypes'
+import { EDIT_POST } from '../constants/ModalTypes'
 
 class PostDetailPage extends Component {
   static propTypes = {
