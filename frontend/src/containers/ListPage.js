@@ -18,7 +18,7 @@ const SORT_BY = {
   )
 }
 
-class ListContainer extends Component {
+class ListPage extends Component {
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     posts: PropTypes.array.isRequired,
@@ -109,4 +109,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps
-)(ListContainer)
+)(ListPage)
