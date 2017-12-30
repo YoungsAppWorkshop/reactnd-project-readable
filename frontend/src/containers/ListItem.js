@@ -7,6 +7,17 @@ import AlertModal from '../components/AlertModal'
 import PostModal from '../components/PostModal'
 import { deletePost, downVotePost, updatePost, upVotePost } from '../actions'
 import { EDIT_POST } from '../constants/FormTypes'
+import { formatDate } from '../utils/helpers'
+
+import {
+  Card, Button, CardTitle, CardSubtitle, ButtonGroup
+} from 'reactstrap'
+
+import FaTrash from 'react-icons/lib/fa/trash'
+import FaEdit from'react-icons/lib/fa/edit'
+import FaThumbsODown from 'react-icons/lib/fa/thumbs-o-down'
+import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
+import FaCommentO from 'react-icons/lib/fa/comment-o'
 
 class ListItem extends Component {
   static propTypes = {
@@ -67,13 +78,32 @@ class ListItem extends Component {
   render() {
     const { isAlertModalOpen, isPostModalOpen, postForm } = this.state
     const { categories, post } = this.props
+
     return (
-      <li>
-        <Link to={`/${post.category}/${post.id}`}>{post.title} | {post.timestamp} | {post.voteScore}</Link>
-        <button onClick={this.openPostModal}>Edit Post</button>
-        <button onClick={this.openAlertModal}>Delete Post</button>
-        <button onClick={this.upVotePost}>Up Vote</button>
-        <button onClick={this.downVotePost}>Down Vote</button>
+
+      <Card body className="posts-list-item mt-2">
+        <CardTitle className="posts-list-item-title title">
+          <Link to={`/${post.category}/${post.id}`}>{post.title}</Link>
+        </CardTitle>
+        <CardSubtitle className="posts-list-item-subtitle">
+          <small>
+            <strong>{post.author}</strong>&nbsp;|&nbsp;{ formatDate(post.timestamp) }&nbsp; &nbsp;
+            <span className="text-info"><FaCommentO size={15}/> {post.commentCount}</span>&nbsp;&nbsp;
+            { post.voteScore >= 0 ? (
+              <span className="text-success"><FaThumbsOUp size={15}/> {post.voteScore}</span>
+            ) : (
+              <span className="text-danger"><FaThumbsODown size={15}/> {post.voteScore}</span>
+            )}
+          </small>
+        </CardSubtitle>
+
+        <ButtonGroup className="posts-list-item-btn-group">
+          <Button className="px-1" color="link" onClick={this.openPostModal}><FaEdit size={15}/></Button>{' '}
+          <Button className="px-1" color="link" onClick={this.openAlertModal}><FaTrash size={15}/></Button>{' '}
+          <Button className="px-1" color="link" onClick={this.upVotePost}><FaThumbsOUp size={15}/></Button>{' '}
+          <Button className="px-1" color="link" onClick={this.downVotePost}><FaThumbsODown size={15}/></Button>
+        </ButtonGroup>
+
         <PostModal
           categories={categories}
           closePostModal={this.closePostModal}
@@ -90,7 +120,7 @@ class ListItem extends Component {
           handleSubmit={this.deletePost}
           isModalOpen={isAlertModalOpen}
         />
-      </li>
+      </Card>
     )
   }
 }

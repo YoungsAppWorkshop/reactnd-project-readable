@@ -9,8 +9,16 @@ body,
   min-height: 100%;
 }
 
+.btn:hover {
+  cursor: pointer;
+}
+
 .main {
   margin-bottom: 80px;
+}
+
+.title {
+  font-weight: 300;
 }
 
 .footer {
@@ -21,4 +29,19 @@ body,
   height: 80px;
   line-height: 80px;
   text-align: center;
+}
+
+.posts-list-item {
+  position: relative;
+}
+
+.posts-list-item-title > a {
+  text-decoration: none;
+  color: #000;
+}
+
+.posts-list-item-btn-group {
+  position: absolute !important;
+  right: 10px;
+  bottom: 10px;
 }

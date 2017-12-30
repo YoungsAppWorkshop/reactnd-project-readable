@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import ListItem from '../containers/ListItem'
 
 const PostsList = ({ posts }) => (
-  <ul className="posts-list">
+  <section className="posts-list">
     {posts.map((post) => (
       <ListItem key={post.id} post={post} />
     ))}
-  </ul>
+  </section>
 )
 
 PostsList.propTypes = {

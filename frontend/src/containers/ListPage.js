@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import uuidv1 from 'uuid/v1'
 
-import PostSortSelector from '../components/PostSortSelector'
+import { Col, Container, Row } from 'reactstrap'
+import PostListController from '../components/PostListController'
 import PostsList from '../components/PostsList'
 import PostModal from '../components/PostModal'
 import { ADD_POST } from '../constants/FormTypes'
 import { selectCategory, getPosts, addPost } from '../actions'
+import { capitalize } from '../utils/helpers'
 
 const SORT_BY = {
   'MOST_RECENT': (post1, post2) => post2.timestamp - post1.timestamp,
@@ -79,23 +81,35 @@ class ListPage extends Component {
     let sortedPosts = Array.from(posts).sort(SORT_BY[postsOrder])
 
     return (
-      <div>
-        <PostSortSelector postsOrder={postsOrder} sortPosts={this.sortPosts} />
-        <PostsList posts={sortedPosts}/>
-        <button onClick={this.openPostModal}>Add a New Post</button>
+      <Container className="main">
+        <Row>
+          <Col sm="12" md={{ size: 8, offset: 2 }}>
+            <h3 className="category title my-5">
+              { selectedCategory ? capitalize(selectedCategory) : 'All Categories'}
+            </h3>
 
-        <PostModal
-          categories={categories}
-          closePostModal={this.closePostModal}
-          defaultCategory={selectedCategory}
-          formType={ADD_POST}
-          handleInputChange={this.handleInputChange}
-          handleSubmit={this.handleSubmit}
-          isPostModalOpen={isPostModalOpen}
-          postForm={postForm}
-          selectRef={el => this.categorySelector = el }
-        />
-      </div>
+            <PostsList posts={sortedPosts}/>
+
+            <PostListController
+              postsOrder={postsOrder}
+              toggleModal={this.togglePostModal}
+              sortPosts={this.sortPosts}
+            />
+
+            <PostModal
+              categories={categories}
+              closePostModal={this.closePostModal}
+              defaultCategory={selectedCategory}
+              formType={ADD_POST}
+              handleInputChange={this.handleInputChange}
+              handleSubmit={this.handleSubmit}
+              isPostModalOpen={isPostModalOpen}
+              postForm={postForm}
+              selectRef={el => this.categorySelector = el }
+            />
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
