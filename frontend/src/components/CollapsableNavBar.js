@@ -5,13 +5,14 @@ import {
   Collapse, Container,
   Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink
 } from 'reactstrap'
+import { capitalize } from '../utils/helpers'
 
 const CollapsableNavBar = ({
   categories, isCollapsedNavBarOpen, toggleCollapsedNavBar
 }) => (
   <Navbar id="header" color="faded" light expand="md">
     <Container>
-      <NavbarBrand href="/">Readable</NavbarBrand>
+      <NavbarBrand tag={Link} to="/">Readable</NavbarBrand>
       <NavbarToggler onClick={toggleCollapsedNavBar} />
       <Collapse isOpen={isCollapsedNavBarOpen} navbar>
         <Nav className="ml-auto" navbar>
@@ -21,7 +22,7 @@ const CollapsableNavBar = ({
           {categories.map((category) => (
             <NavItem key={category.path}>
               <NavLink tag={Link} to={`/${category.path}`}>
-                {category.name}
+                {capitalize(category.name)}
               </NavLink>
             </NavItem>
           ))}
