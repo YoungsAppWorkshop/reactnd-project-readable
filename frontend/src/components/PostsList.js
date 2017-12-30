@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import ListItem from '../containers/ListItem'
+import Post from '../containers/Post'
 
 const PostsList = ({ posts }) => (
   <section className="posts-list">
     {posts.map((post) => (
-      <ListItem key={post.id} post={post} />
+      <Post key={post.id} post={post} />
     ))}
   </section>
 )

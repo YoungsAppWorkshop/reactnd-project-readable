@@ -70,7 +70,7 @@ PostModal.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   postForm: PropTypes.object.isRequired,
-  selectRef: PropTypes.func.isRequired,
+  selectRef: PropTypes.func,
   toggleModal: PropTypes.func.isRequired
 }
 
