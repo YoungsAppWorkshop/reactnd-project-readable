@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import uuidv1 from 'uuid/v1'
 
 import { Col, Container, Row } from 'reactstrap'
-import PostListController from '../components/PostListController'
+import PostsListController from '../components/PostsListController'
 import PostsList from '../components/PostsList'
 import PostModal from '../components/PostModal'
 import { ADD_POST } from '../constants/ModalTypes'
@@ -20,7 +20,7 @@ const SORT_BY = {
   )
 }
 
-class ListPage extends Component {
+class ListView extends Component {
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     posts: PropTypes.array.isRequired,
@@ -95,7 +95,7 @@ class ListPage extends Component {
 
             <PostsList posts={sortedPosts}/>
 
-            <PostListController
+            <PostsListController
               postsOrder={postsOrder}
               toggleModal={this.togglePostModal}
               sortPosts={this.sortPosts}
@@ -128,4 +128,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps
-)(ListPage)
+)(ListView)

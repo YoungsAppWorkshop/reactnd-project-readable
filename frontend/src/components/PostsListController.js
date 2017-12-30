@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Button, Col, Input, Row } from 'reactstrap'
 import FaEdit from'react-icons/lib/fa/edit'
 
-const PostListController = ({ postsOrder, sortPosts, toggleModal }) => (
+const PostsListController = ({ postsOrder, sortPosts, toggleModal }) => (
   <Row className="my-5">
     <Col lg={{ size: 4, offset: 4 }} xl={{ size: 3, offset: 6 }}>
       <Input type="select" value={postsOrder} onChange={e => sortPosts(e.target.value)}>
@@ -19,10 +19,10 @@ const PostListController = ({ postsOrder, sortPosts, toggleModal }) => (
   </Row>
 )
 
-PostListController.propTypes = {
+PostsListController.propTypes = {
   postsOrder: PropTypes.string.isRequired,
   sortPosts: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 }
 
-export default PostListController
+export default PostsListController

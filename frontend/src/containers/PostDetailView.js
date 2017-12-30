@@ -10,7 +10,7 @@ import PostModal from '../components/PostModal'
 import { addComment, deletePost, downVotePost, fetchPostIfNeeded, getComments, updatePost, upVotePost } from '../actions'
 import { EDIT_POST } from '../constants/ModalTypes'
 
-class PostDetailPage extends Component {
+class PostDetailView extends Component {
   static propTypes = {
     categories: PropTypes.array.isRequired,
     post: PropTypes.object.isRequired,
@@ -161,4 +161,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps
-)(PostDetailPage)
+)(PostDetailView)
