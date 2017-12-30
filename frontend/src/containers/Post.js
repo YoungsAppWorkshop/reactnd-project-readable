@@ -2,12 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import PostDetail from '../components/PostDetail'
 import PostListItem from '../components/PostListItem'
 import { deletePost, downVotePost, updatePost, upVotePost } from '../actions'
+import { LIST_ITEM, POST_DETAIL } from '../constants/PostLayouts'
 
 class Post extends Component {
   static propTypes = {
+    categories: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
+    layout: PropTypes.string.isRequired,
     post: PropTypes.object.isRequired
   }
 
@@ -22,6 +26,16 @@ class Post extends Component {
     this.setState({
       postForm: { title: post.title, body: post.body, author: post.author, category: post.category }
     })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const previousPost = this.props.post
+    const nextPost = nextProps.post
+    if (nextPost !== previousPost) {
+      this.setState({
+        postForm: { title: nextPost.title, body: nextPost.body, author: nextPost.author, category: nextPost.category }
+      })
+    }
   }
 
   toggleAlertModal = () => {
@@ -68,24 +82,44 @@ class Post extends Component {
 
   render() {
     const { isAlertModalOpen, isPostModalOpen, postForm } = this.state
-    const { categories, post } = this.props
+    const { categories, layout, post } = this.props
 
-    return (
-      <PostListItem
-        categories={categories}
-        downVotePost={this.downVotePost}
-        handleAlertModalSubmit={this.deletePost}
-        handleInputChange={this.handleInputChange}
-        handlePostModalSubmit={this.editPost}
-        isAlertModalOpen={isAlertModalOpen}
-        isPostModalOpen={isPostModalOpen}
-        post={post}
-        postForm={postForm}
-        toggleAlertModal={this.toggleAlertModal}
-        togglePostModal={this.togglePostModal}
-        upVotePost={this.upVotePost}
-      />
-    )
+    if (layout === LIST_ITEM) {
+      return (
+        <PostListItem
+          categories={categories}
+          downVotePost={this.downVotePost}
+          handleAlertModalSubmit={this.deletePost}
+          handleInputChange={this.handleInputChange}
+          handlePostModalSubmit={this.editPost}
+          isAlertModalOpen={isAlertModalOpen}
+          isPostModalOpen={isPostModalOpen}
+          post={post}
+          postForm={postForm}
+          toggleAlertModal={this.toggleAlertModal}
+          togglePostModal={this.togglePostModal}
+          upVotePost={this.upVotePost}
+        />
+      )
+    }
+    if (layout === POST_DETAIL) {
+      return (
+        <PostDetail
+          categories={categories}
+          downVotePost={this.downVotePost}
+          handleAlertModalSubmit={this.deletePost}
+          handleInputChange={this.handleInputChange}
+          handlePostModalSubmit={this.editPost}
+          isAlertModalOpen={isAlertModalOpen}
+          isPostModalOpen={isPostModalOpen}
+          post={post}
+          postForm={postForm}
+          toggleAlertModal={this.toggleAlertModal}
+          togglePostModal={this.togglePostModal}
+          upVotePost={this.upVotePost}
+        />
+      )
+    }
   }
 }
 
