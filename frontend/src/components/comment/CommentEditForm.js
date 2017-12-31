@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Col, Button, FormGroup, Input } from 'reactstrap'
 
 const CommentEditForm = ({ editFormInput, handleInputChange, handleSubmit, toggleEditable }) => (
-  <FormGroup row className="mt-3">
+  <FormGroup row className="my-2">
 
     <Col xs={12} sm={9}>
       <Input
