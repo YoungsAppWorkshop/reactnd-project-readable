@@ -23,11 +23,8 @@ const CommentListItem = ({
     <CardSubtitle>
       <small>
         <strong>{comment.author}</strong>&nbsp;|&nbsp;{ formatDate(comment.timestamp) }&nbsp; &nbsp;
-        { comment.voteScore >= 0 ? (
-          <span className="text-success"><FaThumbsOUp size={15}/> {comment.voteScore}</span>
-        ) : (
-          <span className="text-danger"><FaThumbsODown size={15}/> {comment.voteScore}</span>
-        )}
+        { comment.voteScore > 0 && <span className="text-success"><FaThumbsOUp size={15}/> {comment.voteScore}</span> }
+        { comment.voteScore < 0 && <span className="text-danger"><FaThumbsODown size={15}/> {comment.voteScore}</span> }
       </small>
     </CardSubtitle>
 

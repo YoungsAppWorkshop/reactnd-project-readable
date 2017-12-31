@@ -26,12 +26,9 @@ const PostListItem = ({
     <CardSubtitle className="posts-list-item-subtitle">
       <small>
         <strong>{post.author}</strong>&nbsp;|&nbsp;{ formatDate(post.timestamp) }&nbsp; &nbsp;
-        <span className="text-info"><FaCommentO size={15}/> {post.commentCount}</span>&nbsp;&nbsp;
-        { post.voteScore >= 0 ? (
-          <span className="text-success"><FaThumbsOUp size={15}/> {post.voteScore}</span>
-        ) : (
-          <span className="text-danger"><FaThumbsODown size={15}/> {post.voteScore}</span>
-        )}
+        { post.commentCount > 0 && <span className="text-info mr-2"><FaCommentO size={15}/> {post.commentCount}</span> }
+        { post.voteScore > 0 && <span className="text-success"><FaThumbsOUp size={15}/> {post.voteScore}</span> }
+        { post.voteScore < 0 && <span className="text-danger"><FaThumbsODown size={15}/> {post.voteScore}</span> }
       </small>
     </CardSubtitle>
 
