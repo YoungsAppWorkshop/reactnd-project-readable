@@ -19,6 +19,7 @@ const PostDetail = ({
 }) => (
 
   <section className="post-content">
+
     <h3 className="post-title title mt-5">
       {post.title}
       <ButtonGroup className="post-small-buttons float-right">
@@ -58,6 +59,7 @@ const PostDetail = ({
       modalType={DELETE_POST}
       toggleModal={toggleAlertModal}
     />
+
   </section>
 
 )

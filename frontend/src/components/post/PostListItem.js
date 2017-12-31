@@ -20,9 +20,11 @@ const PostListItem = ({
 }) => (
 
   <Card body className="posts-list-item mt-2">
+
     <CardTitle className="posts-list-item-title title">
       <Link to={`/${post.category}/${post.id}`}>{post.title}</Link>
     </CardTitle>
+
     <CardSubtitle className="posts-list-item-subtitle">
       <small>
         <strong>{post.author}</strong>&nbsp;|&nbsp;{ formatDate(post.timestamp) }&nbsp; &nbsp;
@@ -56,8 +58,8 @@ const PostListItem = ({
       modalType={DELETE_POST}
       toggleModal={toggleAlertModal}
     />
-  </Card>
 
+  </Card>
 )
 
 PostListItem.propTypes = {

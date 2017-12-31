@@ -9,13 +9,18 @@ const BODY_TEXT = {
 }
 
 const AlertModal = ({ handleSubmit, isModalOpen, modalType, toggleModal }) => (
+
   <Modal isOpen={isModalOpen} toggle={toggleModal}>
+
     <ModalHeader toggle={toggleModal}>Warning</ModalHeader>
+
     <ModalBody> { BODY_TEXT[modalType] } <br/> It cannot be undone.</ModalBody>
+
     <ModalFooter>
       <Button color="danger" onClick={handleSubmit}>Delete</Button>{' '}
       <Button color="secondary" onClick={toggleModal}>Cancel</Button>
     </ModalFooter>
+
   </Modal>
 )
 

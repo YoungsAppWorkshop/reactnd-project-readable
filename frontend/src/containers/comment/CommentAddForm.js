@@ -42,12 +42,14 @@ class CommentAddForm extends Component {
 
     return (
       <FormGroup row className="mt-1">
+
         <Col xs={12} sm={9}>
           <Input
             className="h-100" type="textarea" name="body" placeholder="Add Comment here..."
             value={commentForm.body} onChange={this.handleInputChange}
           />
         </Col>
+
         <Col xs={12} sm={3}>
           <Input
             className="my-2 mt-sm-0" type="text" name="author" placeholder="Author"
@@ -55,6 +57,7 @@ class CommentAddForm extends Component {
           />
           <Button className="w-100" color="outline-success" onClick={this.addNewComment}>Submit</Button>
         </Col>
+
       </FormGroup>
     )
   }

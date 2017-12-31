@@ -17,9 +17,11 @@ const CommentListItem = ({
 }) => (
 
   <Card body className="comments-list-item mt-2 p-3">
+
     <CardText className="title mb-2">
       {comment.body}
     </CardText>
+
     <CardSubtitle>
       <small>
         <strong>{comment.author}</strong>&nbsp;|&nbsp;{ formatDate(comment.timestamp) }&nbsp; &nbsp;
@@ -41,6 +43,7 @@ const CommentListItem = ({
       modalType={DELETE_COMMENT}
       toggleModal={toggleAlertModal}
     />
+
   </Card>
 )
 

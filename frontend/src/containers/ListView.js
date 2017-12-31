@@ -87,8 +87,11 @@ class ListView extends Component {
 
     return (
       <Container className="main">
+
         <Row>
+
           <Col sm="12" md={{ size: 8, offset: 2 }}>
+
             <h3 className="category title my-5">
               { selectedCategory ? capitalize(selectedCategory) : 'All Categories'}
             </h3>
@@ -112,8 +115,11 @@ class ListView extends Component {
               selectRef={el => this.categorySelector = el }
               toggleModal={this.togglePostModal}
             />
+
           </Col>
+
         </Row>
+
       </Container>
     )
   }

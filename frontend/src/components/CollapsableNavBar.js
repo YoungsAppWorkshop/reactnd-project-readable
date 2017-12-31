@@ -7,15 +7,23 @@ import { capitalize } from '../utils/helpers'
 const CollapsableNavBar = ({
   categories, isCollapsedNavBarOpen, toggleCollapsedNavBar
 }) => (
+
   <Navbar id="header" color="faded" light expand="md">
+
     <Container>
+
       <NavbarBrand tag={Link} to="/">Readable</NavbarBrand>
+
       <NavbarToggler onClick={toggleCollapsedNavBar} />
+
       <Collapse isOpen={isCollapsedNavBarOpen} navbar>
+
         <Nav className="ml-auto" navbar>
+
           <NavItem>
             <NavLink tag={Link} to="/">All Categories</NavLink>
           </NavItem>
+
           {categories.map((category) => (
             <NavItem key={category.path}>
               <NavLink tag={Link} to={`/${category.path}`}>
@@ -23,9 +31,13 @@ const CollapsableNavBar = ({
               </NavLink>
             </NavItem>
           ))}
+
         </Nav>
+
       </Collapse>
+
     </Container>
+
   </Navbar>
 )
 

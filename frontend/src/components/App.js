@@ -9,13 +9,17 @@ import '../styles/App.css'
 
 const App = () => (
   <div id="app" className="app">
+
     <Header />
+
     <Switch>
       <Route path="/:category/:post_id" component={PostDetailView}/>
       <Route path="/:category" component={ListView}/>
       <Route exact path="/" component={ListView}/>
     </Switch>
+
     <Footer />
+
   </div>
 )
 

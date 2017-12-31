@@ -28,13 +28,17 @@ class PostDetailView extends Component {
 
     return (
       <Container className="main">
+
         <Row>
+
           <Col sm="12" md={{ size: 8, offset: 2 }}>
             <Post layout={POST_DETAIL} post={post} />
             <CommentsList comments={filteredComments}/>
             <CommentAddForm />
           </Col>
+
         </Row>
+
       </Container>
     )
   }

@@ -15,10 +15,15 @@ const PostModal = ({
     categories, defaultCategory, handleInputChange, handleSubmit,
     isModalOpen, modalType, postForm, selectRef, toggleModal
 }) => (
+
   <Modal isOpen={isModalOpen} toggle={toggleModal} className="modal-lg">
+
     <ModalHeader toggle={toggleModal}>{MODAL_TITLE[modalType]}</ModalHeader>
+
     <ModalBody>
+
       <Form>
+
         <FormGroup row>
           <Label sm={2}>Title</Label>
           <Col sm={10}>
@@ -26,6 +31,7 @@ const PostModal = ({
               value={postForm.title} onChange={handleInputChange} />
           </Col>
         </FormGroup>
+
         <FormGroup row>
           <Label sm={2}>Author</Label>
           <Col sm={10}>
@@ -34,6 +40,7 @@ const PostModal = ({
               disabled={modalType === EDIT_POST} />
           </Col>
         </FormGroup>
+
         <FormGroup row>
           <Label sm={2}>Category</Label>
           <Col sm={10}>
@@ -46,6 +53,7 @@ const PostModal = ({
             </Input>
           </Col>
         </FormGroup>
+
         <FormGroup row>
           <Label sm={2}>Content</Label>
           <Col sm={10}>
@@ -53,12 +61,16 @@ const PostModal = ({
               value={postForm.body} onChange={handleInputChange}/>
           </Col>
         </FormGroup>
+
       </Form>
+
     </ModalBody>
+
     <ModalFooter>
       <Button color="primary" onClick={handleSubmit}>Submit</Button>{' '}
       <Button color="secondary" onClick={toggleModal}>Cancel</Button>
     </ModalFooter>
+
   </Modal>
 )
 
