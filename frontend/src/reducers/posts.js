@@ -58,6 +58,22 @@ const posts = (state = initialState, action) => {
         ...state,
         selectedPost: state.items[action.postId]
       }
+    case types.INCREASE_COMMENT_COUNT:
+      return {
+        ...state,
+        selectedPost: {
+          ...state.selectedPost,
+          commentCount: ++state.selectedPost.commentCount
+        }
+      }
+    case types.DECREASE_COMMENT_COUNT:
+      return {
+        ...state,
+        selectedPost: {
+          ...state.selectedPost,
+          commentCount: --state.selectedPost.commentCount
+        }
+      }
     default:
       return state
   }

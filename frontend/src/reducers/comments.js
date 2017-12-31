@@ -26,6 +26,7 @@ const comments = (state = initialState, action) => {
     case types.RECEIVE_UPVOTE_COMMENT :
     case types.RECEIVE_DOWNVOTE_COMMENT :
     case types.RECEIVE_UPDATE_COMMENT :
+    case types.RECEIVE_DELETE_COMMENT :
       return {
         ...state,
         isFetching: false,

@@ -115,12 +115,14 @@ export const downVoteComment = commentId => dispatch => {
   })
 }
 
+const decreaseCommentCount = postId => ({ type: types.DECREASE_COMMENT_COUNT, postId })
 const requestDeleteComment = () => ({ type: types.REQUEST_DELETE_COMMENT })
 const receiveDeleteComment = comment => ({ type: types.RECEIVE_DELETE_COMMENT, comment })
 export const deleteComment = commentId => dispatch => {
   dispatch(requestDeleteComment())
   return API.deleteComment(commentId).then(comment => {
     dispatch(receiveDeleteComment(comment))
+    dispatch(decreaseCommentCount(comment.parentId))
   })
 }
 
@@ -133,11 +135,13 @@ export const updateComment = comment => dispatch => {
   })
 }
 
+const increaseCommentCount = postId => ({ type: types.INCREASE_COMMENT_COUNT, postId })
 const requestAddComment = () => ({ type: types.REQUEST_ADD_COMMENT })
 const receiveAddComment = comment => ({ type: types.RECEIVE_ADD_COMMENT, comment })
 export const addComment = comment => dispatch => {
   dispatch(requestAddComment())
   return API.addComment(comment).then(comment => {
     dispatch(receiveAddComment(comment))
+    dispatch(increaseCommentCount(comment.parentId))
   })
 }
