@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import CommentEditForm from '../../components/comment/CommentEditForm'
 import CommentListItem from '../../components/comment/CommentListItem'
 import { deleteComment, downVoteComment, updateComment, upVoteComment } from '../../actions'
+import { validate } from '../../utils/helpers'
 
 class Comment extends Component {
   static propTypes = {
@@ -15,7 +16,8 @@ class Comment extends Component {
   state = {
     editable: false,
     editFormInput: '',
-    isAlertModalOpen: false
+    isAlertModalOpen: false,
+    isInputValid: null
   }
 
   componentDidMount = () => {
@@ -43,28 +45,41 @@ class Comment extends Component {
     this.setState({ isAlertModalOpen: false })
   }
 
+  handleCancel = () => {
+    const { comment } = this.props
+    this.setState({ editFormInput: comment.body, isInputValid: null })
+    this.toggleEditable()
+  }
+
   handleInputChange = event => { this.setState({ editFormInput: event.target.value })}
 
   toggleEditable = () => {
     this.setState((prevState) => ({ editable: !prevState.editable }))
   }
 
-  editComment = () => {
+  validateInputValues = () => {
     const { editFormInput } = this.state
+    this.setState({ isInputValid: validate(editFormInput) }, this.editComment)
+  }
+
+  editComment = () => {
+    const { editFormInput, isInputValid } = this.state
     const { comment, dispatch } = this.props
-    const timestamp = Date.now()
-    const edittedComment = {
-      id: comment.id,
-      body: editFormInput,
-      timestamp
+    if (isInputValid) {
+      const timestamp = Date.now()
+      const edittedComment = {
+        id: comment.id,
+        body: editFormInput,
+        timestamp
+      }
+      dispatch(updateComment(edittedComment))
+      this.setState({ editable: false, isInputValid: null })
     }
-    dispatch(updateComment(edittedComment))
-    this.setState({ editable: false })
   }
 
 
   render () {
-    const { editable, editFormInput, isAlertModalOpen } = this.state
+    const { editable, editFormInput, isAlertModalOpen, isInputValid } = this.state
     const { comment } = this.props
 
     if (!editable) {
@@ -83,9 +98,10 @@ class Comment extends Component {
       return (
         <CommentEditForm
           editFormInput={editFormInput}
+          handleCancel={this.handleCancel}
           handleInputChange={this.handleInputChange}
-          handleSubmit={this.editComment}
-          toggleEditable={this.toggleEditable}
+          handleSubmit={this.validateInputValues}
+          isInputValid={isInputValid}
         />
       )
     }

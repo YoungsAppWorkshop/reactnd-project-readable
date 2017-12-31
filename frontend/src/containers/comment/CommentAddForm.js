@@ -5,6 +5,7 @@ import uuidv1 from 'uuid/v1'
 import { Button, Col, FormGroup, Input } from 'reactstrap'
 
 import { addComment } from '../../actions'
+import { validateInputs } from '../../utils/helpers'
 
 class CommentAddForm extends Component {
   static propTypes = {
@@ -13,7 +14,8 @@ class CommentAddForm extends Component {
   }
 
   state = {
-    commentForm: { body: '', author: '' }
+    commentForm: { body: '', author: '' },
+    isInputValid: { body: null, author: null }
   }
 
   handleInputChange = (event) => {
@@ -22,23 +24,35 @@ class CommentAddForm extends Component {
     this.setState({ commentForm: { ...this.state.commentForm, [key]: value }})
   }
 
-  addNewComment = (event) => {
-    event.preventDefault()
+  validateInputValues = () => {
     const { commentForm } = this.state
+    const isInputValid = validateInputs(commentForm)
+    this.setState({ isInputValid }, this.addNewComment)
+  }
+
+  addNewComment = () => {
+    const { commentForm, isInputValid } = this.state
     const { dispatch, post } = this.props
-    const id = uuidv1()
-    const timestamp = Date.now()
-    let newComment = {
-      id, timestamp, parentId: post.id,
-      body: commentForm.body,
-      author: commentForm.author
+
+    const isFormValid = Object.values(isInputValid).reduce((a, c) => a && c)
+    if (isFormValid) {
+      const id = uuidv1()
+      const timestamp = Date.now()
+      let newComment = {
+        id, timestamp, parentId: post.id,
+        body: commentForm.body,
+        author: commentForm.author
+      }
+      dispatch(addComment(newComment))
+      this.setState({
+        commentForm: { body: '', author: '' },
+        isInputValid: { body: null, author: null }
+      })
     }
-    dispatch(addComment(newComment))
-    this.setState({ commentForm: { body: '', author: '' } })
   }
 
   render() {
-    const { commentForm } = this.state
+    const { commentForm, isInputValid } = this.state
 
     return (
       <FormGroup row className="mt-1">
@@ -46,16 +60,16 @@ class CommentAddForm extends Component {
         <Col xs={12} sm={9}>
           <Input
             className="h-100" type="textarea" name="body" placeholder="Add Comment here..."
-            value={commentForm.body} onChange={this.handleInputChange}
+            value={commentForm.body} onChange={this.handleInputChange} valid={isInputValid.body}
           />
         </Col>
 
         <Col xs={12} sm={3}>
           <Input
             className="my-2 mt-sm-0" type="text" name="author" placeholder="Author"
-            value={commentForm.author} onChange={this.handleInputChange}
+            value={commentForm.author} onChange={this.handleInputChange} valid={isInputValid.author}
           />
-          <Button className="w-100" color="outline-success" onClick={this.addNewComment}>Submit</Button>
+          <Button className="w-100" color="outline-success" onClick={this.validateInputValues}>Submit</Button>
         </Col>
 
       </FormGroup>
