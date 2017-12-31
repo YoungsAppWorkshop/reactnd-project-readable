@@ -8,28 +8,21 @@ const initialState = {
 
 const posts = (state = initialState, action) => {
   switch (action.type) {
-    case types.REQUEST_GET_POSTS :
-    case types.REQUEST_GET_POST :
-    case types.REQUEST_ADD_POST :
-    case types.REQUEST_UPDATE_POST :
-    case types.REQUEST_UPVOTE_POST :
-    case types.REQUEST_DOWNVOTE_POST :
-    case types.REQUEST_DELETE_POST :
+    case types.DECREASE_COMMENT_COUNT:
       return {
         ...state,
-        isFetching: true
+        selectedPost: {
+          ...state.selectedPost,
+          commentCount: --state.selectedPost.commentCount
+        }
       }
-    case types.RECEIVE_GET_POSTS :
+    case types.INCREASE_COMMENT_COUNT:
       return {
         ...state,
-        isFetching: false,
-        items: action.posts
-      }
-    case types.RECEIVE_GET_POST :
-      return {
-        ...state,
-        isFetching: false,
-        selectedPost: action.post
+        selectedPost: {
+          ...state.selectedPost,
+          commentCount: ++state.selectedPost.commentCount
+        }
       }
     case types.RECEIVE_ADD_POST :
       return {
@@ -40,10 +33,22 @@ const posts = (state = initialState, action) => {
           [action.post.id]: action.post
         }
       }
+    case types.RECEIVE_GET_POST :
+      return {
+        ...state,
+        isFetching: false,
+        selectedPost: action.post
+      }
+    case types.RECEIVE_GET_POSTS :
+      return {
+        ...state,
+        isFetching: false,
+        items: action.posts
+      }
+    case types.RECEIVE_DELETE_POST :
+    case types.RECEIVE_DOWNVOTE_POST :
     case types.RECEIVE_UPDATE_POST :
     case types.RECEIVE_UPVOTE_POST :
-    case types.RECEIVE_DOWNVOTE_POST :
-    case types.RECEIVE_DELETE_POST :
       return {
         ...state,
         isFetching: false,
@@ -53,26 +58,21 @@ const posts = (state = initialState, action) => {
         },
         selectedPost: action.post
       }
+    case types.REQUEST_ADD_POST :
+    case types.REQUEST_DELETE_POST :
+    case types.REQUEST_DOWNVOTE_POST :
+    case types.REQUEST_GET_POST :
+    case types.REQUEST_GET_POSTS :
+    case types.REQUEST_UPDATE_POST :
+    case types.REQUEST_UPVOTE_POST :
+      return {
+        ...state,
+        isFetching: true
+      }
     case types.SELECT_POST :
       return {
         ...state,
         selectedPost: state.items[action.postId]
-      }
-    case types.INCREASE_COMMENT_COUNT:
-      return {
-        ...state,
-        selectedPost: {
-          ...state.selectedPost,
-          commentCount: ++state.selectedPost.commentCount
-        }
-      }
-    case types.DECREASE_COMMENT_COUNT:
-      return {
-        ...state,
-        selectedPost: {
-          ...state.selectedPost,
-          commentCount: --state.selectedPost.commentCount
-        }
       }
     default:
       return state
