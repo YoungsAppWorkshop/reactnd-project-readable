@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Comment from '../containers/Comment'
+import Comment from '../../containers/comment/Comment'
 
 const CommentsList = ({ comments }) => (
   <div className="comments-list mb-5">

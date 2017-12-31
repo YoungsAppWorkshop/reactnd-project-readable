@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { formatDate } from '../utils/helpers'
+import { formatDate } from '../../utils/helpers'
 
-import AlertModal from '../components/AlertModal'
-import { DELETE_COMMENT } from '../constants/ModalTypes'
+import AlertModal from '../modals/AlertModal'
+import { DELETE_COMMENT } from '../../constants/ModalTypes'
 
 import { Card, Button, CardText, CardSubtitle, ButtonGroup } from 'reactstrap'
 import FaTrash from 'react-icons/lib/fa/trash'

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import uuidv1 from 'uuid/v1'
 import { Button, Col, FormGroup, Input } from 'reactstrap'
 
-import { addComment } from '../actions'
+import { addComment } from '../../actions'
 
 class CommentAddForm extends Component {
   static propTypes = {

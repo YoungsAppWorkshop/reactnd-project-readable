@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import PostDetail from '../components/PostDetail'
-import PostListItem from '../components/PostListItem'
-import { deletePost, downVotePost, updatePost, upVotePost } from '../actions'
-import { LIST_ITEM, POST_DETAIL } from '../constants/PostLayouts'
+import PostDetail from '../../components/post/PostDetail'
+import PostListItem from '../../components/post/PostListItem'
+import { deletePost, downVotePost, updatePost, upVotePost } from '../../actions'
+import { LIST_ITEM, POST_DETAIL } from '../../constants/PostLayouts'
 
 class Post extends Component {
   static propTypes = {

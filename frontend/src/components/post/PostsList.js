@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Post from '../containers/Post'
-import { LIST_ITEM } from '../constants/PostLayouts'
+import Post from '../../containers/post/Post'
+import { LIST_ITEM } from '../../constants/PostLayouts'
 
 const PostsList = ({ posts }) => (
   <section className="posts-list">

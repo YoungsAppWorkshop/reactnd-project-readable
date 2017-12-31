@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ADD_POST, EDIT_POST } from '../constants/ModalTypes'
+import { ADD_POST, EDIT_POST } from '../../constants/ModalTypes'
 import {
   Button, Col, Form, FormGroup, Input, Label,
   Modal, ModalBody, ModalFooter, ModalHeader

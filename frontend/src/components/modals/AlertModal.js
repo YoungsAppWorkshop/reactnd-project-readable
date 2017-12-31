@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { DELETE_COMMENT, DELETE_POST } from '../constants/ModalTypes'
+import { DELETE_COMMENT, DELETE_POST } from '../../constants/ModalTypes'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 const BODY_TEXT = {

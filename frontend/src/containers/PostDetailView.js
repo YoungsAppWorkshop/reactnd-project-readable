@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Col, Container, Row } from 'reactstrap'
 
-import CommentAddForm from '../containers/CommentAddForm'
-import CommentsList from '../components/CommentsList'
-import Post from '../containers/Post'
+import CommentAddForm from '../containers/comment/CommentAddForm'
+import CommentsList from '../components/comment/CommentsList'
+import Post from '../containers/post/Post'
 import { fetchPostIfNeeded, getComments } from '../actions'
 import { POST_DETAIL } from '../constants/PostLayouts'
 

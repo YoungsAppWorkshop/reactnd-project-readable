@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { formatDate } from '../utils/helpers'
+import { formatDate } from '../../utils/helpers'
 
-import AlertModal from '../components/AlertModal'
-import PostModal from '../components/PostModal'
-import { DELETE_POST, EDIT_POST } from '../constants/ModalTypes'
+import AlertModal from '../modals/AlertModal'
+import PostModal from '../modals/PostModal'
+import { DELETE_POST, EDIT_POST } from '../../constants/ModalTypes'
 
 import { Card, Button, CardTitle, CardSubtitle, ButtonGroup } from 'reactstrap'
 import FaTrash from 'react-icons/lib/fa/trash'

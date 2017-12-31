@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import CommentEditForm from '../components/CommentEditForm'
-import CommentListItem from '../components/CommentListItem'
-import { deleteComment, downVoteComment, updateComment, upVoteComment } from '../actions'
+import CommentEditForm from '../../components/comment/CommentEditForm'
+import CommentListItem from '../../components/comment/CommentListItem'
+import { deleteComment, downVoteComment, updateComment, upVoteComment } from '../../actions'
 
 class Comment extends Component {
   static propTypes = {

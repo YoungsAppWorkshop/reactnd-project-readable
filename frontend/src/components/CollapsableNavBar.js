@@ -1,10 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {
-  Collapse, Container,
-  Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink
-} from 'reactstrap'
+import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap'
 import { capitalize } from '../utils/helpers'
 
 const CollapsableNavBar = ({
