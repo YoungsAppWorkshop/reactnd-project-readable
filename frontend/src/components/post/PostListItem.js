@@ -15,8 +15,8 @@ import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
 import FaCommentO from 'react-icons/lib/fa/comment-o'
 
 const PostListItem = ({
-  categories, downVotePost, handleAlertModalSubmit, handleInputChange, handleFormModalSubmit,
-  isAlertModalOpen, isFormModalOpen, post, postForm, toggleAlertModal, toggleFormModal, upVotePost
+  categories, downVotePost, handleAlertModalSubmit, handleInputChange, handleFormModalSubmit, isAlertModalOpen,
+  isFormModalOpen, isInputValid, post, postForm, toggleAlertModal, toggleFormModal, upVotePost
 }) => (
 
   <Card body className="posts-list-item mt-2">
@@ -47,6 +47,7 @@ const PostListItem = ({
       handleInputChange={handleInputChange}
       handleSubmit={handleFormModalSubmit}
       isModalOpen={isFormModalOpen}
+      isInputValid={isInputValid}
       modalType={EDIT_POST}
       postForm={postForm}
       toggleModal={toggleFormModal}
@@ -70,6 +71,7 @@ PostListItem.propTypes = {
   handleFormModalSubmit: PropTypes.func.isRequired,
   isAlertModalOpen: PropTypes.bool.isRequired,
   isFormModalOpen: PropTypes.bool.isRequired,
+  isInputValid: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   postForm: PropTypes.object.isRequired,
   toggleAlertModal: PropTypes.func.isRequired,

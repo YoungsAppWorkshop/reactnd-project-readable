@@ -9,7 +9,7 @@ import PostsList from '../components/post/PostsList'
 import FormModal from '../components/modals/FormModal'
 import { ADD_POST } from '../constants/ModalTypes'
 import { selectCategory, getPosts, addPost } from '../actions'
-import { capitalize } from '../utils/helpers'
+import { capitalize, validateInputs } from '../utils/helpers'
 
 const SORT_BY = {
   'MOST_RECENT': (post1, post2) => post2.timestamp - post1.timestamp,
@@ -31,14 +31,15 @@ class ListView extends Component {
   state = {
     postsOrder: 'MOST_RECENT',
     isFormModalOpen: false,
-    postForm: { title: '', body: '', author: '', category: '' }
+    postForm: { title: '', body: '', author: '' },
+    isInputValid: { title: null, body: null, author: null }
   }
 
   componentDidMount() {
     const selectedCategory = this.props.match.params.category
     this.props.dispatch(selectCategory(selectedCategory))
     this.props.dispatch(getPosts(selectedCategory))
-    this.setState({ postForm: { category: selectedCategory }})
+    this.setState({ postForm: { ...this.state.postForm, category: selectedCategory }})
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,7 +48,7 @@ class ListView extends Component {
     if (nextCategory !== previousCategory) {
       this.props.dispatch(selectCategory(nextCategory))
       this.props.dispatch(getPosts(nextCategory))
-      this.setState({ postForm: { category: nextCategory }})
+      this.setState({ postForm: { ...this.state.postForm, category: nextCategory }})
     }
   }
 
@@ -65,25 +66,35 @@ class ListView extends Component {
     this.setState({ postForm: { ...this.state.postForm, [key]: value }})
   }
 
-  handleSubmit = () => {
-    const { postForm } = this.state
+  validateInputValues = () => {
+    const formInputs = Object.assign({}, this.state.postForm)
+    delete formInputs.category
+    const isInputValid = validateInputs(formInputs)
+    this.setState({ isInputValid }, this.addPost)
+  }
+
+  addPost = () => {
+    const { isInputValid, postForm } = this.state
     const { categories, dispatch } = this.props
 
-    const id = uuidv1()
-    const timestamp = Date.now()
-    const newPost = {
-      id, timestamp, title: postForm.title, body: postForm.body, author: postForm.author,
-      category: postForm.category || categories[0].path
+    const isFormValid = Object.values(isInputValid).reduce((a, c) => a && c)
+    if (isFormValid) {
+      const id = uuidv1()
+      const timestamp = Date.now()
+      const newPost = {
+        id, timestamp, title: postForm.title, body: postForm.body, author: postForm.author,
+        category: postForm.category || categories[0].path
+      }
+      dispatch(addPost(newPost))
+      this.setState({
+        postForm: { title: '', body: '', author: '' },
+        isFormModalOpen: false
+      })
     }
-    dispatch(addPost(newPost))
-    this.setState({
-      postForm: { title: '', body: '', author: '' },
-      isFormModalOpen: false
-    })
   }
 
   render() {
-    const { postsOrder, isFormModalOpen, postForm } = this.state
+    const { postsOrder, isFormModalOpen, isInputValid, postForm } = this.state
     const { selectedCategory, categories, posts } = this.props
     let sortedPosts = Array.from(posts).filter(post => !post.deleted).sort(SORT_BY[postsOrder])
 
@@ -111,8 +122,9 @@ class ListView extends Component {
               defaultCategory={selectedCategory}
               modalType={ADD_POST}
               handleInputChange={this.handleInputChange}
-              handleSubmit={this.handleSubmit}
+              handleSubmit={this.validateInputValues}
               isModalOpen={isFormModalOpen}
+              isInputValid={isInputValid}
               postForm={postForm}
               toggleModal={this.toggleFormModal}
             />

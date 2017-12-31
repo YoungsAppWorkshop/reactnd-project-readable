@@ -11,3 +11,12 @@ export function formatDate (timestamp) {
   const d = new Date(timestamp).toDateString()
   return d.slice(4, 10) + ',' + d.slice(10)
 }
+
+export const validate = (inputStr)  => (
+  (typeof inputStr === 'string') && (inputStr.trim() !== '')
+)
+
+export const validateInputs = form => Object.keys(form).reduce((a, c) => {
+    a[c] = validate(form[c])
+    return a
+}, {})

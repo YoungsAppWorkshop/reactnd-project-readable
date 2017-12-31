@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ADD_POST, EDIT_POST } from '../../constants/ModalTypes'
-import { Button, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
+import { Button, Col, Form, FormFeedback, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
 import { capitalize } from '../../utils/helpers'
 
 const MODAL_TITLE = {
@@ -11,7 +11,7 @@ const MODAL_TITLE = {
 
 const FormModal = ({
     categories, defaultCategory, handleInputChange, handleSubmit,
-    isModalOpen, modalType, postForm, toggleModal
+    isModalOpen, isInputValid, modalType, postForm, toggleModal
 }) => (
 
   <Modal isOpen={isModalOpen} toggle={toggleModal} className="modal-lg">
@@ -26,7 +26,8 @@ const FormModal = ({
           <Label sm={2}>Title</Label>
           <Col sm={10}>
             <Input type="text" name="title" placeholder="Post title here..."
-              value={postForm.title} onChange={handleInputChange} />
+              value={postForm.title} onChange={handleInputChange} valid={isInputValid.title}/>
+            <FormFeedback>Post title is Required</FormFeedback>
           </Col>
         </FormGroup>
 
@@ -35,7 +36,8 @@ const FormModal = ({
           <Col sm={10}>
             <Input type="text" name="author" placeholder="Author name"
               value={postForm.author} onChange={handleInputChange}
-              disabled={modalType === EDIT_POST} />
+              valid={isInputValid.author} disabled={modalType === EDIT_POST} />
+            <FormFeedback>Author name is Required</FormFeedback>
           </Col>
         </FormGroup>
 
@@ -57,7 +59,7 @@ const FormModal = ({
           <Label sm={2}>Content</Label>
           <Col sm={10}>
             <Input type="textarea" name="body" rows="10" placeholder="Post Contents Here..."
-              value={postForm.body} onChange={handleInputChange}/>
+              value={postForm.body} valid={isInputValid.body} onChange={handleInputChange}/>
           </Col>
         </FormGroup>
 
@@ -79,6 +81,7 @@ FormModal.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
+  isInputValid: PropTypes.object.isRequired,
   modalType: PropTypes.string.isRequired,
   postForm: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired
