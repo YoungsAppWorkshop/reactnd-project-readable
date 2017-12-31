@@ -31,20 +31,23 @@ class ListView extends Component {
   state = {
     postsOrder: 'MOST_RECENT',
     isPostModalOpen: false,
-    postForm: { title: '', body: '', author: '' }
+    postForm: { title: '', body: '', author: '', category: '' }
   }
 
   componentDidMount() {
     const selectedCategory = this.props.match.params.category
     this.props.dispatch(selectCategory(selectedCategory))
     this.props.dispatch(getPosts(selectedCategory))
+    this.setState({ postForm: { category: selectedCategory }})
   }
 
   componentWillReceiveProps(nextProps) {
     const previousCategory = this.props.match.params.category
-    if (nextProps.match.params.category !== previousCategory) {
-      this.props.dispatch(selectCategory(nextProps.match.params.category))
-      this.props.dispatch(getPosts(nextProps.match.params.category))
+    const nextCategory = nextProps.match.params.category
+    if (nextCategory !== previousCategory) {
+      this.props.dispatch(selectCategory(nextCategory))
+      this.props.dispatch(getPosts(nextCategory))
+      this.setState({ postForm: { category: nextCategory }})
     }
   }
 
@@ -64,14 +67,13 @@ class ListView extends Component {
 
   handleSubmit = () => {
     const { postForm } = this.state
-    const { dispatch } = this.props
+    const { categories, dispatch } = this.props
 
     const id = uuidv1()
     const timestamp = Date.now()
-    const category = this.categorySelector.value
     const newPost = {
-      id, timestamp, title: postForm.title,
-      body: postForm.body, author: postForm.author, category
+      id, timestamp, title: postForm.title, body: postForm.body, author: postForm.author,
+      category: postForm.category || categories[0].path
     }
     dispatch(addPost(newPost))
     this.setState({
@@ -112,7 +114,6 @@ class ListView extends Component {
               handleSubmit={this.handleSubmit}
               isModalOpen={isPostModalOpen}
               postForm={postForm}
-              selectRef={el => this.categorySelector = el }
               toggleModal={this.togglePostModal}
             />
 

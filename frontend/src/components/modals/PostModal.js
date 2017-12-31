@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ADD_POST, EDIT_POST } from '../../constants/ModalTypes'
-import {
-  Button, Col, Form, FormGroup, Input, Label,
-  Modal, ModalBody, ModalFooter, ModalHeader
-} from 'reactstrap'
+import { Button, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
+import { capitalize } from '../../utils/helpers'
 
 const MODAL_TITLE = {
   [ADD_POST]: 'Add a New Post',
@@ -13,7 +11,7 @@ const MODAL_TITLE = {
 
 const PostModal = ({
     categories, defaultCategory, handleInputChange, handleSubmit,
-    isModalOpen, modalType, postForm, selectRef, toggleModal
+    isModalOpen, modalType, postForm, toggleModal
 }) => (
 
   <Modal isOpen={isModalOpen} toggle={toggleModal} className="modal-lg">
@@ -44,11 +42,12 @@ const PostModal = ({
         <FormGroup row>
           <Label sm={2}>Category</Label>
           <Col sm={10}>
-            <Input type="select" name="category" defaultValue={defaultCategory}
-              onChange={handleInputChange} ref={selectRef}
+            <Input type="select" name="category" value={postForm.category}
+              onChange={handleInputChange}
               disabled={modalType === EDIT_POST } >
+              <option disabled>Categories:</option>
               {categories.map((category) => (
-                <option key={category.path} value={category.name}>{category.name}</option>
+                <option key={category.path} value={category.path}>{ capitalize(category.name) }</option>
               ))}
             </Input>
           </Col>
@@ -82,7 +81,6 @@ PostModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string.isRequired,
   postForm: PropTypes.object.isRequired,
-  selectRef: PropTypes.func,
   toggleModal: PropTypes.func.isRequired
 }
 
