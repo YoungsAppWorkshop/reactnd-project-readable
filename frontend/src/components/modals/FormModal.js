@@ -9,7 +9,7 @@ const MODAL_TITLE = {
   [EDIT_POST]: 'Edit Post'
 }
 
-const PostModal = ({
+const FormModal = ({
     categories, defaultCategory, handleInputChange, handleSubmit,
     isModalOpen, modalType, postForm, toggleModal
 }) => (
@@ -73,7 +73,7 @@ const PostModal = ({
   </Modal>
 )
 
-PostModal.propTypes = {
+FormModal.propTypes = {
   categories: PropTypes.array.isRequired,
   defaultCategory: PropTypes.string,
   handleInputChange: PropTypes.func.isRequired,
@@ -84,4 +84,4 @@ PostModal.propTypes = {
   toggleModal: PropTypes.func.isRequired
 }
 
-export default PostModal
+export default FormModal

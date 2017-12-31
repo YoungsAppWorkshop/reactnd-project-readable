@@ -6,7 +6,7 @@ import uuidv1 from 'uuid/v1'
 import { Col, Container, Row } from 'reactstrap'
 import PostsListController from '../components/post/PostsListController'
 import PostsList from '../components/post/PostsList'
-import PostModal from '../components/modals/PostModal'
+import FormModal from '../components/modals/FormModal'
 import { ADD_POST } from '../constants/ModalTypes'
 import { selectCategory, getPosts, addPost } from '../actions'
 import { capitalize } from '../utils/helpers'
@@ -30,7 +30,7 @@ class ListView extends Component {
 
   state = {
     postsOrder: 'MOST_RECENT',
-    isPostModalOpen: false,
+    isFormModalOpen: false,
     postForm: { title: '', body: '', author: '', category: '' }
   }
 
@@ -53,9 +53,9 @@ class ListView extends Component {
 
   sortPosts = (postsOrder) => this.setState({ postsOrder })
 
-  togglePostModal = () => {
+  toggleFormModal = () => {
     this.setState((prevState) => ({
-      isPostModalOpen: !prevState.isPostModalOpen
+      isFormModalOpen: !prevState.isFormModalOpen
     }))
   }
 
@@ -78,12 +78,12 @@ class ListView extends Component {
     dispatch(addPost(newPost))
     this.setState({
       postForm: { title: '', body: '', author: '' },
-      isPostModalOpen: false
+      isFormModalOpen: false
     })
   }
 
   render() {
-    const { postsOrder, isPostModalOpen, postForm } = this.state
+    const { postsOrder, isFormModalOpen, postForm } = this.state
     const { selectedCategory, categories, posts } = this.props
     let sortedPosts = Array.from(posts).filter(post => !post.deleted).sort(SORT_BY[postsOrder])
 
@@ -102,19 +102,19 @@ class ListView extends Component {
 
             <PostsListController
               postsOrder={postsOrder}
-              toggleModal={this.togglePostModal}
+              toggleModal={this.toggleFormModal}
               sortPosts={this.sortPosts}
             />
 
-            <PostModal
+            <FormModal
               categories={categories}
               defaultCategory={selectedCategory}
               modalType={ADD_POST}
               handleInputChange={this.handleInputChange}
               handleSubmit={this.handleSubmit}
-              isModalOpen={isPostModalOpen}
+              isModalOpen={isFormModalOpen}
               postForm={postForm}
-              toggleModal={this.togglePostModal}
+              toggleModal={this.toggleFormModal}
             />
 
           </Col>

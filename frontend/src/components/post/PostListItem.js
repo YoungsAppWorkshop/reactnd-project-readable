@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { formatDate } from '../../utils/helpers'
 
 import AlertModal from '../modals/AlertModal'
-import PostModal from '../modals/PostModal'
+import FormModal from '../modals/FormModal'
 import { DELETE_POST, EDIT_POST } from '../../constants/ModalTypes'
 
 import { Card, Button, CardTitle, CardSubtitle, ButtonGroup } from 'reactstrap'
@@ -15,8 +15,8 @@ import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
 import FaCommentO from 'react-icons/lib/fa/comment-o'
 
 const PostListItem = ({
-  categories, downVotePost, handleAlertModalSubmit, handleInputChange, handlePostModalSubmit,
-  isAlertModalOpen, isPostModalOpen, post, postForm, toggleAlertModal, togglePostModal, upVotePost
+  categories, downVotePost, handleAlertModalSubmit, handleInputChange, handleFormModalSubmit,
+  isAlertModalOpen, isFormModalOpen, post, postForm, toggleAlertModal, toggleFormModal, upVotePost
 }) => (
 
   <Card body className="posts-list-item mt-2">
@@ -35,21 +35,21 @@ const PostListItem = ({
     </CardSubtitle>
 
     <ButtonGroup className="posts-list-item-btn-group">
-      <Button className="px-1" color="link" onClick={togglePostModal}><FaEdit size={15}/></Button>{' '}
+      <Button className="px-1" color="link" onClick={toggleFormModal}><FaEdit size={15}/></Button>{' '}
       <Button className="px-1" color="link" onClick={toggleAlertModal}><FaTrash size={15}/></Button>{' '}
       <Button className="px-1" color="link" onClick={upVotePost}><FaThumbsOUp size={15}/></Button>{' '}
       <Button className="px-1" color="link" onClick={downVotePost}><FaThumbsODown size={15}/></Button>
     </ButtonGroup>
 
-    <PostModal
+    <FormModal
       categories={categories}
       defaultCategory={post.category}
       handleInputChange={handleInputChange}
-      handleSubmit={handlePostModalSubmit}
-      isModalOpen={isPostModalOpen}
+      handleSubmit={handleFormModalSubmit}
+      isModalOpen={isFormModalOpen}
       modalType={EDIT_POST}
       postForm={postForm}
-      toggleModal={togglePostModal}
+      toggleModal={toggleFormModal}
     />
 
     <AlertModal
@@ -67,13 +67,13 @@ PostListItem.propTypes = {
   downVotePost: PropTypes.func.isRequired,
   handleAlertModalSubmit: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
-  handlePostModalSubmit: PropTypes.func.isRequired,
+  handleFormModalSubmit: PropTypes.func.isRequired,
   isAlertModalOpen: PropTypes.bool.isRequired,
-  isPostModalOpen: PropTypes.bool.isRequired,
+  isFormModalOpen: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired,
   postForm: PropTypes.object.isRequired,
   toggleAlertModal: PropTypes.func.isRequired,
-  togglePostModal: PropTypes.func.isRequired,
+  toggleFormModal: PropTypes.func.isRequired,
   upVotePost: PropTypes.func.isRequired
 }
 

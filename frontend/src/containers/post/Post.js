@@ -16,7 +16,7 @@ class Post extends Component {
   }
 
   state = {
-    isPostModalOpen: false,
+    isFormModalOpen: false,
     isAlertModalOpen: false,
     postForm: { title: '', body: '', author: '' }
   }
@@ -42,8 +42,8 @@ class Post extends Component {
     this.setState((prevState) => ({ isAlertModalOpen: !prevState.isAlertModalOpen }))
   }
 
-  togglePostModal = () => {
-    this.setState((prevState) => ({ isPostModalOpen: !prevState.isPostModalOpen }))
+  toggleFormModal = () => {
+    this.setState((prevState) => ({ isFormModalOpen: !prevState.isFormModalOpen }))
   }
 
   handleInputChange = (event) => {
@@ -61,7 +61,7 @@ class Post extends Component {
       body: postForm.body
     }
     dispatch(updatePost(updatedPost))
-    this.setState({ isPostModalOpen: false })
+    this.setState({ isFormModalOpen: false })
   }
 
   upVotePost = () => {
@@ -81,7 +81,7 @@ class Post extends Component {
   }
 
   render() {
-    const { isAlertModalOpen, isPostModalOpen, postForm } = this.state
+    const { isAlertModalOpen, isFormModalOpen, postForm } = this.state
     const { categories, layout, post } = this.props
 
     if (layout === LIST_ITEM) {
@@ -91,13 +91,13 @@ class Post extends Component {
           downVotePost={this.downVotePost}
           handleAlertModalSubmit={this.deletePost}
           handleInputChange={this.handleInputChange}
-          handlePostModalSubmit={this.editPost}
+          handleFormModalSubmit={this.editPost}
           isAlertModalOpen={isAlertModalOpen}
-          isPostModalOpen={isPostModalOpen}
+          isFormModalOpen={isFormModalOpen}
           post={post}
           postForm={postForm}
           toggleAlertModal={this.toggleAlertModal}
-          togglePostModal={this.togglePostModal}
+          toggleFormModal={this.toggleFormModal}
           upVotePost={this.upVotePost}
         />
       )
@@ -109,13 +109,13 @@ class Post extends Component {
           downVotePost={this.downVotePost}
           handleAlertModalSubmit={this.deletePost}
           handleInputChange={this.handleInputChange}
-          handlePostModalSubmit={this.editPost}
+          handleFormModalSubmit={this.editPost}
           isAlertModalOpen={isAlertModalOpen}
-          isPostModalOpen={isPostModalOpen}
+          isFormModalOpen={isFormModalOpen}
           post={post}
           postForm={postForm}
           toggleAlertModal={this.toggleAlertModal}
-          togglePostModal={this.togglePostModal}
+          toggleFormModal={this.toggleFormModal}
           upVotePost={this.upVotePost}
         />
       )
