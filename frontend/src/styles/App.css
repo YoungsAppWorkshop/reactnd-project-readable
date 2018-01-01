@@ -46,8 +46,18 @@ body,
   bottom: 10px;
 }
 
-.post-body {
+.post-detail {
+  position: relative;
+}
+
+.post-detail-body {
   min-height: 300px;
+}
+
+.post-detail-small-btn-group {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
 }
 
 .comments-list-item {
@@ -55,7 +65,7 @@ body,
 }
 
 .comments-list-item-btn-group {
-  position: absolute !important; 
+  position: absolute !important;
   right: 5px;
   bottom: 5px;
 }

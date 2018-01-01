@@ -18,26 +18,25 @@ const PostDetail = ({
   isFormModalOpen, isInputValid, post, postForm, toggleAlertModal, toggleFormModal, upVotePost
 }) => (
 
-  <section className="post-content">
+  <section className="post-detail">
 
-    <h3 className="post-title title mt-5">
-      {post.title}
-      <ButtonGroup className="post-small-buttons float-right">
-        <Button className="px-2" color="outline-success" onClick={upVotePost}><FaThumbsOUp size={15}/></Button>{' '}
-        <Button className="px-2" color="outline-danger" onClick={downVotePost}><FaThumbsODown size={15}/></Button>
-      </ButtonGroup>
-    </h3>
+    <h3 className="post-detail-title title mt-5"> {post.title} </h3>
 
-    <h6 className="post-subtitle mt-3 mb-4">
+    <h6 className="post-detail-subtitle mt-3 mb-4">
       <strong>{post.author}</strong>&nbsp;|&nbsp;{ formatDate(post.timestamp) }&nbsp;&nbsp;
       { post.commentCount > 0 && <span className="text-info mr-2"><FaCommentO size={15}/> {post.commentCount}</span> }
       { post.voteScore > 0 && <span className="text-success"><FaThumbsOUp size={15}/> {post.voteScore}</span> }
       { post.voteScore < 0 && <span className="text-danger"><FaThumbsODown size={15}/> {post.voteScore}</span> }
     </h6>
 
-    <div className="post-body text-justify">{post.body}</div>
+    <div className="post-detail-body text-justify">{post.body}</div>
 
-    <div className="post-buttons clearfix my-5">
+    <ButtonGroup className="post-detail-small-btn-group">
+      <Button className="px-2" color="outline-success" onClick={upVotePost}><FaThumbsOUp size={15}/></Button>{' '}
+      <Button className="px-2" color="outline-danger" onClick={downVotePost}><FaThumbsODown size={15}/></Button>
+    </ButtonGroup>
+
+    <div className="post-detail-buttons clearfix my-5">
       <Button color="outline-danger" className="float-right" onClick={toggleAlertModal}><FaTrash size={20}/> &nbsp;Delete</Button>
       <Button color="outline-success" className="float-right mr-2" onClick={toggleFormModal}><FaEdit size={20}/> &nbsp; &nbsp;Edit &nbsp;</Button>
     </div>
