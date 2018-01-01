@@ -1,17 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { NO_POST_IN_CATEGORY, POST_DELETED } from '../constants/NoteTypes'
+import { NO_POST_IN_CATEGORY, NOT_FOUND, POST_DELETED } from '../constants/NoteTypes'
 import { Card, CardText, CardTitle } from 'reactstrap'
 
 const TITLE_TEXT = {
   [NO_POST_IN_CATEGORY]: "No Post in this Category",
+  [NOT_FOUND]: "Not Found",
   [POST_DELETED]: "This post is deleted"
-}
-
-const BODY_TEXT = {
-  [NO_POST_IN_CATEGORY]: "Add a New Post, and be the First Author.",
-  [POST_DELETED]: ">>> Go Back to Category"
 }
 
 const Notification = ({ noteType, path }) =>  (
@@ -19,10 +15,9 @@ const Notification = ({ noteType, path }) =>  (
 
     <CardTitle className="title">{ TITLE_TEXT[noteType] }</CardTitle>
 
-    <CardText>
-      {noteType === NO_POST_IN_CATEGORY && BODY_TEXT[noteType] }
-      {noteType === POST_DELETED && (<Link to={`/${path}`}>{BODY_TEXT[noteType]}</Link>)}
-    </CardText>
+    {noteType === NO_POST_IN_CATEGORY && (<CardText>Add a New Post, and be the First Author.</CardText>)}
+    {noteType === NOT_FOUND && (<CardText>No Such a Post nor a Category <Link to="/">{">>> Go Back"}</Link></CardText>)}
+    {noteType === POST_DELETED && (<CardText><Link to={`/${path}`}>{">>> Go Back to Category"}</Link></CardText>)}
 
   </Card>
 )

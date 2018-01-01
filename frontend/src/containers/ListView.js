@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import uuidv1 from 'uuid/v1'
@@ -24,10 +25,12 @@ const SORT_BY = {
 
 class ListView extends Component {
   static propTypes = {
-    isFetching: PropTypes.bool.isRequired,
+    areCategoriesReady: PropTypes.bool.isRequired,
+    categories: PropTypes.array.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    isFetchingPosts: PropTypes.bool.isRequired,
     posts: PropTypes.array.isRequired,
-    selectedCategory: PropTypes.string,
-    dispatch: PropTypes.func.isRequired
+    selectedCategory: PropTypes.string
   }
 
   state = {
@@ -97,8 +100,13 @@ class ListView extends Component {
 
   render() {
     const { postsOrder, isFormModalOpen, isInputValid, postForm } = this.state
-    const { selectedCategory, categories, posts } = this.props
+    const { areCategoriesReady, categories, posts, selectedCategory } = this.props
     let sortedPosts = Array.from(posts).filter(post => !post.deleted).sort(SORT_BY[postsOrder])
+    let isValidCategory = categories.map(category => category.path).includes(selectedCategory)
+
+    if (areCategoriesReady && selectedCategory && !isValidCategory) {
+      return ( <Redirect to="/404"/> )
+    }
 
     return (
       <Container className="main">
@@ -142,9 +150,10 @@ class ListView extends Component {
 }
 
 const mapStateToProps = state => ({
+  areCategoriesReady: state.categories.ready,
   categories: state.categories.items,
   selectedCategory: state.categories.selectedCategory,
-  isFetching: state.posts.isFetching,
+  isFetchingPosts: state.posts.isFetching,
   posts: Object.values(state.posts.items)
 })
 

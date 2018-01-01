@@ -3,6 +3,7 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   isFetching: false,
   items: [],
+  ready: false,
   selectedCategory: null
 }
 
@@ -11,8 +12,9 @@ const categories = (state = initialState, action) => {
     case types.RECEIVE_GET_CATEGORIES :
       return {
         ...state,
+        isFetching: false,
         items: action.categories,
-        isFetching: false
+        ready: true
       }
     case types.REQUEST_GET_CATEGORIES :
       return {
