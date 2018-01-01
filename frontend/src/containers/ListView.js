@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import uuidv1 from 'uuid/v1'
-
 import { Col, Container, Row } from 'reactstrap'
+
+import NoPost from '../components/post/NoPost'
 import PostsListController from '../components/post/PostsListController'
 import PostsList from '../components/post/PostsList'
 import FormModal from '../components/modals/FormModal'
@@ -110,6 +111,7 @@ class ListView extends Component {
             </h3>
 
             <PostsList posts={sortedPosts}/>
+            { sortedPosts.length === 0 && <NoPost/> }
 
             <PostsListController
               postsOrder={postsOrder}
