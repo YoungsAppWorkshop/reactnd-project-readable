@@ -1,0 +1,2 @@
+export const NO_POST_IN_CATEGORY = 'NO_POST_IN_CATEGORY'
+export const POST_DELETED = 'POST_DELETED'
