@@ -17,6 +17,6 @@ export const validate = (inputStr)  => (
 )
 
 export const validateInputs = form => Object.keys(form).reduce((a, c) => {
-    a[c] = validate(form[c])
-    return a
+  a[c] = validate(form[c])
+  return a
 }, {})
