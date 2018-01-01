@@ -3,6 +3,7 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   isFetching: false,
   items: {},
+  ready: false,
   selectedPost: {}
 }
 
@@ -37,6 +38,7 @@ const posts = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
+        ready: true,
         selectedPost: action.post
       }
     case types.RECEIVE_GET_POSTS :
@@ -72,7 +74,14 @@ const posts = (state = initialState, action) => {
     case types.SELECT_POST :
       return {
         ...state,
+        ready: true,
         selectedPost: state.items[action.postId]
+      }
+    case types.UNSELECT_POST :
+      return {
+        ...state,
+        ready: false,
+        selectedPost: {}
       }
     default:
       return state

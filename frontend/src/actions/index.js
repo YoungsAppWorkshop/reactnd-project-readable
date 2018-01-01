@@ -33,7 +33,6 @@ export const addPost = post => dispatch => {
   })
 }
 
-const selectPost = postId => ({ type: types.SELECT_POST, postId })
 const requestGetPost = () => ({ type: types.REQUEST_GET_POST })
 const receiveGetPost = post => ({ type: types.RECEIVE_GET_POST, post })
 const fetchPost = postId => dispatch => {
@@ -42,6 +41,9 @@ const fetchPost = postId => dispatch => {
     dispatch(receiveGetPost(post))
   })
 }
+
+const selectPost = postId => ({ type: types.SELECT_POST, postId })
+export const unselectPost = () => ({ type: types.UNSELECT_POST })
 
 const shouldFetchPost = (state, postId) => state.posts.items[postId] ? false : true
 export const fetchPostIfNeeded = postId => (dispatch, getState) => {
@@ -145,3 +147,5 @@ export const addComment = comment => dispatch => {
     dispatch(increaseCommentCount(comment.parentId))
   })
 }
+
+export const clearComments = () => ({ type: types.CLEAR_COMMENTS })

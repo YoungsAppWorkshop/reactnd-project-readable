@@ -7,6 +7,11 @@ const initialState = {
 
 const comments = (state = initialState, action) => {
   switch (action.type) {
+    case types.CLEAR_COMMENTS :
+      return {
+        ...state,
+        items: {}
+      }
     case types.RECEIVE_ADD_COMMENT :
     case types.RECEIVE_DELETE_COMMENT :
     case types.RECEIVE_DOWNVOTE_COMMENT :
