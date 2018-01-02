@@ -11,7 +11,7 @@ import PostsList from '../components/post/PostsList'
 import FormModal from '../components/modals/FormModal'
 import { ADD_POST } from '../constants/ModalTypes'
 import { NO_POST_IN_CATEGORY } from '../constants/NoteTypes'
-import { selectCategory, getPosts, addPost } from '../actions'
+import { addPost, getPosts, selectCategory, unselectCategory } from '../actions'
 import { capitalize, validateInputs } from '../utils/helpers'
 
 const SORT_BY = {
@@ -55,6 +55,10 @@ class ListView extends Component {
       this.props.dispatch(getPosts(nextCategory))
       this.setState({ postForm: { ...this.state.postForm, category: nextCategory }})
     }
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(unselectCategory())
   }
 
   sortPosts = (postsOrder) => this.setState({ postsOrder })

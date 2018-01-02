@@ -8,7 +8,7 @@ import CommentAddForm from '../containers/comment/CommentAddForm'
 import CommentsList from '../components/comment/CommentsList'
 import Notification from '../components/Notification'
 import Post from '../containers/post/Post'
-import { clearComments, fetchPostIfNeeded, getComments, selectCategory, unselectPost } from '../actions'
+import { clearComments, fetchPostIfNeeded, getComments, selectCategory, unselectCategory, unselectPost } from '../actions'
 import { POST_DELETED } from '../constants/NoteTypes'
 import { POST_DETAIL } from '../constants/PostLayouts'
 
@@ -44,6 +44,7 @@ class PostDetailView extends Component {
   }
 
   componentWillUnmount() {
+    this.props.dispatch(unselectCategory())
     this.props.dispatch(unselectPost())
     this.props.dispatch(clearComments())
   }

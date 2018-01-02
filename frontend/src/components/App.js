@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../containers/Header'
 import ListView from '../containers/ListView'
-import NotFound from '../containers/NotFound'
+import NotFound from './NotFound'
 import PostDetailView from '../containers/PostDetailView'
 import '../styles/App.css'
 

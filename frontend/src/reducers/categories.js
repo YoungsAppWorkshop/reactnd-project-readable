@@ -26,6 +26,11 @@ const categories = (state = initialState, action) => {
         ...state,
         selectedCategory: action.category
       }
+    case types.UNSELECT_CATEGORY :
+      return {
+        ...state,
+        selectedCategory: null
+      }
     default:
       return state
   }

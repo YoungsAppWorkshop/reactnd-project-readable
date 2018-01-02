@@ -13,6 +13,7 @@ export const getCategories = () => dispatch => {
 }
 
 export const selectCategory = category => ({ type: types.SELECT_CATEGORY, category })
+export const unselectCategory = category => ({ type: types.UNSELECT_CATEGORY })
 
 const requestGetPosts = () => ({ type: types.REQUEST_GET_POSTS })
 const receiveGetPosts = posts => ({ type: types.RECEIVE_GET_POSTS, posts })

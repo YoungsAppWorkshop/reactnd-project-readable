@@ -5,7 +5,7 @@ import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, 
 import { capitalize } from '../utils/helpers'
 
 const CollapsableNavBar = ({
-  categories, isCollapsedNavBarOpen, toggleCollapsedNavBar
+  categories, isCollapsedNavBarOpen, selectedCategory, toggleCollapsedNavBar
 }) => (
 
   <Navbar id="header" color="faded" light expand="md">
@@ -21,15 +21,17 @@ const CollapsableNavBar = ({
         <Nav className="ml-auto" navbar>
 
           <NavItem>
-            <NavLink tag={Link} to="/">All Categories</NavLink>
+            <NavLink tag={Link} to="/" active={!selectedCategory}>All Categories</NavLink>
           </NavItem>
 
           {categories.map((category) => (
+
             <NavItem key={category.path}>
-              <NavLink tag={Link} to={`/${category.path}`}>
+              <NavLink tag={Link} to={`/${category.path}`} active={selectedCategory===category.path}>
                 {capitalize(category.name)}
               </NavLink>
             </NavItem>
+
           ))}
 
         </Nav>
@@ -44,6 +46,7 @@ const CollapsableNavBar = ({
 CollapsableNavBar.propTypes = {
   categories: PropTypes.array.isRequired,
   isCollapsedNavBarOpen: PropTypes.bool.isRequired,
+  selectedCategory: PropTypes.string,
   toggleCollapsedNavBar: PropTypes.func.isRequired
 }
 
