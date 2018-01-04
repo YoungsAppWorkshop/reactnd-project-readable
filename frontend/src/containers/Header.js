@@ -9,8 +9,8 @@ class Header extends Component {
   static propTypes = {
     categories: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    selectedCategory: PropTypes.string
+    selectedCategory: PropTypes.string,
+    status: PropTypes.string.isRequired
   }
 
   state = {
@@ -30,13 +30,14 @@ class Header extends Component {
 
   render() {
     const { isCollapsedNavBarOpen } = this.state
-    const { categories, selectedCategory } = this.props
+    const { categories, selectedCategory, status } = this.props
 
     return (
       <CollapsableNavBar
         categories={categories}
         isCollapsedNavBarOpen={isCollapsedNavBarOpen}
         selectedCategory={selectedCategory}
+        status={status}
         toggleCollapsedNavBar={this.toggleCollapsedNavBar}
       />
     )
@@ -46,7 +47,7 @@ class Header extends Component {
 
 const mapStateToProps = state => ({
   categories: state.categories.items,
-  isFetching: state.categories.isFetching,
+  status: state.categories.status,
   selectedCategory: state.categories.selectedCategory
 })
 

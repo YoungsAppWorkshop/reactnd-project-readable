@@ -1,10 +1,10 @@
 import * as types from '../constants/ActionTypes'
+import { ERROR, FETCHING, INIT, READY } from '../constants/Status'
 
 const initialState = {
-  isFetching: false,
   items: [],
-  ready: false,
-  selectedCategory: null
+  selectedCategory: null,
+  status: INIT
 }
 
 const categories = (state = initialState, action) => {
@@ -12,14 +12,13 @@ const categories = (state = initialState, action) => {
     case types.RECEIVE_GET_CATEGORIES :
       return {
         ...state,
-        isFetching: false,
         items: action.categories,
-        ready: true
+        status: READY
       }
     case types.REQUEST_GET_CATEGORIES :
       return {
         ...state,
-        isFetching: true
+        status: FETCHING
       }
     case types.SELECT_CATEGORY :
       return {
