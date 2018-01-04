@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import uuidv1 from 'uuid/v1'
 import { Col, Container, Row } from 'reactstrap'
+import Loading from 'react-loading'
 
 import Notification from '../components/Notification'
 import PostsListController from '../components/post/PostsListController'
@@ -11,6 +12,7 @@ import PostsList from '../components/post/PostsList'
 import FormModal from '../components/modals/FormModal'
 import { ADD_POST } from '../constants/ModalTypes'
 import { NO_POST_IN_CATEGORY } from '../constants/NoteTypes'
+import { ERROR, FETCHING, READY } from '../constants/Status'
 import { addPost, getPosts, selectCategory, unselectCategory } from '../actions'
 import { capitalize, validateInputs } from '../utils/helpers'
 
@@ -25,11 +27,11 @@ const SORT_BY = {
 
 class ListView extends Component {
   static propTypes = {
-    areCategoriesReady: PropTypes.bool.isRequired,
+    categoryStatus: PropTypes.string.isRequired,
     categories: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
-    isFetchingPosts: PropTypes.bool.isRequired,
     posts: PropTypes.array.isRequired,
+    postsStatus: PropTypes.string.isRequired,
     selectedCategory: PropTypes.string
   }
 
@@ -104,11 +106,11 @@ class ListView extends Component {
 
   render() {
     const { postsOrder, isFormModalOpen, isInputValid, postForm } = this.state
-    const { areCategoriesReady, categories, posts, selectedCategory } = this.props
+    const { categories, categoryStatus, posts, postsStatus, selectedCategory } = this.props
     let sortedPosts = Array.from(posts).filter(post => !post.deleted).sort(SORT_BY[postsOrder])
     let isValidCategory = categories.map(category => category.path).includes(selectedCategory)
 
-    if (areCategoriesReady && selectedCategory && !isValidCategory) {
+    if (categoryStatus === READY && selectedCategory && !isValidCategory) {
       return ( <Redirect to="/404"/> )
     }
 
@@ -116,12 +118,24 @@ class ListView extends Component {
       <Container className="main">
 
         <Row>
-
           <Col sm="12" md={{ size: 8, offset: 2 }}>
-
             <h3 className="category title my-5">
               { selectedCategory ? capitalize(selectedCategory) : 'All Categories'}
             </h3>
+          </Col>
+        </Row>
+
+      { postsStatus === FETCHING && (
+        <Row>
+          <Col sm="12" md={{ size: 8, offset: 2 }}>
+            <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>
+          </Col>
+        </Row>
+      )}
+
+      { postsStatus === READY && (
+        <Row>
+          <Col sm="12" md={{ size: 8, offset: 2 }}>
 
             <PostsList posts={sortedPosts}/>
             { sortedPosts.length === 0 && <Notification noteType={NO_POST_IN_CATEGORY}/> }
@@ -145,8 +159,8 @@ class ListView extends Component {
             />
 
           </Col>
-
         </Row>
+      )}
 
       </Container>
     )
@@ -154,11 +168,11 @@ class ListView extends Component {
 }
 
 const mapStateToProps = state => ({
-  areCategoriesReady: state.categories.ready,
   categories: state.categories.items,
+  categoryStatus: state.categories.status,
   selectedCategory: state.categories.selectedCategory,
-  isFetchingPosts: state.posts.isFetching,
-  posts: Object.values(state.posts.items)
+  posts: Object.values(state.posts.items),
+  postsStatus: state.posts.status
 })
 
 export default connect(

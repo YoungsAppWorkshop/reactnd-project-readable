@@ -1,10 +1,10 @@
 import * as types from '../constants/ActionTypes'
+import { ERROR, FETCHING, INIT, READY } from '../constants/Status'
 
 const initialState = {
-  isFetching: false,
   items: {},
-  ready: false,
-  selectedPost: {}
+  selectedPost: {},
+  status: INIT
 }
 
 const posts = (state = initialState, action) => {
@@ -28,24 +28,23 @@ const posts = (state = initialState, action) => {
     case types.RECEIVE_ADD_POST :
       return {
         ...state,
-        isFetching: false,
         items: {
           ...state.items,
           [action.post.id]: action.post
-        }
+        },
+        status: READY
       }
     case types.RECEIVE_GET_POST :
       return {
         ...state,
-        isFetching: false,
-        ready: true,
-        selectedPost: action.post
+        selectedPost: action.post,
+        status: READY
       }
     case types.RECEIVE_GET_POSTS :
       return {
         ...state,
-        isFetching: false,
-        items: action.posts
+        items: action.posts,
+        status: READY
       }
     case types.RECEIVE_DELETE_POST :
     case types.RECEIVE_DOWNVOTE_POST :
@@ -53,12 +52,12 @@ const posts = (state = initialState, action) => {
     case types.RECEIVE_UPVOTE_POST :
       return {
         ...state,
-        isFetching: false,
         items: {
           ...state.items,
           [action.post.id]: action.post
         },
-        selectedPost: action.post
+        selectedPost: action.post,
+        status: READY
       }
     case types.REQUEST_ADD_POST :
     case types.REQUEST_DELETE_POST :
@@ -69,19 +68,19 @@ const posts = (state = initialState, action) => {
     case types.REQUEST_UPVOTE_POST :
       return {
         ...state,
-        isFetching: true
+        status: FETCHING
       }
     case types.SELECT_POST :
       return {
         ...state,
-        ready: true,
-        selectedPost: state.items[action.postId]
+        selectedPost: state.items[action.postId],
+        status: READY
       }
     case types.UNSELECT_POST :
       return {
         ...state,
-        ready: false,
-        selectedPost: {}
+        selectedPost: {},
+        status: INIT
       }
     default:
       return state
