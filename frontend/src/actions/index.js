@@ -45,6 +45,7 @@ const fetchPost = postId => dispatch => {
 
 const selectPost = postId => ({ type: types.SELECT_POST, postId })
 export const unselectPost = () => ({ type: types.UNSELECT_POST })
+export const initPost = () => ({ type: types.INIT_POST })
 
 const shouldFetchPost = (state, postId) => state.posts.items[postId] ? false : true
 export const fetchPostIfNeeded = postId => (dispatch, getState) => {

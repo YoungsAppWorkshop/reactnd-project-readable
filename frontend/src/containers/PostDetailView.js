@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Col, Container, Row } from 'reactstrap'
+import Loading from 'react-loading'
 
 import CommentAddForm from '../containers/comment/CommentAddForm'
 import CommentsList from '../components/comment/CommentsList'
@@ -11,14 +12,15 @@ import Post from '../containers/post/Post'
 import { clearComments, fetchPostIfNeeded, getComments, selectCategory, unselectCategory, unselectPost } from '../actions'
 import { POST_DELETED } from '../constants/NoteTypes'
 import { POST_DETAIL } from '../constants/PostLayouts'
+import { ERROR, FETCHING, READY } from '../constants/Status'
 
 class PostDetailView extends Component {
   static propTypes = {
     comments: PropTypes.array.isRequired,
+    commentsStatus: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    isPostReady: PropTypes.bool.isRequired,
-    post: PropTypes.object.isRequired
+    post: PropTypes.object.isRequired,
+    postStatus: PropTypes.string.isRequired
   }
 
   componentDidMount() {
@@ -50,47 +52,55 @@ class PostDetailView extends Component {
   }
 
   render() {
-    const { comments, isFetching, isPostReady, post, selectedCategory } = this.props
+    const { comments, commentsStatus, post, postStatus, selectedCategory } = this.props
     let filteredComments = Array.from(comments).filter(comment => !comment.deleted && !comment.parentDeleted)
     let isValidCategory = post.category === selectedCategory
 
-    if ( !isFetching && isPostReady && !isValidCategory ) {
+    if ( postStatus === READY && post.category && !isValidCategory ) {
       return ( <Redirect to="/404"/> )
     }
 
     return (
       <Container className="main">
 
+        { postStatus === FETCHING && (
+        <Row>
+          <Col sm="12" md={{ size: 8, offset: 2 }}>
+            <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>
+          </Col>
+        </Row>
+        )}
+
+        { postStatus === READY && (
         <Row>
 
-          { !isFetching && (post.deleted || !post.id) ? (
-
-            <Col sm="12" md={{ size: 8, offset: 2 }} className="mt-5">
-              <Notification noteType={POST_DELETED} path={selectedCategory} />
-            </Col>
+          { post.deleted ? (
+          <Col sm="12" md={{ size: 8, offset: 2 }} className="mt-5">
+            <Notification noteType={POST_DELETED} path={selectedCategory} />
+          </Col>
 
           ) : (
-
-            <Col sm="12" md={{ size: 8, offset: 2 }}>
-              <Post layout={POST_DETAIL} post={post} />
-              <CommentsList comments={filteredComments}/>
-              <CommentAddForm />
-            </Col>
-
+          <Col sm="12" md={{ size: 8, offset: 2 }}>
+            <Post layout={POST_DETAIL} post={post} />
+            { commentsStatus === FETCHING && <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>}
+            { commentsStatus === READY && <CommentsList comments={filteredComments}/>}
+            { commentsStatus === READY && <CommentAddForm />}
+          </Col>
           )}
 
         </Row>
-
+        )}
       </Container>
     )
+
   }
 }
 
 const mapStateToProps = state => ({
   comments: Object.values(state.comments.items),
-  isFetching: state.posts.isFetching,
-  isPostReady: state.posts.ready,
+  commentsStatus: state.comments.status,
   post: state.posts.selectedPost,
+  postStatus: state.posts.status,
   selectedCategory: state.categories.selectedCategory
 })
 

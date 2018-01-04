@@ -25,6 +25,11 @@ const posts = (state = initialState, action) => {
           commentCount: ++state.selectedPost.commentCount
         }
       }
+    case types.INIT_POST:
+      return {
+        ...state,
+        status: INIT
+      }
     case types.RECEIVE_ADD_POST :
       return {
         ...state,

@@ -13,7 +13,7 @@ import FormModal from '../components/modals/FormModal'
 import { ADD_POST } from '../constants/ModalTypes'
 import { NO_POST_IN_CATEGORY } from '../constants/NoteTypes'
 import { ERROR, FETCHING, READY } from '../constants/Status'
-import { addPost, getPosts, selectCategory, unselectCategory } from '../actions'
+import { addPost, getPosts, initPost, selectCategory, unselectCategory } from '../actions'
 import { capitalize, validateInputs } from '../utils/helpers'
 
 const SORT_BY = {
@@ -61,6 +61,7 @@ class ListView extends Component {
 
   componentWillUnmount() {
     this.props.dispatch(unselectCategory())
+    this.props.dispatch(initPost())
   }
 
   sortPosts = (postsOrder) => this.setState({ postsOrder })
