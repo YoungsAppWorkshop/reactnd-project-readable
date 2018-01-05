@@ -12,14 +12,15 @@ import PostsList from '../components/post/PostsList'
 import FormModal from '../components/modals/FormModal'
 import { ADD_POST } from '../constants/ModalTypes'
 import { NO_POST_IN_CATEGORY } from '../constants/NoteTypes'
+import { MOST_VOTED, RECENT_POST, TITLE } from '../constants/PostsOrder'
 import { ERROR, FETCHING, READY } from '../constants/Status'
 import { addPost, getPosts, initPost, selectCategory, unselectCategory } from '../actions'
 import { capitalize, validateInputs } from '../utils/helpers'
 
 const SORT_BY = {
-  'MOST_RECENT': (post1, post2) => post2.timestamp - post1.timestamp,
-  'MOST_VOTED': (post1, post2) => post2.voteScore - post1.voteScore,
-  'TITLE': (post1, post2) => (
+  [RECENT_POST]: (post1, post2) => post2.timestamp - post1.timestamp,
+  [MOST_VOTED]: (post1, post2) => post2.voteScore - post1.voteScore,
+  [TITLE]: (post1, post2) => (
     post1.title.toUpperCase() > post2.title.toUpperCase() ? 1 :
     post1.title.toUpperCase() < post2.title.toUpperCase() ? -1 : 0
   )
