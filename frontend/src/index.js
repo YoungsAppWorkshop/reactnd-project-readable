@@ -9,7 +9,7 @@ import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
 import reducer from './reducers'
-import App from './components/App'
+import App from './containers/App'
 import 'bootstrap/dist/css/bootstrap.css'
 
 import registerServiceWorker from './registerServiceWorker'
