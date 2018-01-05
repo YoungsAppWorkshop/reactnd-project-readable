@@ -127,6 +127,14 @@ class ListView extends Component {
           </Col>
         </Row>
 
+      { postsStatus === ERROR && (
+        <Row>
+          <Col sm="12" md={{ size: 8, offset: 2 }}>
+            <p className="text-danger my-auto mx-auto">ERROR: Connection Refused. Check your Network Connection</p>
+          </Col>
+        </Row>
+      )}
+
       { postsStatus === FETCHING && (
         <Row>
           <Col sm="12" md={{ size: 8, offset: 2 }}>

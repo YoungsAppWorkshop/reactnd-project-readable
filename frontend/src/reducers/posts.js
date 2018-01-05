@@ -17,6 +17,11 @@ const posts = (state = initialState, action) => {
           commentCount: --state.selectedPost.commentCount
         }
       }
+    case types.FAIL_REQUEST_POSTS:
+      return {
+        ...state,
+        status: ERROR
+      }
     case types.INCREASE_COMMENT_COUNT:
       return {
         ...state,

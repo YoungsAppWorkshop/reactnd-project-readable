@@ -16,6 +16,7 @@ export const getCategories = () => dispatch => {
 export const selectCategory = category => ({ type: types.SELECT_CATEGORY, category })
 export const unselectCategory = category => ({ type: types.UNSELECT_CATEGORY })
 
+const failRequestPosts = () => ({ type: types.FAIL_REQUEST_POSTS })
 const requestGetPosts = () => ({ type: types.REQUEST_GET_POSTS })
 const receiveGetPosts = posts => ({ type: types.RECEIVE_GET_POSTS, posts })
 export const getPosts = category => dispatch => {
@@ -23,7 +24,7 @@ export const getPosts = category => dispatch => {
   return API.getPosts(category).then(posts => {
     const data = normalize(posts, Schema.posts)
     dispatch(receiveGetPosts(data.entities.posts || {}))
-  })
+  }).catch(() => dispatch(failRequestPosts()))
 }
 
 const requestAddPost = () => ({ type: types.REQUEST_ADD_POST })
@@ -32,7 +33,7 @@ export const addPost = post => dispatch => {
   dispatch(requestAddPost())
   return API.addPost(post).then(post => {
     dispatch(receiveAddPost(post))
-  })
+  }).catch(() => dispatch(failRequestPosts()))
 }
 
 const requestGetPost = () => ({ type: types.REQUEST_GET_POST })
@@ -41,7 +42,7 @@ const fetchPost = postId => dispatch => {
   dispatch(requestGetPost())
   return API.getPost(postId).then(post => {
     dispatch(receiveGetPost(post))
-  })
+  }).catch(() => dispatch(failRequestPosts()))
 }
 
 const selectPost = postId => ({ type: types.SELECT_POST, postId })
@@ -62,7 +63,7 @@ export const updatePost = post => dispatch => {
   dispatch(requestUpdatePost())
   return API.updatePost(post).then(post => {
     dispatch(receiveUpdatePost(post))
-  })
+  }).catch(() => dispatch(failRequestPosts()))
 }
 
 const requestUpVotePost = () => ({ type: types.REQUEST_UPVOTE_POST })
@@ -71,7 +72,7 @@ export const upVotePost = postId => dispatch => {
   dispatch(requestUpVotePost())
   return API.upVotePost(postId).then(post => {
     dispatch(receiveUpVotePost(post))
-  })
+  }).catch(() => dispatch(failRequestPosts()))
 }
 
 const requestDownVotePost = () => ({ type: types.REQUEST_DOWNVOTE_POST })
@@ -80,7 +81,7 @@ export const downVotePost = postId => dispatch => {
   dispatch(requestDownVotePost())
   return API.downVotePost(postId).then(post => {
     dispatch(receiveDownVotePost(post))
-  })
+  }).catch(() => dispatch(failRequestPosts()))
 }
 
 const requestDeletePost = () => ({ type: types.REQUEST_DELETE_POST })
@@ -89,7 +90,7 @@ export const deletePost = postId => dispatch => {
   dispatch(requestDeletePost())
   return API.deletePost(postId).then(post => {
     dispatch(receiveDeletePost(post))
-  })
+  }).catch(() => dispatch(failRequestPosts()))
 }
 
 const requestGetComments = () => ({ type: types.REQUEST_GET_COMMENTS })
