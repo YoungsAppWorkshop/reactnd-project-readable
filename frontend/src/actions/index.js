@@ -1,4 +1,5 @@
 import * as types from '../constants/ActionTypes'
+import { ERROR_REQUEST_DELETED_POST, ERROR_WRONG_POST_ID } from '../constants/Status'
 import * as API from '../utils/api'
 import * as Schema from '../schema'
 import { normalize } from 'normalizr'
@@ -36,12 +37,19 @@ export const addPost = post => dispatch => {
   }).catch(() => dispatch(failRequestPosts()))
 }
 
+const handleError = status => ({ type: types.HANDLE_ERROR, status })
 const requestGetPost = () => ({ type: types.REQUEST_GET_POST })
 const receiveGetPost = post => ({ type: types.RECEIVE_GET_POST, post })
 const fetchPost = postId => dispatch => {
   dispatch(requestGetPost())
   return API.getPost(postId).then(post => {
-    dispatch(receiveGetPost(post))
+    if ( post.error ) {
+      dispatch(handleError(ERROR_WRONG_POST_ID))
+    } else if ( !post.id ) {
+      dispatch(handleError(ERROR_REQUEST_DELETED_POST))
+    } else {
+      dispatch(receiveGetPost(post))
+    }
   }).catch(() => dispatch(failRequestPosts()))
 }
 

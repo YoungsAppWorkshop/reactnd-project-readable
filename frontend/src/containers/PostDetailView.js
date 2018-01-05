@@ -12,7 +12,7 @@ import Post from '../containers/post/Post'
 import { clearComments, fetchPostIfNeeded, getComments, selectCategory, unselectCategory, unselectPost } from '../actions'
 import { POST_DELETED } from '../constants/NoteTypes'
 import { POST_DETAIL } from '../constants/PostLayouts'
-import { ERROR, FETCHING, READY } from '../constants/Status'
+import { ERROR_CONNECTION_REFUSED, ERROR_REQUEST_DELETED_POST, ERROR_WRONG_POST_ID, FETCHING, READY } from '../constants/Status'
 
 class PostDetailView extends Component {
   static propTypes = {
@@ -60,13 +60,25 @@ class PostDetailView extends Component {
       return ( <Redirect to="/404"/> )
     }
 
+    if ( postStatus === ERROR_WRONG_POST_ID ) {
+      return ( <Redirect to="/404"/> )
+    }
+
     return (
       <Container className="main">
 
-        { postStatus === ERROR && (
+        { postStatus === ERROR_CONNECTION_REFUSED && (
           <Row>
             <Col sm="12" md={{ size: 8, offset: 2 }}>
-              <p className="text-danger my-auto mx-auto">ERROR: Connection Refused. Check your Network Connection</p>
+              <p className="text-danger my-auto mx-auto">ERROR_CONNECTION_REFUSED: Connection Refused. Check your Network Connection</p>
+            </Col>
+          </Row>
+        )}
+
+        { postStatus === ERROR_REQUEST_DELETED_POST && (
+          <Row>
+            <Col sm="12" md={{ size: 8, offset: 2 }} className="mt-5">
+              <Notification noteType={POST_DELETED} path={selectedCategory} />
             </Col>
           </Row>
         )}
@@ -90,7 +102,7 @@ class PostDetailView extends Component {
             ) : (
             <Col sm="12" md={{ size: 8, offset: 2 }}>
               <Post layout={POST_DETAIL} post={post} />
-              { commentsStatus === ERROR && <p className="text-danger my-auto mx-auto">ERROR: Connection Refused. Check your Network Connection</p>}
+              { commentsStatus === ERROR_CONNECTION_REFUSED && <p className="text-danger my-auto mx-auto">ERROR_CONNECTION_REFUSED: Connection Refused. Check your Network Connection</p>}
               { commentsStatus === FETCHING && <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>}
               { commentsStatus === READY && <CommentsList comments={filteredComments}/>}
               { commentsStatus === READY && <CommentAddForm />}

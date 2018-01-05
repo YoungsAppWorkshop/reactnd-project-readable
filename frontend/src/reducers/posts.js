@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes'
-import { ERROR, FETCHING, INIT, READY } from '../constants/Status'
+import { ERROR_CONNECTION_REFUSED, FETCHING, INIT, READY } from '../constants/Status'
 
 const initialState = {
   items: {},
@@ -20,7 +20,12 @@ const posts = (state = initialState, action) => {
     case types.FAIL_REQUEST_POSTS:
       return {
         ...state,
-        status: ERROR
+        status: ERROR_CONNECTION_REFUSED
+      }
+    case types.HANDLE_ERROR:
+      return {
+        ...state,
+        status: action.status
       }
     case types.INCREASE_COMMENT_COUNT:
       return {

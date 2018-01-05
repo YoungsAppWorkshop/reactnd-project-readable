@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes'
-import { ERROR, FETCHING, INIT, READY } from '../constants/Status'
+import { ERROR_CONNECTION_REFUSED, FETCHING, INIT, READY } from '../constants/Status'
 
 const initialState = {
   items: [],
@@ -12,7 +12,7 @@ const categories = (state = initialState, action) => {
     case types.FAIL_REQUEST_CATEGORIES :
       return {
         ...state,
-        status: ERROR
+        status: ERROR_CONNECTION_REFUSED
       }
     case types.RECEIVE_GET_CATEGORIES :
       return {

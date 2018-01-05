@@ -5,7 +5,7 @@ import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, 
 import Loading from 'react-loading'
 
 import { capitalize } from '../utils/helpers'
-import { ERROR, FETCHING, READY } from '../constants/Status'
+import { ERROR_CONNECTION_REFUSED, FETCHING, READY } from '../constants/Status'
 
 const CollapsableNavBar = ({
   categories, isCollapsedNavBarOpen, selectedCategory, status, toggleCollapsedNavBar
@@ -21,7 +21,7 @@ const CollapsableNavBar = ({
 
       <Collapse isOpen={isCollapsedNavBarOpen} navbar>
 
-        { status === ERROR && <p className="text-danger my-auto mx-auto">ERROR: Connection Refused. Check your Network Connection</p> }
+        { status === ERROR_CONNECTION_REFUSED && <p className="text-danger my-auto mx-auto">ERROR_CONNECTION_REFUSED: Connection Refused. Check your Network Connection</p> }
         { status === FETCHING && <Loading delay={200} type="spin" color="#222" height={32} width={32} className="mx-auto"/> }
 
         { status === READY &&

@@ -13,7 +13,7 @@ import FormModal from '../components/modals/FormModal'
 import { ADD_POST } from '../constants/ModalTypes'
 import { NO_POST_IN_CATEGORY } from '../constants/NoteTypes'
 import { MOST_VOTED, RECENT_POST, TITLE } from '../constants/PostsOrder'
-import { ERROR, FETCHING, READY } from '../constants/Status'
+import { ERROR_CONNECTION_REFUSED, FETCHING, READY } from '../constants/Status'
 import { addPost, getPosts, initPost, selectCategory, unselectCategory } from '../actions'
 import { capitalize, validateInputs } from '../utils/helpers'
 
@@ -127,10 +127,10 @@ class ListView extends Component {
           </Col>
         </Row>
 
-      { postsStatus === ERROR && (
+      { postsStatus === ERROR_CONNECTION_REFUSED && (
         <Row>
           <Col sm="12" md={{ size: 8, offset: 2 }}>
-            <p className="text-danger my-auto mx-auto">ERROR: Connection Refused. Check your Network Connection</p>
+            <p className="text-danger my-auto mx-auto">ERROR_CONNECTION_REFUSED: Connection Refused. Check your Network Connection</p>
           </Col>
         </Row>
       )}
