@@ -14,6 +14,11 @@ const comments = (state = initialState, action) => {
         items: {},
         status: INIT
       }
+    case types.FAIL_REQUEST_COMMENTS :
+      return {
+        ...state,
+        status: ERROR
+      }
     case types.RECEIVE_ADD_COMMENT :
     case types.RECEIVE_DELETE_COMMENT :
     case types.RECEIVE_DOWNVOTE_COMMENT :

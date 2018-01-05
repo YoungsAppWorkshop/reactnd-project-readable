@@ -63,32 +63,41 @@ class PostDetailView extends Component {
     return (
       <Container className="main">
 
+        { postStatus === ERROR && (
+          <Row>
+            <Col sm="12" md={{ size: 8, offset: 2 }}>
+              <p className="text-danger my-auto mx-auto">ERROR: Connection Refused. Check your Network Connection</p>
+            </Col>
+          </Row>
+        )}
+
         { postStatus === FETCHING && (
-        <Row>
-          <Col sm="12" md={{ size: 8, offset: 2 }}>
-            <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>
-          </Col>
-        </Row>
+          <Row>
+            <Col sm="12" md={{ size: 8, offset: 2 }}>
+              <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>
+            </Col>
+          </Row>
         )}
 
         { postStatus === READY && (
-        <Row>
+          <Row>
 
-          { post.deleted ? (
-          <Col sm="12" md={{ size: 8, offset: 2 }} className="mt-5">
-            <Notification noteType={POST_DELETED} path={selectedCategory} />
-          </Col>
+            { post.deleted ? (
+            <Col sm="12" md={{ size: 8, offset: 2 }} className="mt-5">
+              <Notification noteType={POST_DELETED} path={selectedCategory} />
+            </Col>
 
-          ) : (
-          <Col sm="12" md={{ size: 8, offset: 2 }}>
-            <Post layout={POST_DETAIL} post={post} />
-            { commentsStatus === FETCHING && <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>}
-            { commentsStatus === READY && <CommentsList comments={filteredComments}/>}
-            { commentsStatus === READY && <CommentAddForm />}
-          </Col>
-          )}
+            ) : (
+            <Col sm="12" md={{ size: 8, offset: 2 }}>
+              <Post layout={POST_DETAIL} post={post} />
+              { commentsStatus === ERROR && <p className="text-danger my-auto mx-auto">ERROR: Connection Refused. Check your Network Connection</p>}
+              { commentsStatus === FETCHING && <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>}
+              { commentsStatus === READY && <CommentsList comments={filteredComments}/>}
+              { commentsStatus === READY && <CommentAddForm />}
+            </Col>
+            )}
 
-        </Row>
+          </Row>
         )}
       </Container>
     )

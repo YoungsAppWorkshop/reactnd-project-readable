@@ -93,6 +93,7 @@ export const deletePost = postId => dispatch => {
   }).catch(() => dispatch(failRequestPosts()))
 }
 
+const failRequestComments = () => ({ type: types.FAIL_REQUEST_COMMENTS })
 const requestGetComments = () => ({ type: types.REQUEST_GET_COMMENTS })
 const receiveGetComments = comments => ({ type: types.RECEIVE_GET_COMMENTS, comments })
 export const getComments = parentId => dispatch => {
@@ -100,7 +101,7 @@ export const getComments = parentId => dispatch => {
   return API.getComments(parentId).then(comments => {
     const data = normalize(comments, Schema.comments)
     dispatch(receiveGetComments(data.entities.comments || {}))
-  })
+  }).catch(() => dispatch(failRequestComments()))
 }
 
 const requestUpVoteComment = () => ({ type: types.REQUEST_UPVOTE_COMMENT })
@@ -109,7 +110,7 @@ export const upVoteComment = commentId => dispatch => {
   dispatch(requestUpVoteComment())
   return API.upVoteComment(commentId).then(comment => {
     dispatch(receiveUpVoteComment(comment))
-  })
+  }).catch(() => dispatch(failRequestComments()))
 }
 
 const requestDownVoteComment = () => ({ type: types.REQUEST_DOWNVOTE_COMMENT })
@@ -118,7 +119,7 @@ export const downVoteComment = commentId => dispatch => {
   dispatch(requestDownVoteComment())
   return API.downVoteComment(commentId).then(comment => {
     dispatch(receiveDownVoteComment(comment))
-  })
+  }).catch(() => dispatch(failRequestComments()))
 }
 
 const decreaseCommentCount = postId => ({ type: types.DECREASE_COMMENT_COUNT, postId })
@@ -129,7 +130,7 @@ export const deleteComment = commentId => dispatch => {
   return API.deleteComment(commentId).then(comment => {
     dispatch(receiveDeleteComment(comment))
     dispatch(decreaseCommentCount(comment.parentId))
-  })
+  }).catch(() => dispatch(failRequestComments()))
 }
 
 const requestUpdateComment = () => ({ type: types.REQUEST_UPDATE_COMMENT })
@@ -138,7 +139,7 @@ export const updateComment = comment => dispatch => {
   dispatch(requestUpdateComment())
   return API.updateComment(comment).then(comment => {
     dispatch(receiveUpdateComment(comment))
-  })
+  }).catch(() => dispatch(failRequestComments()))
 }
 
 const increaseCommentCount = postId => ({ type: types.INCREASE_COMMENT_COUNT, postId })
@@ -149,7 +150,7 @@ export const addComment = comment => dispatch => {
   return API.addComment(comment).then(comment => {
     dispatch(receiveAddComment(comment))
     dispatch(increaseCommentCount(comment.parentId))
-  })
+  }).catch(() => dispatch(failRequestComments()))
 }
 
 export const clearComments = () => ({ type: types.CLEAR_COMMENTS })
