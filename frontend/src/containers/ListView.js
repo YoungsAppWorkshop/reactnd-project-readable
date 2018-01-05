@@ -37,7 +37,7 @@ class ListView extends Component {
   }
 
   state = {
-    postsOrder: 'MOST_RECENT',
+    postsOrder: RECENT_POST,
     isFormModalOpen: false,
     postForm: { title: '', body: '', author: '' },
     isInputValid: { title: null, body: null, author: null }
