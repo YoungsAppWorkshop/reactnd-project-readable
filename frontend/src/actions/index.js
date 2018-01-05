@@ -3,13 +3,14 @@ import * as API from '../utils/api'
 import * as Schema from '../schema'
 import { normalize } from 'normalizr'
 
+const failRequestCategories = () => ({ type: types.FAIL_REQUEST_CATEGORIES })
 const requestGetCategories = () => ({ type: types.REQUEST_GET_CATEGORIES })
 const receiveGetCategories = categories => ({ type: types.RECEIVE_GET_CATEGORIES, categories })
 export const getCategories = () => dispatch => {
   dispatch(requestGetCategories())
   return API.getCategories().then(categories =>
     dispatch(receiveGetCategories(categories))
-  )
+  ).catch(() => dispatch(failRequestCategories()))
 }
 
 export const selectCategory = category => ({ type: types.SELECT_CATEGORY, category })

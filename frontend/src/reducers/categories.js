@@ -9,6 +9,11 @@ const initialState = {
 
 const categories = (state = initialState, action) => {
   switch (action.type) {
+    case types.FAIL_REQUEST_CATEGORIES :
+      return {
+        ...state,
+        status: ERROR
+      }
     case types.RECEIVE_GET_CATEGORIES :
       return {
         ...state,
