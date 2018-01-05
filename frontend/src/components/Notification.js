@@ -16,7 +16,7 @@ const Notification = ({ noteType, path }) =>  (
     <CardTitle className="title">{ TITLE_TEXT[noteType] }</CardTitle>
 
     {noteType === NO_POST_IN_CATEGORY && (<CardText>Add a New Post, and be the First Author.</CardText>)}
-    {noteType === NOT_FOUND && (<CardText>No Such a Post nor a Category <Link to="/">{">>> Go Back"}</Link></CardText>)}
+    {noteType === NOT_FOUND && (<CardText>No Such a Post or a Category <Link to="/">{">>> Go Back"}</Link></CardText>)}
     {noteType === POST_DELETED && (<CardText><Link to={`/${path}`}>{">>> Go Back to Category"}</Link></CardText>)}
 
   </Card>
