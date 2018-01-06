@@ -1,7 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import { DELETE_COMMENT, DELETE_POST } from '../../constants/ModalTypes'
+import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+
+import { DELETE_COMMENT, DELETE_POST } from '../../constants/ModalTypes'
 
 const BODY_TEXT = {
   [DELETE_COMMENT]: "Do you really want to DELETE the comment?",

@@ -1,12 +1,12 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 
+import { deletePost, downVotePost, updatePost, upVotePost } from '../../actions'
 import PostDetail from '../../components/post/PostDetail'
 import PostListItem from '../../components/post/PostListItem'
-import { deletePost, downVotePost, updatePost, upVotePost } from '../../actions'
-import { validateInputs } from '../../utils/helpers'
 import { LIST_ITEM, POST_DETAIL } from '../../constants/PostLayouts'
+import { validateInputs } from '../../utils/helpers'
 
 class Post extends Component {
   static propTypes = {

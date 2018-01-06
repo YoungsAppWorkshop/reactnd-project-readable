@@ -1,8 +1,9 @@
+import { normalize } from 'normalizr'
+
 import * as types from '../constants/ActionTypes'
 import { ERROR_REQUEST_DELETED_POST, ERROR_WRONG_POST_ID } from '../constants/Status'
 import * as API from '../utils/api'
 import * as Schema from '../schema'
-import { normalize } from 'normalizr'
 
 const failRequestCategories = () => ({ type: types.FAIL_REQUEST_CATEGORIES })
 const requestGetCategories = () => ({ type: types.REQUEST_GET_CATEGORIES })

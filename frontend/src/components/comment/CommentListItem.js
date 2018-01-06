@@ -1,15 +1,14 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import { formatDate } from '../../utils/helpers'
-
-import AlertModal from '../modals/AlertModal'
-import { DELETE_COMMENT } from '../../constants/ModalTypes'
-
-import { Card, Button, CardText, CardSubtitle, ButtonGroup } from 'reactstrap'
-import FaTrash from 'react-icons/lib/fa/trash'
+import React from 'react'
 import FaEdit from'react-icons/lib/fa/edit'
 import FaThumbsODown from 'react-icons/lib/fa/thumbs-o-down'
 import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
+import FaTrash from 'react-icons/lib/fa/trash'
+import { Card, Button, CardText, CardSubtitle, ButtonGroup } from 'reactstrap'
+
+import AlertModal from '../modals/AlertModal'
+import { DELETE_COMMENT } from '../../constants/ModalTypes'
+import { formatDate } from '../../utils/helpers'
 
 const CommentListItem = ({
   comment, downVoteComment, handleAlertModalSubmit,

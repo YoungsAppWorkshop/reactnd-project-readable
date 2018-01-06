@@ -1,6 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-
+import React from 'react'
 import { Col, Button, FormGroup, Input } from 'reactstrap'
 
 const CommentEditForm = ({ editFormInput, handleCancel, handleInputChange, handleSubmit, isInputValid }) => (

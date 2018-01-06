@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap'
+import React from 'react'
 import Loading from 'react-loading'
+import { Link } from 'react-router-dom'
+import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap'
 
-import { capitalize } from '../utils/helpers'
 import { ERROR_CONNECTION_REFUSED, FETCHING, READY } from '../constants/Status'
+import { capitalize } from '../utils/helpers'
 
 const CollapsableNavBar = ({
   categories, isCollapsedNavBarOpen, selectedCategory, status, toggleCollapsedNavBar

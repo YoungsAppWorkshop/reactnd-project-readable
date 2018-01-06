@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Col, Container, Row } from 'reactstrap'
+import React, { Component } from 'react'
 import Loading from 'react-loading'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { Col, Container, Row } from 'reactstrap'
 
-import CommentAddForm from '../containers/comment/CommentAddForm'
+import { clearComments, fetchPostIfNeeded, getComments, selectCategory, unselectCategory, unselectPost } from '../actions'
 import CommentsList from '../components/comment/CommentsList'
 import Notification from '../components/Notification'
-import Post from '../containers/post/Post'
-import { clearComments, fetchPostIfNeeded, getComments, selectCategory, unselectCategory, unselectPost } from '../actions'
 import { POST_DELETED } from '../constants/NoteTypes'
 import { POST_DETAIL } from '../constants/PostLayouts'
 import { ERROR_CONNECTION_REFUSED, ERROR_REQUEST_DELETED_POST, ERROR_WRONG_POST_ID, FETCHING, READY } from '../constants/Status'
+import CommentAddForm from '../containers/comment/CommentAddForm'
+import Post from '../containers/post/Post'
 
 class PostDetailView extends Component {
   static propTypes = {

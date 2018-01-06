@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import uuidv1 from 'uuid/v1'
 import { Button, Col, FormGroup, Input } from 'reactstrap'
+import uuidv1 from 'uuid/v1'
 
 import { addComment } from '../../actions'
 import { validateInputs } from '../../utils/helpers'

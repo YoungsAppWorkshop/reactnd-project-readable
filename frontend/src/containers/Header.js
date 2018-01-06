@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 
-import CollapsableNavBar from '../components/CollapsableNavBar'
 import { getCategories } from '../actions'
+import CollapsableNavBar from '../components/CollapsableNavBar'
 
 class Header extends Component {
   static propTypes = {

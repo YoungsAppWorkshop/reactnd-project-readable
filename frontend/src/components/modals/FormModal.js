@@ -1,7 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import { ADD_POST, EDIT_POST } from '../../constants/ModalTypes'
+import React from 'react'
 import { Button, Col, Form, FormFeedback, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
+
+import { ADD_POST, EDIT_POST } from '../../constants/ModalTypes'
 import { capitalize } from '../../utils/helpers'
 
 const MODAL_TITLE = {

@@ -1,17 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import { formatDate } from '../../utils/helpers'
+import React from 'react'
+import FaCommentO from 'react-icons/lib/fa/comment-o'
+import FaEdit from'react-icons/lib/fa/edit'
+import FaThumbsODown from 'react-icons/lib/fa/thumbs-o-down'
+import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
+import FaTrash from 'react-icons/lib/fa/trash'
+import { Button, ButtonGroup } from 'reactstrap'
 
 import AlertModal from '../modals/AlertModal'
 import FormModal from '../modals/FormModal'
 import { DELETE_POST, EDIT_POST } from '../../constants/ModalTypes'
+import { formatDate } from '../../utils/helpers'
 
-import { Button, ButtonGroup } from 'reactstrap'
-import FaTrash from 'react-icons/lib/fa/trash'
-import FaEdit from'react-icons/lib/fa/edit'
-import FaThumbsODown from 'react-icons/lib/fa/thumbs-o-down'
-import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
-import FaCommentO from 'react-icons/lib/fa/comment-o'
 
 const PostDetail = ({
   categories, downVotePost, handleAlertModalSubmit, handleInputChange, handleFormModalSubmit, isAlertModalOpen,

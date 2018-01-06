@@ -1,8 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-
-import { Button, Col, Input, Row } from 'reactstrap'
+import React from 'react'
 import FaEdit from'react-icons/lib/fa/edit'
+import { Button, Col, Input, Row } from 'reactstrap'
 
 import { MOST_VOTED, RECENT_POST, TITLE } from '../../constants/PostsOrder'
 
