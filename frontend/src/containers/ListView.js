@@ -17,6 +17,7 @@ import { MOST_VOTED, RECENT_POST, TITLE } from '../constants/PostsOrder'
 import { ERROR_CONNECTION_REFUSED, FETCHING, READY } from '../constants/Status'
 import { capitalize, validateInputs } from '../utils/helpers'
 
+// Define compareFunctions for sorting posts list
 const SORT_BY = {
   [RECENT_POST]: (post1, post2) => post2.timestamp - post1.timestamp,
   [MOST_VOTED]: (post1, post2) => post2.voteScore - post1.voteScore,
@@ -26,6 +27,11 @@ const SORT_BY = {
   )
 }
 
+/**
+ *
+ * Container Component which represent List View of the app
+ *
+ */
 class ListView extends Component {
   static propTypes = {
     categoryStatus: PropTypes.string.isRequired,
@@ -43,13 +49,16 @@ class ListView extends Component {
     isInputValid: { title: null, body: null, author: null }
   }
 
+  // Select Category on component mount
   componentDidMount() {
     const selectedCategory = this.props.match.params.category
     this.props.dispatch(selectCategory(selectedCategory))
     this.props.dispatch(getPosts(selectedCategory))
+    // Set adding post form's default category value as selected category
     this.setState({ postForm: { ...this.state.postForm, category: selectedCategory }})
   }
 
+  // Select Category when /:category prop changed
   componentWillReceiveProps(nextProps) {
     const previousCategory = this.props.match.params.category
     const nextCategory = nextProps.match.params.category
@@ -60,32 +69,39 @@ class ListView extends Component {
     }
   }
 
+  // Unselect Category and Initialize posts status when component will unmount
   componentWillUnmount() {
     this.props.dispatch(unselectCategory())
     this.props.dispatch(initPost())
   }
 
+  // Sort Posts list
   sortPosts = (postsOrder) => this.setState({ postsOrder })
 
+  // Open, close Adding post form modal
   toggleFormModal = () => {
     this.setState((prevState) => ({
       isFormModalOpen: !prevState.isFormModalOpen
     }))
   }
 
+  // Handle input change for the form
   handleInputChange = (event) => {
     const key = event.target.name
     const value = event.target.value
     this.setState({ postForm: { ...this.state.postForm, [key]: value }})
   }
 
+  // When add button clicked, validate input values and call back addPost method
   validateInputValues = () => {
     const formInputs = Object.assign({}, this.state.postForm)
+    // Validate text inputs only - post title, author, body
     delete formInputs.category
-    const isInputValid = validateInputs(formInputs)
-    this.setState({ isInputValid }, this.addPost)
+    // If input is invalid, show warning in the form
+    this.setState({ isInputValid: validateInputs(formInputs) }, this.addPost)
   }
 
+  // If all inputs are valid, add the post
   addPost = () => {
     const { isInputValid, postForm } = this.state
     const { categories, dispatch } = this.props
@@ -94,6 +110,8 @@ class ListView extends Component {
     if (isFormValid) {
       const id = uuidv1()
       const timestamp = Date.now()
+      // When user is adding new post in root page, and didn't change the category,
+      // postForm.category is undefined. Then set category value as categories[0]
       const newPost = {
         id, timestamp, title: postForm.title, body: postForm.body, author: postForm.author,
         category: postForm.category || categories[0].path
@@ -106,12 +124,14 @@ class ListView extends Component {
     }
   }
 
+  // Render ListView
   render() {
     const { postsOrder, isFormModalOpen, isInputValid, postForm } = this.state
     const { categories, categoryStatus, posts, postsStatus, selectedCategory } = this.props
     let sortedPosts = Array.from(posts).filter(post => !post.deleted).sort(SORT_BY[postsOrder])
     let isValidCategory = categories.map(category => category.path).includes(selectedCategory)
 
+    // When user typed wrong category name in url, redirect to 404 page
     if (categoryStatus === READY && selectedCategory && !isValidCategory) {
       return ( <Redirect to="/404"/> )
     }

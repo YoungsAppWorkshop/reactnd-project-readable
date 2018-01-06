@@ -2,6 +2,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Col, Button, FormGroup, Input } from 'reactstrap'
 
+/**
+ *
+ * Presentational Component which represent a Comment Edit Form UI
+ *
+ */
 const CommentEditForm = ({ editFormInput, handleCancel, handleInputChange, handleSubmit, isInputValid }) => (
   <FormGroup row className="my-2">
 

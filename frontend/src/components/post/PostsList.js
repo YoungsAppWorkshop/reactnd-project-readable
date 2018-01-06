@@ -4,6 +4,11 @@ import React from 'react'
 import { LIST_ITEM } from '../../constants/PostLayouts'
 import Post from '../../containers/post/Post'
 
+/**
+ *
+ * Presentational Component which represent Posts List in List view
+ *
+ */
 const PostsList = ({ posts }) => (
 
   <section className="posts-list">

@@ -10,6 +10,11 @@ import AlertModal from '../modals/AlertModal'
 import { DELETE_COMMENT } from '../../constants/ModalTypes'
 import { formatDate } from '../../utils/helpers'
 
+/**
+ *
+ * Presentational Component which represent a Comment List Item UI
+ *
+ */
 const CommentListItem = ({
   comment, downVoteComment, handleAlertModalSubmit,
   isAlertModalOpen, toggleAlertModal, toggleEditable, upVoteComment

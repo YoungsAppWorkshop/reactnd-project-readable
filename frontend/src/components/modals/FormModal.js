@@ -10,6 +10,11 @@ const MODAL_TITLE = {
   [EDIT_POST]: 'Edit Post'
 }
 
+/**
+ *
+ * Presentational Component which represent a Form Modal
+ *
+ */
 const FormModal = ({
     categories, defaultCategory, handleInputChange, handleSubmit,
     isModalOpen, isInputValid, modalType, postForm, toggleModal

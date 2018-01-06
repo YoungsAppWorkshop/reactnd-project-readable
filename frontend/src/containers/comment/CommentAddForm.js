@@ -7,6 +7,11 @@ import uuidv1 from 'uuid/v1'
 import { addComment } from '../../actions'
 import { validateInputs } from '../../utils/helpers'
 
+/**
+ *
+ * Container Component which represent a Comment Add Form
+ *
+ */
 class CommentAddForm extends Component {
   static propTypes = {
     post: PropTypes.object.isRequired,
@@ -18,18 +23,22 @@ class CommentAddForm extends Component {
     isInputValid: { body: null, author: null }
   }
 
+  // Handle input change for the form
   handleInputChange = (event) => {
     const key = event.target.name
     const value = event.target.value
     this.setState({ commentForm: { ...this.state.commentForm, [key]: value }})
   }
 
+  // When Add button clicked, validate input values and call back addNewComment method
   validateInputValues = () => {
     const { commentForm } = this.state
     const isInputValid = validateInputs(commentForm)
+    // If input is invalid, show warning in the form
     this.setState({ isInputValid }, this.addNewComment)
   }
 
+  // If all inputs are valid, add the comment
   addNewComment = () => {
     const { commentForm, isInputValid } = this.state
     const { dispatch, post } = this.props
@@ -51,6 +60,7 @@ class CommentAddForm extends Component {
     }
   }
 
+  // Render CommentAddForm
   render() {
     const { commentForm, isInputValid } = this.state
 

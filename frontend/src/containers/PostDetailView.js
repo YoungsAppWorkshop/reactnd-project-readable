@@ -14,6 +14,11 @@ import { ERROR_CONNECTION_REFUSED, ERROR_REQUEST_DELETED_POST, ERROR_WRONG_POST_
 import CommentAddForm from '../containers/comment/CommentAddForm'
 import Post from '../containers/post/Post'
 
+/**
+ *
+ * Container Component which represent Post Detail View of the app
+ *
+ */
 class PostDetailView extends Component {
   static propTypes = {
     comments: PropTypes.array.isRequired,
@@ -23,6 +28,7 @@ class PostDetailView extends Component {
     postStatus: PropTypes.string.isRequired
   }
 
+  // Select Category and Fetch Post and comments on component mount
   componentDidMount() {
     const selectedCategory = this.props.match.params.category
     const selectedPostId = this.props.match.params.post_id
@@ -31,6 +37,7 @@ class PostDetailView extends Component {
     this.props.dispatch(getComments(selectedPostId))
   }
 
+  // On props change, select category and fetch post/comments
   componentWillReceiveProps(nextProps) {
     const previousCategory = this.props.match.params.category
     const nextCategory = nextProps.match.params.category
@@ -45,21 +52,25 @@ class PostDetailView extends Component {
     }
   }
 
+  // Clear Redux store when component will unmount
   componentWillUnmount() {
     this.props.dispatch(unselectCategory())
     this.props.dispatch(unselectPost())
     this.props.dispatch(clearComments())
   }
 
+  // Render post detail view
   render() {
     const { comments, commentsStatus, post, postStatus, selectedCategory } = this.props
     let filteredComments = Array.from(comments).filter(comment => !comment.deleted && !comment.parentDeleted)
     let isValidCategory = post.category === selectedCategory
 
+    // When user typed wrong category name in url, redirect to 404 page
     if ( postStatus === READY && post.category && !isValidCategory ) {
       return ( <Redirect to="/404"/> )
     }
 
+    // When user typed wrong post id in url, redirect to 404 page
     if ( postStatus === ERROR_WRONG_POST_ID ) {
       return ( <Redirect to="/404"/> )
     }

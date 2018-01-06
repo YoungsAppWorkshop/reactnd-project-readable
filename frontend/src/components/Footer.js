@@ -1,6 +1,11 @@
 import React from 'react'
 import { Container } from 'reactstrap'
 
+/**
+ *
+ * Presentational Component which represent a Footer
+ *
+ */
 const Footer = () => (
 
   <footer className="footer">

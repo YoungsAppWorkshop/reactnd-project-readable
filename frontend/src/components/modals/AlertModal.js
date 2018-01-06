@@ -9,6 +9,11 @@ const BODY_TEXT = {
   [DELETE_POST]: "Do you really want to DELETE the post?"
 }
 
+/**
+ *
+ * Presentational Component which represent an Alert Modal
+ * 
+ */
 const AlertModal = ({ handleSubmit, isModalOpen, modalType, toggleModal }) => (
 
   <Modal isOpen={isModalOpen} toggle={toggleModal}>

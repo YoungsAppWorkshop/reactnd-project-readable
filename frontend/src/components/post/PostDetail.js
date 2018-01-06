@@ -12,7 +12,11 @@ import FormModal from '../modals/FormModal'
 import { DELETE_POST, EDIT_POST } from '../../constants/ModalTypes'
 import { formatDate } from '../../utils/helpers'
 
-
+/**
+ *
+ * Presentational Component which represent a Layout of Post Content in Post Detail view
+ *
+ */
 const PostDetail = ({
   categories, downVotePost, handleAlertModalSubmit, handleInputChange, handleFormModalSubmit, isAlertModalOpen,
   isFormModalOpen, isInputValid, post, postForm, toggleAlertModal, toggleFormModal, upVotePost

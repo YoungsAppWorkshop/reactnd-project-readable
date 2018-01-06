@@ -1,3 +1,4 @@
+/* Definitions of Schemas for normalizing API response */
 import { schema } from 'normalizr'
 
 export const post = new schema.Entity('posts')

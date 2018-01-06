@@ -5,6 +5,11 @@ import { Button, Col, Input, Row } from 'reactstrap'
 
 import { MOST_VOTED, RECENT_POST, TITLE } from '../../constants/PostsOrder'
 
+/**
+ *
+ * Presentational Component which represent Posts List Controller
+ * composed of a post order selector, a button
+ */
 const PostsListController = ({ postsOrder, sortPosts, toggleModal }) => (
 
   <Row className="my-5">

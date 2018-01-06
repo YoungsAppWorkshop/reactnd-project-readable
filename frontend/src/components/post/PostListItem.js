@@ -13,6 +13,11 @@ import FormModal from '../modals/FormModal'
 import { DELETE_POST, EDIT_POST } from '../../constants/ModalTypes'
 import { formatDate } from '../../utils/helpers'
 
+/**
+ *
+ * Presentational Component which represent List Item Layout for a Post in List view
+ *
+ */
 const PostListItem = ({
   categories, downVotePost, handleAlertModalSubmit, handleInputChange, handleFormModalSubmit, isAlertModalOpen,
   isFormModalOpen, isInputValid, post, postForm, toggleAlertModal, toggleFormModal, upVotePost

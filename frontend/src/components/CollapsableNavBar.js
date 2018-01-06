@@ -7,6 +7,11 @@ import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, 
 import { ERROR_CONNECTION_REFUSED, FETCHING, READY } from '../constants/Status'
 import { capitalize } from '../utils/helpers'
 
+/**
+ *
+ * Presentational Component which represent a Collapsable Navigation Bar on header
+ *
+ */
 const CollapsableNavBar = ({
   categories, isCollapsedNavBarOpen, selectedCategory, status, toggleCollapsedNavBar
 }) => (

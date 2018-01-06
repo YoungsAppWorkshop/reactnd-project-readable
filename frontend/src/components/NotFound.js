@@ -4,6 +4,11 @@ import { Col, Container, Row } from 'reactstrap'
 import Notification from './Notification'
 import { NOT_FOUND } from '../constants/NoteTypes'
 
+/**
+ *
+ * Presentational Component which represent 404 Not Found page
+ *
+ */
 const NotFound = () => (
 
   <Container className="main">

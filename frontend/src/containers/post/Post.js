@@ -8,6 +8,11 @@ import PostListItem from '../../components/post/PostListItem'
 import { LIST_ITEM, POST_DETAIL } from '../../constants/PostLayouts'
 import { validateInputs } from '../../utils/helpers'
 
+/**
+ *
+ * Container Component which represent a Post
+ *
+ */
 class Post extends Component {
   static propTypes = {
     categories: PropTypes.array.isRequired,
@@ -23,6 +28,7 @@ class Post extends Component {
     isInputValid: { title: null, body: null, author: null }
   }
 
+  // Initialize edit form on component mount
   componentDidMount = () => {
     const { post } = this.props
     this.setState({
@@ -30,6 +36,7 @@ class Post extends Component {
     })
   }
 
+  // If post prop is changed reinitialize edit form
   componentWillReceiveProps(nextProps) {
     const previousPost = this.props.post
     const nextPost = nextProps.post
@@ -40,27 +47,52 @@ class Post extends Component {
     }
   }
 
+  // Upvote the post
+  upVotePost = () => {
+    const { dispatch, post } = this.props
+    dispatch(upVotePost(post.id))
+  }
+
+  // Downvote the post
+  downVotePost = () => {
+    const { dispatch, post } = this.props
+    dispatch(downVotePost(post.id))
+  }
+
+  // Open, close Alert Modal for confirmation of deleting the post
   toggleAlertModal = () => {
     this.setState((prevState) => ({ isAlertModalOpen: !prevState.isAlertModalOpen }))
   }
 
+  // Delete the post and close alert modal
+  deletePost = () => {
+    const { dispatch, post } = this.props
+    dispatch(deletePost(post.id))
+    this.setState({ isAlertModalOpen: false })
+  }
+
+  // Open, close Form Modal for editing the post
   toggleFormModal = () => {
     this.setState((prevState) => ({ isFormModalOpen: !prevState.isFormModalOpen }))
   }
 
+  // Handle input change for edit form
   handleInputChange = (event) => {
     const key = event.target.name
     const value = event.target.value
     this.setState({ postForm: { ...this.state.postForm, [key]: value }})
   }
 
+  // When edit button clicked, validate input values and call back editPost method
   validateInputValues = () => {
     const formInputs = Object.assign({}, this.state.postForm)
+    // Validate text inputs only - post title, author, body
     delete formInputs.category
-    const isInputValid = validateInputs(formInputs)
-    this.setState({ isInputValid }, this.editPost)
+    // If input is invalid, show warning in edit form
+    this.setState({ isInputValid: validateInputs(formInputs) }, this.editPost)
   }
 
+  // If all inputs are valid, edit the post
   editPost = () => {
     const { isInputValid, postForm } = this.state
     const { dispatch, post } = this.props
@@ -77,22 +109,7 @@ class Post extends Component {
     }
   }
 
-  upVotePost = () => {
-    const { dispatch, post } = this.props
-    dispatch(upVotePost(post.id))
-  }
-
-  downVotePost = () => {
-    const { dispatch, post } = this.props
-    dispatch(downVotePost(post.id))
-  }
-
-  deletePost = () => {
-    const { dispatch, post } = this.props
-    dispatch(deletePost(post.id))
-    this.setState({ isAlertModalOpen: false })
-  }
-
+  // Render the Post in PostListItem layout or PostDetail layout
   render() {
     const { isAlertModalOpen, isFormModalOpen, isInputValid, postForm } = this.state
     const { categories, layout, post } = this.props
