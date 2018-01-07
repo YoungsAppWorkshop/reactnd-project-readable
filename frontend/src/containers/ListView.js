@@ -37,7 +37,7 @@ class ListView extends Component {
     categoryStatus: PropTypes.string.isRequired,
     categories: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
-    posts: PropTypes.array.isRequired,
+    posts: PropTypes.object.isRequired,
     postsStatus: PropTypes.string.isRequired,
     selectedCategory: PropTypes.string
   }
@@ -128,7 +128,7 @@ class ListView extends Component {
   render() {
     const { postsOrder, isFormModalOpen, isInputValid, postForm } = this.state
     const { categories, categoryStatus, posts, postsStatus, selectedCategory } = this.props
-    let sortedPosts = Array.from(posts).filter(post => !post.deleted).sort(SORT_BY[postsOrder])
+    let sortedPosts = Object.values(posts).filter(post => !post.deleted).sort(SORT_BY[postsOrder])
     let isValidCategory = categories.map(category => category.path).includes(selectedCategory)
 
     // When user typed wrong category name in url, redirect to 404 page
@@ -201,7 +201,7 @@ const mapStateToProps = state => ({
   categories: state.categories.items,
   categoryStatus: state.categories.status,
   selectedCategory: state.categories.selectedCategory,
-  posts: Object.values(state.posts.items),
+  posts: state.posts.items,
   postsStatus: state.posts.status
 })
 

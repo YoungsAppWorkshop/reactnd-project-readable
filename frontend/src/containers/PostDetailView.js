@@ -21,7 +21,7 @@ import Post from '../containers/post/Post'
  */
 class PostDetailView extends Component {
   static propTypes = {
-    comments: PropTypes.array.isRequired,
+    comments: PropTypes.object.isRequired,
     commentsStatus: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     post: PropTypes.object.isRequired,
@@ -62,7 +62,7 @@ class PostDetailView extends Component {
   // Render post detail view
   render() {
     const { comments, commentsStatus, post, postStatus, selectedCategory } = this.props
-    let filteredComments = Array.from(comments).filter(comment => !comment.deleted && !comment.parentDeleted)
+    let filteredComments = Object.values(comments).filter(comment => !comment.deleted && !comment.parentDeleted)
     let isValidCategory = post.category === selectedCategory
 
     // When user typed wrong category name in url, redirect to 404 page
@@ -129,7 +129,7 @@ class PostDetailView extends Component {
 }
 
 const mapStateToProps = state => ({
-  comments: Object.values(state.comments.items),
+  comments: state.comments.items,
   commentsStatus: state.comments.status,
   post: state.posts.selectedPost,
   postStatus: state.posts.status,
