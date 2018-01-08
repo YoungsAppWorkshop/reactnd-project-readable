@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { deleteComment, downVoteComment, updateComment, upVoteComment } from '../../actions'
+import { deleteComment, downVoteComment, updateComment, upVoteComment } from '../../actions/comments'
 import CommentEditForm from '../../components/comment/CommentEditForm'
 import CommentListItem from '../../components/comment/CommentListItem'
 import { validate } from '../../utils/helpers'

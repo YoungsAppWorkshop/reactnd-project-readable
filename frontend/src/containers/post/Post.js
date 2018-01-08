@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { deletePost, downVotePost, updatePost, upVotePost } from '../../actions'
+import { deletePost, downVotePost, updatePost, upVotePost } from '../../actions/posts'
 import PostDetail from '../../components/post/PostDetail'
 import PostListItem from '../../components/post/PostListItem'
 import { LIST_ITEM, POST_DETAIL } from '../../constants/PostLayouts'

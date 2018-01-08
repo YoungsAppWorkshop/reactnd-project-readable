@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { getCategories } from '../actions'
+import { getCategories } from '../actions/categories'
 import CollapsableNavBar from '../components/CollapsableNavBar'
 
 /**
