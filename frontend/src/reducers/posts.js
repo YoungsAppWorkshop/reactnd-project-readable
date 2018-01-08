@@ -71,7 +71,7 @@ const posts = (state = initialState, action) => {
           ...state.items,
           [action.post.id]: action.post
         },
-        selectedPost: action.post,
+        selectedPost: state.selectedPost.id ? action.post : {},
         status: READY
       }
     case types.REQUEST_ADD_POST :
