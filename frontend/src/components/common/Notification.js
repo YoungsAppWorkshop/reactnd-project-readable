@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, CardText, CardTitle } from 'reactstrap'
 
-import { NO_POST_IN_CATEGORY, NOT_FOUND, POST_DELETED } from '../constants/NoteTypes'
+import { NO_POST_IN_CATEGORY, NOT_FOUND, POST_DELETED } from '../../constants/NoteTypes'
 
 const TITLE_TEXT = {
   [NO_POST_IN_CATEGORY]: "No Post in this Category",

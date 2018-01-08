@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import Loading from 'react-loading'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Col, Container, Row } from 'reactstrap'
@@ -11,7 +10,9 @@ import { addPost, getPosts, initPost } from '../actions/posts'
 import FormModal from '../components/modals/FormModal'
 import PostsList from '../components/post/PostsList'
 import PostsListController from '../components/post/PostsListController'
-import Notification from '../components/Notification'
+import ConnectionError from '../components/common/ConnectionError'
+import Fetching from '../components/common/Fetching'
+import Notification from '../components/common/Notification'
 import { ADD_POST } from '../constants/ModalTypes'
 import { NO_POST_IN_CATEGORY } from '../constants/NoteTypes'
 import { MOST_VOTED, RECENT_POST, TITLE } from '../constants/PostsOrder'
@@ -52,28 +53,32 @@ class ListView extends Component {
 
   // Select Category on component mount
   componentDidMount() {
-    const selectedCategory = this.props.match.params.category
-    this.props.dispatch(selectCategory(selectedCategory))
-    this.props.dispatch(getPosts(selectedCategory))
+    const { dispatch, match } = this.props
+    const selectedCategory = match.params.category
+
+    dispatch(selectCategory(selectedCategory))
+    dispatch(getPosts(selectedCategory))
     // Set adding post form's default category value as selected category
     this.setState({ postForm: { ...this.state.postForm, category: selectedCategory }})
   }
 
   // Select Category when /:category prop changed
   componentWillReceiveProps(nextProps) {
-    const previousCategory = this.props.match.params.category
+    const { dispatch, match } = this.props
+    const previousCategory = match.params.category
     const nextCategory = nextProps.match.params.category
     if (nextCategory !== previousCategory) {
-      this.props.dispatch(selectCategory(nextCategory))
-      this.props.dispatch(getPosts(nextCategory))
+      dispatch(selectCategory(nextCategory))
+      dispatch(getPosts(nextCategory))
       this.setState({ postForm: { ...this.state.postForm, category: nextCategory }})
     }
   }
 
   // Unselect Category and Initialize posts status when component will unmount
   componentWillUnmount() {
-    this.props.dispatch(unselectCategory())
-    this.props.dispatch(initPost())
+    const { dispatch } = this.props
+    dispatch(unselectCategory())
+    dispatch(initPost())
   }
 
   // Sort Posts list
@@ -148,23 +153,10 @@ class ListView extends Component {
           </Col>
         </Row>
 
-      { postsStatus === ERROR_CONNECTION_REFUSED && (
-        <Row>
-          <Col sm="12" md={{ size: 8, offset: 2 }}>
-            <p className="text-danger my-auto mx-auto">ERROR_CONNECTION_REFUSED: Connection Refused. Check your Network Connection</p>
-          </Col>
-        </Row>
-      )}
-
-      { postsStatus === FETCHING && (
-        <Row>
-          <Col sm="12" md={{ size: 8, offset: 2 }}>
-            <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>
-          </Col>
-        </Row>
-      )}
-
+      { postsStatus === ERROR_CONNECTION_REFUSED && ( <ConnectionError /> )}
+      { postsStatus === FETCHING && ( <Fetching /> )}
       { postsStatus === READY && (
+
         <Row>
           <Col sm="12" md={{ size: 8, offset: 2 }}>
 

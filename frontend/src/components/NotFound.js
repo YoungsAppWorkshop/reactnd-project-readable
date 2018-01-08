@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, Container, Row } from 'reactstrap'
 
-import Notification from './Notification'
+import Notification from './common/Notification'
 import { NOT_FOUND } from '../constants/NoteTypes'
 
 /**

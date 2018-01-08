@@ -9,7 +9,9 @@ import { selectCategory, unselectCategory } from '../actions/categories'
 import { clearComments, getComments } from '../actions/comments'
 import { fetchPostIfNeeded, unselectPost } from '../actions/posts'
 import CommentsList from '../components/comment/CommentsList'
-import Notification from '../components/Notification'
+import ConnectionError from '../components/common/ConnectionError'
+import Fetching from '../components/common/Fetching'
+import Notification from '../components/common/Notification'
 import { POST_DELETED } from '../constants/NoteTypes'
 import { POST_DETAIL } from '../constants/PostLayouts'
 import { ERROR_CONNECTION_REFUSED, ERROR_REQUEST_DELETED_POST, ERROR_WRONG_POST_ID, FETCHING, READY } from '../constants/Status'
@@ -32,33 +34,38 @@ class PostDetailView extends Component {
 
   // Select Category and Fetch Post and comments on component mount
   componentDidMount() {
-    const selectedCategory = this.props.match.params.category
-    const selectedPostId = this.props.match.params.post_id
-    this.props.dispatch(selectCategory(selectedCategory))
-    this.props.dispatch(fetchPostIfNeeded(selectedPostId))
-    this.props.dispatch(getComments(selectedPostId))
+    const { dispatch, match } = this.props
+    const selectedCategory = match.params.category
+    const selectedPostId = match.params.post_id
+
+    dispatch(selectCategory(selectedCategory))
+    dispatch(fetchPostIfNeeded(selectedPostId))
+    dispatch(getComments(selectedPostId))
   }
 
   // On props change, select category and fetch post/comments
   componentWillReceiveProps(nextProps) {
-    const previousCategory = this.props.match.params.category
+    const { dispatch, match } = this.props
+    const previousCategory = match.params.category
     const nextCategory = nextProps.match.params.category
-    const previousPostId = this.props.match.params.post_id
+    const previousPostId = match.params.post_id
     const nextPostId = nextProps.match.params.post_id
+
     if (nextCategory !== previousCategory) {
-      this.props.dispatch(selectCategory(nextCategory))
+      dispatch(selectCategory(nextCategory))
     }
     if (nextPostId !== previousPostId) {
-      this.props.dispatch(fetchPostIfNeeded(nextPostId))
-      this.props.dispatch(getComments(nextPostId))
+      dispatch(fetchPostIfNeeded(nextPostId))
+      dispatch(getComments(nextPostId))
     }
   }
 
   // Clear Redux store when component will unmount
   componentWillUnmount() {
-    this.props.dispatch(unselectCategory())
-    this.props.dispatch(unselectPost())
-    this.props.dispatch(clearComments())
+    const { dispatch } = this.props
+    dispatch(unselectCategory())
+    dispatch(unselectPost())
+    dispatch(clearComments())
   }
 
   // Render post detail view
@@ -80,14 +87,7 @@ class PostDetailView extends Component {
     return (
       <Container className="main">
 
-        { postStatus === ERROR_CONNECTION_REFUSED && (
-          <Row>
-            <Col sm="12" md={{ size: 8, offset: 2 }}>
-              <p className="text-danger my-auto mx-auto">ERROR_CONNECTION_REFUSED: Connection Refused. Check your Network Connection</p>
-            </Col>
-          </Row>
-        )}
-
+        { postStatus === ERROR_CONNECTION_REFUSED && ( <ConnectionError /> )}
         { postStatus === ERROR_REQUEST_DELETED_POST && (
           <Row>
             <Col sm="12" md={{ size: 8, offset: 2 }} className="mt-5">
@@ -96,14 +96,7 @@ class PostDetailView extends Component {
           </Row>
         )}
 
-        { postStatus === FETCHING && (
-          <Row>
-            <Col sm="12" md={{ size: 8, offset: 2 }}>
-              <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>
-            </Col>
-          </Row>
-        )}
-
+        { postStatus === FETCHING && ( <Fetching /> )}
         { postStatus === READY && (
           <Row>
 
