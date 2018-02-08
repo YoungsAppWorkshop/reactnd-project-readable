@@ -9,10 +9,9 @@ const BODY_TEXT = {
   [DELETE_POST]: "Do you really want to DELETE the post?"
 }
 
+
 /**
- *
- * Presentational Component which represent an Alert Modal
- * 
+ * Alert Modal shown on deleting post/comment click
  */
 const AlertModal = ({ handleSubmit, isModalOpen, modalType, toggleModal }) => (
 
@@ -31,9 +30,21 @@ const AlertModal = ({ handleSubmit, isModalOpen, modalType, toggleModal }) => (
 )
 
 AlertModal.propTypes = {
+  /**
+   * Delete the post or comment
+   */
   handleSubmit: PropTypes.func.isRequired,
+  /**
+   * A flag variable which represents if alert modal is open
+   */
   isModalOpen: PropTypes.bool.isRequired,
+  /**
+   * DELETE_POST or DELETE_COMMENT
+   */
   modalType: PropTypes.string.isRequired,
+  /**
+   * Open/Close alert modal
+   */
   toggleModal: PropTypes.func.isRequired
 }
 

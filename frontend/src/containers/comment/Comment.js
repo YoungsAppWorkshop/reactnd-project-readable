@@ -7,17 +7,23 @@ import CommentEditForm from '../../components/comment/CommentEditForm'
 import CommentListItem from '../../components/comment/CommentListItem'
 import { validate } from '../../utils/helpers'
 
+
 /**
- *
  * Container Component which represent a Comment
- *
  */
 class Comment extends Component {
   static propTypes = {
+    /**
+     * A comment object
+     */
     comment: PropTypes.object.isRequired,
+    /**
+     * Redux store dispatch method
+     */
     dispatch: PropTypes.func.isRequired
   }
 
+  // Define state to handle edit form and alert modal
   state = {
     editable: false,
     editFormInput: '',

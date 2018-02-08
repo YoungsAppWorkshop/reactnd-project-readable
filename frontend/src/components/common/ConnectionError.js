@@ -1,10 +1,9 @@
 import React from 'react'
 import { Col, Row } from 'reactstrap'
 
+
 /**
- *
  * Presentational Component which shows Connection Error Message
- *
  */
 const ConnectionError = ({ noteType, path }) =>  (
   <Row>

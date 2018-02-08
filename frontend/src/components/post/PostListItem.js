@@ -13,10 +13,9 @@ import FormModal from '../modals/FormModal'
 import { DELETE_POST, EDIT_POST } from '../../constants/ModalTypes'
 import { formatDate } from '../../utils/helpers'
 
+
 /**
- *
- * Presentational Component which represent List Item Layout for a Post in List view
- *
+ * Post Content Layout for List view (Presentational Component for Post)
  */
 const PostListItem = ({
   categories, downVotePost, handleAlertModalSubmit, handleInputChange, handleFormModalSubmit, isAlertModalOpen,
@@ -68,18 +67,57 @@ const PostListItem = ({
 )
 
 PostListItem.propTypes = {
+  /**
+   * All categories in the app
+   */
   categories: PropTypes.array.isRequired,
+  /**
+   * Dispatch downVotePost action
+   */
   downVotePost: PropTypes.func.isRequired,
+  /**
+   * Dispatch deletePost action
+   */
   handleAlertModalSubmit: PropTypes.func.isRequired,
+  /**
+   * Handle user input change
+   */
   handleInputChange: PropTypes.func.isRequired,
+  /**
+   * Dispatch updatePost action
+   */
   handleFormModalSubmit: PropTypes.func.isRequired,
+  /**
+   * A flag variable which represents if alert modal is open
+   */
   isAlertModalOpen: PropTypes.bool.isRequired,
+  /**
+   * A flag variable which represents if form modal is open
+   */
   isFormModalOpen: PropTypes.bool.isRequired,
+  /**
+   * Post title, author, and body should not be blank ''
+   */
   isInputValid: PropTypes.object.isRequired,
+  /**
+   * A post object
+   */
   post: PropTypes.object.isRequired,
+  /**
+   * User input object
+   */
   postForm: PropTypes.object.isRequired,
+  /**
+   * Open/Close alert modal
+   */
   toggleAlertModal: PropTypes.func.isRequired,
+  /**
+   * Open/Close form modal
+   */
   toggleFormModal: PropTypes.func.isRequired,
+  /**
+   * Dispatch upvotePost action
+   */
   upVotePost: PropTypes.func.isRequired
 }
 

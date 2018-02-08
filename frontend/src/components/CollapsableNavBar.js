@@ -8,9 +8,7 @@ import { ERROR_CONNECTION_REFUSED, FETCHING, READY } from '../constants/Status'
 import { capitalize } from '../utils/helpers'
 
 /**
- *
  * Presentational Component which represent a Collapsable Navigation Bar on header
- *
  */
 const CollapsableNavBar = ({
   categories, isCollapsedNavBarOpen, selectedCategory, status, toggleCollapsedNavBar
@@ -53,10 +51,25 @@ const CollapsableNavBar = ({
 )
 
 CollapsableNavBar.propTypes = {
+  /**
+   * All categories in the app
+   */
   categories: PropTypes.array.isRequired,
+  /**
+   * A flag variable which represents if CollapsedNavBar is open on mobile devices
+   */
   isCollapsedNavBarOpen: PropTypes.bool.isRequired,
+  /**
+   * The path of current category which is part of url
+   */
   selectedCategory: PropTypes.string,
+  /**
+   * The status of AJAX request fetching categories data from API server
+   */
   status: PropTypes.string.isRequired,
+  /**
+   * Open/Close CollapsedNavBar on mobile devices
+   */
   toggleCollapsedNavBar: PropTypes.func.isRequired
 }
 

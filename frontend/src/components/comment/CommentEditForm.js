@@ -2,10 +2,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Col, Button, FormGroup, Input } from 'reactstrap'
 
+
 /**
- *
- * Presentational Component which represent a Comment Edit Form UI
- *
+ * Comment Edit Form UI shown on edit button click (Presentational Component for Comment)
  */
 const CommentEditForm = ({ editFormInput, handleCancel, handleInputChange, handleSubmit, isInputValid }) => (
   <FormGroup row className="my-2">
@@ -27,10 +26,25 @@ const CommentEditForm = ({ editFormInput, handleCancel, handleInputChange, handl
 )
 
 CommentEditForm.propTypes = {
+  /**
+   * User input text for comment body
+   */
   editFormInput: PropTypes.string.isRequired,
+  /**
+   * On cancel button click, close edit form
+   */
   handleCancel: PropTypes.func.isRequired,
+  /**
+   * Handle user input change
+   */
   handleInputChange: PropTypes.func.isRequired,
+  /**
+   * On submit, update the comment
+   */
   handleSubmit: PropTypes.func.isRequired,
+  /**
+   * Comment body should not be blank ''
+   */
   isInputValid: PropTypes.bool
 }
 

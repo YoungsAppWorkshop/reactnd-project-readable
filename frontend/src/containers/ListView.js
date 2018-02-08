@@ -29,21 +29,39 @@ const SORT_BY = {
   )
 }
 
+
 /**
- *
  * Container Component which represent List View of the app
- *
  */
 class ListView extends Component {
   static propTypes = {
+    /**
+     * The status of AJAX request fetching categories data from API server
+     */
     categoryStatus: PropTypes.string.isRequired,
+    /**
+     * All categories in the app
+     */
     categories: PropTypes.array.isRequired,
+    /**
+     * Redux store dispatch method
+     */
     dispatch: PropTypes.func.isRequired,
+    /**
+     * Posts data for the current category
+     */
     posts: PropTypes.object.isRequired,
+    /**
+     * The status of AJAX request fetching posts data from API server
+     */
     postsStatus: PropTypes.string.isRequired,
+    /**
+     * The path of current category which is part of url
+     */
     selectedCategory: PropTypes.string
   }
 
+  // Define state to handle sorting posts, and adding a new post
   state = {
     postsOrder: RECENT_POST,
     isFormModalOpen: false,

@@ -10,10 +10,9 @@ import AlertModal from '../modals/AlertModal'
 import { DELETE_COMMENT } from '../../constants/ModalTypes'
 import { formatDate } from '../../utils/helpers'
 
+
 /**
- *
- * Presentational Component which represent a Comment List Item UI
- *
+ * Comment List Item Layout (Presentational Component for Comment)
  */
 const CommentListItem = ({
   comment, downVoteComment, handleAlertModalSubmit,
@@ -52,12 +51,33 @@ const CommentListItem = ({
 )
 
 CommentListItem.propTypes = {
+  /**
+   * A Comment object
+   */
   comment: PropTypes.object.isRequired,
+  /**
+   * Dispatch downVoteComment action
+   */
   downVoteComment: PropTypes.func.isRequired,
+  /**
+   * Dispatch deleteComment action
+   */
   handleAlertModalSubmit: PropTypes.func.isRequired,
+  /**
+   * A flag variable which represents if alert modal is open
+   */
   isAlertModalOpen: PropTypes.bool.isRequired,
+  /**
+   * Open/Close alert modal
+   */
   toggleAlertModal: PropTypes.func.isRequired,
+  /**
+   * Show/Hide CommentEditForm
+   */
   toggleEditable: PropTypes.func.isRequired,
+  /**
+   * Dispatch upVoteComment action
+   */
   upVoteComment: PropTypes.func.isRequired
 }
 

@@ -8,19 +8,31 @@ import PostListItem from '../../components/post/PostListItem'
 import { LIST_ITEM, POST_DETAIL } from '../../constants/PostLayouts'
 import { validateInputs } from '../../utils/helpers'
 
+
 /**
- *
  * Container Component which represent a Post
- *
  */
 class Post extends Component {
   static propTypes = {
+    /**
+     * All categories in the app
+     */
     categories: PropTypes.array.isRequired,
+    /**
+     * Redux store dispatch method
+     */
     dispatch: PropTypes.func.isRequired,
+    /**
+     * Layout of the post (LIST_ITEM or POST_DETAIL)
+     */
     layout: PropTypes.string.isRequired,
+    /**
+     * A post object
+     */
     post: PropTypes.object.isRequired
   }
 
+  // Define state to handle edit modal and alert modal
   state = {
     isFormModalOpen: false,
     isAlertModalOpen: false,

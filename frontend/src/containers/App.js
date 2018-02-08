@@ -8,10 +8,9 @@ import ListView from '../containers/ListView'
 import PostDetailView from '../containers/PostDetailView'
 import '../styles/App.css'
 
+
 /**
- *
  * Component which represent the Readable app
- *
  */
 const App = () => (
   <div id="app" className="app">

@@ -11,10 +11,9 @@ const TITLE_TEXT = {
   [POST_DELETED]: "This post is deleted"
 }
 
+
 /**
- *
  * Presentational Component which represent a Notification card UI
- *
  */
 const Notification = ({ noteType, path }) =>  (
   <Card body className="mt-2">
@@ -29,7 +28,13 @@ const Notification = ({ noteType, path }) =>  (
 )
 
 Notification.propTypes = {
+  /**
+   * Types of notification. Shows different message on each types
+   */
   noteType: PropTypes.string.isRequired,
+  /**
+   * A Category path shown on POST_DELETED Notification
+   */
   path: PropTypes.string
 }
 

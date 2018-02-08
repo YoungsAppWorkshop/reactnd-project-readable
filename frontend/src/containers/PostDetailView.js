@@ -18,17 +18,31 @@ import { ERROR_CONNECTION_REFUSED, ERROR_REQUEST_DELETED_POST, ERROR_WRONG_POST_
 import CommentAddForm from '../containers/comment/CommentAddForm'
 import Post from '../containers/post/Post'
 
+
 /**
- *
  * Container Component which represent Post Detail View of the app
- *
  */
 class PostDetailView extends Component {
   static propTypes = {
+    /**
+     * Comments data for a post
+     */
     comments: PropTypes.object.isRequired,
+    /**
+     * The status of AJAX request fetching comments data from API server
+     */
     commentsStatus: PropTypes.string.isRequired,
+    /**
+     * Redux store dispatch method
+     */
     dispatch: PropTypes.func.isRequired,
+    /**
+     * A post object which represents the selected post
+     */
     post: PropTypes.object.isRequired,
+    /**
+     * The status of AJAX request fetching post data from API server
+     */
     postStatus: PropTypes.string.isRequired
   }
 

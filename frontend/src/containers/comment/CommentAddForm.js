@@ -7,17 +7,23 @@ import uuidv1 from 'uuid/v1'
 import { addComment } from '../../actions/comments'
 import { validateInputs } from '../../utils/helpers'
 
+
 /**
- *
  * Container Component which represent a Comment Add Form
- *
  */
 class CommentAddForm extends Component {
   static propTypes = {
+    /**
+     * A post object which is the parent of the comment
+     */
     post: PropTypes.object.isRequired,
+    /**
+     * Redux store dispatch method
+     */
     dispatch: PropTypes.func.isRequired
   }
 
+  // Define state to handle add form
   state = {
     commentForm: { body: '', author: '' },
     isInputValid: { body: null, author: null }

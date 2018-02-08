@@ -5,19 +5,31 @@ import { connect } from 'react-redux'
 import { getCategories } from '../actions/categories'
 import CollapsableNavBar from '../components/CollapsableNavBar'
 
+
 /**
- *
  * Container Component which represent the Header
- *
  */
 class Header extends Component {
   static propTypes = {
+    /**
+     * All categories in the app
+     */
     categories: PropTypes.array.isRequired,
+    /**
+     * Redux store dispatch method
+     */
     dispatch: PropTypes.func.isRequired,
+    /**
+     * The path of current category which is part of url
+     */
     selectedCategory: PropTypes.string,
+    /**
+     * The status of AJAX request fetching categories data from API server
+     */
     status: PropTypes.string.isRequired
   }
 
+  // Define state to handle toggling CollapsedNavBar on mobile devices
   state = {
     isCollapsedNavBarOpen: false
   }

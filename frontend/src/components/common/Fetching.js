@@ -2,10 +2,9 @@ import React from 'react'
 import Loading from 'react-loading'
 import { Col, Row } from 'reactstrap'
 
+
 /**
- *
  * Presentational Component which shows spinner image when Fetching data
- *
  */
 const Fetching = ({ noteType, path }) =>  (
   <Row>

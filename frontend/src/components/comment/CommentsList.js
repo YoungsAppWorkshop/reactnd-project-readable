@@ -3,10 +3,9 @@ import React from 'react'
 
 import Comment from '../../containers/comment/Comment'
 
+
 /**
- *
  * Presentational Component which represent Comments List for a post
- *
  */
 const CommentsList = ({ comments }) => (
   <div className="comments-list mb-5">
@@ -21,6 +20,9 @@ const CommentsList = ({ comments }) => (
 )
 
 CommentsList.propTypes = {
+  /**
+   * A list of comments for a post
+   */
   comments: PropTypes.array.isRequired
 }
 

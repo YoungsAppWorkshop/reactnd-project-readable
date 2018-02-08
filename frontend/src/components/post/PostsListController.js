@@ -5,8 +5,8 @@ import { Button, Col, Input, Row } from 'reactstrap'
 
 import { MOST_VOTED, RECENT_POST, TITLE } from '../../constants/PostsOrder'
 
+
 /**
- *
  * Presentational Component which represent Posts List Controller
  * composed of a post order selector, a button
  */
@@ -30,8 +30,17 @@ const PostsListController = ({ postsOrder, sortPosts, toggleModal }) => (
 )
 
 PostsListController.propTypes = {
+  /**
+   * PostsList sorting options. RECENT_POST/MOST_VOTED/TITLE
+   */
   postsOrder: PropTypes.string.isRequired,
+  /**
+   * Sort posts list
+   */
   sortPosts: PropTypes.func.isRequired,
+  /**
+   * Open form modal (ADD_POST)
+   */
   toggleModal: PropTypes.func.isRequired
 }
 
