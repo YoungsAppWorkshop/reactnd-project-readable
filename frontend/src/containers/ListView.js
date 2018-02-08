@@ -15,19 +15,9 @@ import Fetching from '../components/common/Fetching'
 import Notification from '../components/common/Notification'
 import { ADD_POST } from '../constants/ModalTypes'
 import { NO_POST_IN_CATEGORY } from '../constants/NoteTypes'
-import { MOST_VOTED, RECENT_POST, TITLE } from '../constants/PostsOrder'
+import { RECENT_POST } from '../constants/PostsOrder'
 import { ERROR_CONNECTION_REFUSED, FETCHING, READY } from '../constants/Status'
-import { capitalize, validateInputs } from '../utils/helpers'
-
-// Define compareFunctions for sorting posts list
-const SORT_BY = {
-  [RECENT_POST]: (post1, post2) => post2.timestamp - post1.timestamp,
-  [MOST_VOTED]: (post1, post2) => post2.voteScore - post1.voteScore,
-  [TITLE]: (post1, post2) => (
-    post1.title.toUpperCase() > post2.title.toUpperCase() ? 1 :
-    post1.title.toUpperCase() < post2.title.toUpperCase() ? -1 : 0
-  )
-}
+import { capitalize, sortPostsBy, validateInputs } from '../utils/helpers'
 
 
 /**
@@ -152,8 +142,13 @@ class ListView extends Component {
   render() {
     const { postsOrder, isFormModalOpen, isInputValid, postForm } = this.state
     const { categories, categoryStatus, posts, postsStatus, selectedCategory } = this.props
-    let sortedPosts = Object.values(posts).filter(post => !post.deleted).sort(SORT_BY[postsOrder])
-    let isValidCategory = categories.map(category => category.path).includes(selectedCategory)
+
+    // Check if url's category path is valid
+    const isValidCategory = categories.map(category => category.path)
+      .includes(selectedCategory)
+    // Filter out deleted posts and sort posts (RECENT_POST by default)
+    const sortedPosts = Object.values(posts).filter(post => !post.deleted)
+      .sort(sortPostsBy[postsOrder].compareFunc)
 
     // When user typed wrong category name in url, redirect to 404 page
     if (categoryStatus === READY && selectedCategory && !isValidCategory) {
