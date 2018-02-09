@@ -34,10 +34,11 @@ The structure of the Readable app is based on the idea of [separating presentati
     └── src
         ├── actions     # Redux Action Creators
         ├── components  # Presentational components
+        │   └── App.js
         ├── constants
         ├── containers  # Container components
-        │   └── App.js
         ├── reducers    # Redux Reducers
+        ├── store       # Redux Store
         ├── styles
         ├── utils
         ├── ...
