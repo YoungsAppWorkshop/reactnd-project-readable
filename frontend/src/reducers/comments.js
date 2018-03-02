@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes'
-import { ERROR_CONNECTION_REFUSED, FETCHING, INIT, READY } from '../constants/Status'
+import { FETCHING, INIT, READY } from '../constants/Status'
 
 const initialState = {
   items: {},
@@ -14,10 +14,10 @@ const comments = (state = initialState, action) => {
         items: {},
         status: INIT
       }
-    case types.FAIL_REQUEST_COMMENTS :
+    case types.HANDLE_ERROR_COMMENTS :
       return {
         ...state,
-        status: ERROR_CONNECTION_REFUSED
+        status: action.status
       }
     case types.RECEIVE_ADD_COMMENT :
     case types.RECEIVE_DELETE_COMMENT :

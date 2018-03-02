@@ -11,12 +11,13 @@ import FormModal from '../components/modals/FormModal'
 import PostsList from '../components/post/PostsList'
 import PostsListController from '../components/post/PostsListController'
 import ConnectionError from '../components/common/ConnectionError'
+import UnexpectedError from '../components/common/UnexpectedError'
 import Fetching from '../components/common/Fetching'
 import Notification from '../components/common/Notification'
 import { ADD_POST } from '../constants/ModalTypes'
 import { NO_POST_IN_CATEGORY } from '../constants/NoteTypes'
 import { RECENT_POST } from '../constants/PostsOrder'
-import { ERROR_CONNECTION_REFUSED, FETCHING, READY } from '../constants/Status'
+import { ERROR_CONNECTION_REFUSED, ERROR_UNEXPECTED_ERROR, FETCHING, READY } from '../constants/Status'
 import { capitalize, sortPostsBy, validateInputs } from '../utils/helpers'
 
 
@@ -167,6 +168,7 @@ class ListView extends Component {
         </Row>
 
       { postsStatus === ERROR_CONNECTION_REFUSED && ( <ConnectionError /> )}
+      { postsStatus === ERROR_UNEXPECTED_ERROR && ( <UnexpectedError /> )}
       { postsStatus === FETCHING && ( <Fetching /> )}
       { postsStatus === READY && (
 

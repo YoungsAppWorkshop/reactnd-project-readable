@@ -10,11 +10,12 @@ import { clearComments, getComments } from '../actions/comments'
 import { fetchPostIfNeeded, unselectPost } from '../actions/posts'
 import CommentsList from '../components/comment/CommentsList'
 import ConnectionError from '../components/common/ConnectionError'
+import UnexpectedError from '../components/common/UnexpectedError'
 import Fetching from '../components/common/Fetching'
 import Notification from '../components/common/Notification'
 import { POST_DELETED } from '../constants/NoteTypes'
 import { POST_DETAIL } from '../constants/PostLayouts'
-import { ERROR_CONNECTION_REFUSED, ERROR_REQUEST_DELETED_POST, ERROR_WRONG_POST_ID, FETCHING, READY } from '../constants/Status'
+import { ERROR_CONNECTION_REFUSED, ERROR_UNEXPECTED_ERROR, ERROR_WRONG_POST_ID, FETCHING, READY } from '../constants/Status'
 import CommentAddForm from '../containers/comment/CommentAddForm'
 import Post from '../containers/post/Post'
 
@@ -102,14 +103,7 @@ class PostDetailView extends Component {
       <Container className="main">
 
         { postStatus === ERROR_CONNECTION_REFUSED && ( <ConnectionError /> )}
-        { postStatus === ERROR_REQUEST_DELETED_POST && (
-          <Row>
-            <Col sm="12" md={{ size: 8, offset: 2 }} className="mt-5">
-              <Notification noteType={POST_DELETED} path={selectedCategory} />
-            </Col>
-          </Row>
-        )}
-
+        { postStatus === ERROR_UNEXPECTED_ERROR && ( <UnexpectedError /> )}
         { postStatus === FETCHING && ( <Fetching /> )}
         { postStatus === READY && (
           <Row>
@@ -123,6 +117,7 @@ class PostDetailView extends Component {
             <Col sm="12" md={{ size: 8, offset: 2 }}>
               <Post layout={POST_DETAIL} post={post} />
               { commentsStatus === ERROR_CONNECTION_REFUSED && <p className="text-danger my-auto mx-auto">ERROR_CONNECTION_REFUSED: Connection Refused. Check your Network Connection</p>}
+              { commentsStatus === ERROR_UNEXPECTED_ERROR && <p className="text-danger my-auto mx-auto">Unexpected Error occured. Please Try Later</p>}
               { commentsStatus === FETCHING && <Loading delay={200} type="spin" color="#222" className="mx-auto my-5 py-5"/>}
               { commentsStatus === READY && <CommentsList comments={filteredComments}/>}
               { commentsStatus === READY && <CommentAddForm />}

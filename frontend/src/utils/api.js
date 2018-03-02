@@ -1,4 +1,4 @@
-const api = "http://localhost:3001"
+const api = "http://localhost:8000/api"
 
 // Generate a unique token for storing data on the backend server.
 let token = localStorage.token
@@ -14,7 +14,6 @@ const headers = {
 export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
-    .then(data => data.categories)
 
 // Add a new post
 export const addPost = (post) =>

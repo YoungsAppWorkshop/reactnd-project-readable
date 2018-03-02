@@ -4,7 +4,7 @@ import Loading from 'react-loading'
 import { Link } from 'react-router-dom'
 import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap'
 
-import { ERROR_CONNECTION_REFUSED, FETCHING, READY } from '../constants/Status'
+import { ERROR_CONNECTION_REFUSED, ERROR_UNEXPECTED_ERROR, FETCHING, READY } from '../constants/Status'
 import { capitalize } from '../utils/helpers'
 
 /**
@@ -25,6 +25,7 @@ const CollapsableNavBar = ({
       <Collapse isOpen={isCollapsedNavBarOpen} navbar>
 
         { status === ERROR_CONNECTION_REFUSED && <p className="text-danger my-auto mx-auto">ERROR_CONNECTION_REFUSED: Connection Refused. Check your Network Connection</p> }
+        { status === ERROR_UNEXPECTED_ERROR && <p className="text-danger my-auto mx-auto">INTERNAL_SERVER_ERROR: Unexpected Error occured. Please Try Later</p> }
         { status === FETCHING && <Loading delay={200} type="spin" color="#222" height={32} width={32} className="mx-auto"/> }
 
         { status === READY &&
