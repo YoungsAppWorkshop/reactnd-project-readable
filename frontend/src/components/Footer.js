@@ -10,7 +10,7 @@ const Footer = () => (
   <footer className="footer">
 
     <Container>
-      <span>© Young Jung 2017 - Udacity ReactND</span>
+      <span>© Young Joung 2017 - Udacity React NanoDegree</span>
     </Container>
 
   </footer>
