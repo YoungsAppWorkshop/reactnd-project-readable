@@ -1,4 +1,4 @@
-const api = "http://localhost:8000/api"
+const api = "https://api.youngsappworkshop.com"
 
 // Generate a unique token for storing data on the backend server.
 let token = localStorage.token
