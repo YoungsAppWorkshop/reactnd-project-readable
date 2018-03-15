@@ -2,12 +2,17 @@
 
 Readable is a content and comment web app built with React, Redux and Bootstrap. Users can post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users can also edit and delete posts and comments. This project is one of assignments for the [Udacity's React Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019).
 
+- 한글 리드미(README Korean) 파일: [README_ko.md](/README_ko.md)
+
+## Demo
+Demo Website URL: https://readable.youngsappworkshop.com
+
 ## How to Start
 
 To start the Readable App:
 
-* Clone the project with `git clone https://github.com/YoungsAppWorkshop/reactnd-project-readable`
-* Change directory with `cd reactnd-project-readable`
+* Clone the project with `git clone https://github.com/YoungsAppWorkshop/readable`
+* Change directory with `cd readable`
 
 
 * Install and start the API server
