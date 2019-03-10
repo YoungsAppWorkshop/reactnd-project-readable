@@ -4,8 +4,12 @@ Readable is a content and comment web app built with React, Redux and Bootstrap.
 
 - 한글 리드미(README Korean) 파일: [README_ko.md](/README_ko.md)
 
-## Demo
-Demo Website URL: https://readable.youngsappworkshop.com
+## Screenshots
+| Posts List       | Editing Post    |
+|------------------|-----------------|
+|![Screenshot_01](https://github.com/YoungsAppWorkshop/readable/blob/master/ScreenShot_01.jpg?raw=true)| ![Screenshot_02](https://github.com/YoungsAppWorkshop/readable/blob/master/ScreenShot_02.jpg?raw=true) |
+
+
 
 ## How to Start
 
